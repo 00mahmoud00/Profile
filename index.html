@@ -199,6 +199,10 @@
     grid-template-columns: 1fr auto;
     gap: 24px;
     align-items: start;
+  }
+  .header > img {
+    justify-self: end;
+    align-self: start;
     margin-bottom: 56px;
     opacity: 0;
     transform: translateY(30px);
@@ -694,6 +698,7 @@
 
   @media (max-width: 600px) {
     .header { grid-template-columns: 1fr; }
+    .header > img { justify-self: center; align-self: center; order: -1; }
     .projects-grid { grid-template-columns: 1fr; }
     .job-header { flex-direction: column; }
     .job-meta { align-items: flex-start; }
@@ -736,7 +741,7 @@
          width="110"
          height="110"
          loading="eager"
-         style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(124,106,247,0.5);box-shadow:0 0 30px rgba(124,106,247,0.2);justify-self:end;align-self:start;">
+         style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(124,106,247,0.5);box-shadow:0 0 30px rgba(124,106,247,0.2);">
   </header>
 
   <!-- SUMMARY -->
