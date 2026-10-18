@@ -46,6 +46,10 @@
   "@type": "Person",
   "name": "Mahmoud Sharabati",
   "jobTitle": "Mid-level .NET Core Developer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Evolvo"
+  },
   "description": "Software engineer with 4+ years of experience specializing in Clean Architecture, Domain-Driven Design, and Blazor.",
   "email": "mahmoud.sharabati.dev@gmail.com",
   "telephone": "+963985839618",
@@ -93,33 +97,66 @@
 }
 </script>
 
-<!-- ── Structured Data: ItemList of Projects ── -->
+<!-- ── Structured Data: ItemList of Apps ── -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Mahmoud Sharabati's Projects",
+  "name": "Apps Mahmoud Sharabati has worked on",
   "itemListElement": [
     {
       "@type": "ListItem",
       "position": 1,
       "item": {
-        "@type": "SoftwareSourceCode",
-        "name": "Clean Architecture Template",
-        "description": "A scalable software project template built on Clean Architecture and Domain-Driven Design principles.",
-        "codeRepository": "https://gitlab.com/mahmoudsh792/template.git",
-        "programmingLanguage": "C#"
+        "@type": "SoftwareApplication",
+        "name": "Wasiitak",
+        "description": "Buy-and-sell marketplace app. Mahmoud Sharabati scales its back end and runs its DevOps and data at Evolvo.",
+        "operatingSystem": "Android",
+        "url": "https://play.google.com/store/apps/details?id=com.itlegend.wasiitk"
       }
     },
     {
       "@type": "ListItem",
       "position": 2,
       "item": {
-        "@type": "SoftwareSourceCode",
-        "name": "Stockwise Dashboard",
-        "description": "A Warehouse Management System (WMS) dashboard built with Blazor and ASP.NET Core.",
-        "codeRepository": "https://gitlab.com/mahmoudsh792/stockwise",
-        "programmingLanguage": "C#"
+        "@type": "SoftwareApplication",
+        "name": "Mr Course",
+        "description": "Study app for medical students with video lessons and practice tests. Mahmoud Sharabati designed its APIs at Elkood.",
+        "operatingSystem": "Android",
+        "url": "https://play.google.com/store/apps/details?id=com.elkood.mrcourse.mrcourse"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "SoftwareApplication",
+        "name": "Fly Order",
+        "description": "Delivery app for restaurants, supermarkets and pharmacies. Mahmoud Sharabati designed its APIs at Elkood.",
+        "operatingSystem": "Android",
+        "url": "https://play.google.com/store/apps/details?id=com.elkood.fly_order.fly_order"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "SoftwareApplication",
+        "name": "Ads Net",
+        "description": "Users earn points for watching ads. Mahmoud Sharabati designed its APIs at Elkood.",
+        "operatingSystem": "Android",
+        "url": "https://play.google.com/store/apps/details?id=com.elkood.ads_net"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "SoftwareApplication",
+        "name": "Jenacom",
+        "description": "Intercity goods delivery app. Mahmoud Sharabati designed its APIs at Elkood.",
+        "operatingSystem": "iOS",
+        "url": "https://apps.apple.com/us/app/jenacom/id6468572186"
       }
     }
   ]
@@ -128,6 +165,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <!-- Arabic name only: subset to the glyphs it uses -->
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&text=%D9%85%D8%AD%D9%85%D9%88%D8%AF%20%D8%B4%D8%B1%D8%A8%D8%A7%D8%AA%D9%8A&display=swap" rel="stylesheet">
@@ -186,10 +224,26 @@
   .wrap { width: min(100% - 2 * var(--gutter), var(--maxw)); margin-inline: auto; }
 
   /* ── Top bar ── */
-  .topbar { position: absolute; inset: 0 0 auto; z-index: 10; padding-block: 22px; }
+  /* fixed, so the menu is always one tap away; it frosts over once the page scrolls */
+  .topbar {
+    position: fixed; inset: 0 0 auto; z-index: 10; padding-top: 22px; padding-bottom: 22px;
+    border-bottom: 1px solid transparent;
+    transition: padding-top .3s ease, padding-bottom .3s ease, background-color .3s ease, border-color .3s ease;
+  }
+  .topbar.is-scrolled {
+    padding-top: 11px; padding-bottom: 11px; background: rgb(18 10 38 / .8); border-bottom-color: rgb(255 255 255 / .06);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
+  }
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .brand { display: inline-flex; padding: 4px; margin: -4px; }
-  .brand img { width: 42px; height: 42px; }
+  .brand img { width: 42px; height: 42px; transition: width .3s ease, height .3s ease; }
+  .topbar.is-scrolled .brand img { width: 34px; height: 34px; }
+  .skip-link {
+    position: fixed; z-index: 20; top: 12px; left: 12px; padding: 10px 18px; border-radius: 999px;
+    background: var(--stone); color: var(--ink); font-weight: 600; text-decoration: none;
+    transform: translateY(-160%); transition: transform .2s ease;
+  }
+  .skip-link:focus { transform: none; }
   .nav { display: flex; gap: clamp(16px, 2.6vw, 36px); font-size: 15px; font-weight: 500; }
   .nav a {
     color: var(--haze); text-decoration: underline; text-decoration-color: transparent;
@@ -305,6 +359,7 @@
   .role-where { color: var(--haze); font-size: 15px; margin: 6px 0 22px; }
   .role-points { display: grid; gap: 14px; max-width: 66ch; color: var(--haze); }
   .role-points strong { color: var(--stone); font-weight: 600; }
+  .role-points a { color: var(--lilac); text-underline-offset: 4px; }
 
   /* Skills, arranged as the layers of a solution */
   .stack-stage {
@@ -340,17 +395,79 @@
   .stack-also strong { color: var(--stone); font-weight: 600; }
 
   /* Projects */
-  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(48px, 6vw, 96px); }
-  .project { border-top: 1px solid var(--line); padding-top: 30px; }
-  .project h3 { font-size: clamp(26px, 2.6vw, 36px); font-weight: 750; font-stretch: 118%; line-height: 1.08; letter-spacing: -.02em; margin-bottom: 18px; }
-  .project p { color: var(--haze); max-width: 46ch; }
-  .project .project-stack { color: var(--stone); font-size: 15px; margin-top: 16px; }
-  .project-link {
-    display: inline-block; margin-top: 24px; color: var(--lilac); font-weight: 500; font-size: 16px;
-    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px;
-    transition: color .2s;
+  /* Shipped apps: each card is lit in the app's own brand colour (--app). Its screenshots
+     are dealt into a fan when the card scrolls into view, and tilt in 3D under the pointer. */
+  .showcases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: clamp(32px, 4vw, 56px); }
+  .showcase {
+    position: relative; display: grid; grid-template-rows: auto 1fr; overflow: hidden; isolation: isolate;
+    border: 1px solid var(--line); border-radius: 22px; background: var(--ink-2);
+    transition: border-color .3s, translate .4s cubic-bezier(.2, .75, .25, 1);
   }
-  .project-link:hover { color: var(--stone); }
+  .showcase-stage {
+    position: relative; height: 340px; overflow: hidden; perspective: 1000px;
+    background:
+      radial-gradient(60% 75% at 50% 82%, color-mix(in srgb, var(--app) 58%, transparent), transparent 72%),
+      linear-gradient(color-mix(in srgb, var(--app) 14%, var(--ink-2)), var(--ink-2));
+  }
+  .fan {
+    position: absolute; inset: 0; transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform .5s cubic-bezier(.2, .75, .25, 1);
+  }
+  .shot {
+    --spread: 76px; --angle: 7deg; --drop: 16px;
+    position: absolute; left: 50%; bottom: -46px; width: 166px; height: auto; aspect-ratio: 9 / 16; margin-left: -83px;
+    object-fit: cover; object-position: top; border-radius: 20px; background: var(--ink);
+    border: 1px solid rgb(255 255 255 / .14); box-shadow: 0 26px 50px rgb(5 2 15 / .55);
+    transform: translate3d(calc(var(--k) * var(--spread)), calc(var(--d) * var(--drop)), calc((2 - var(--d)) * 22px)) rotate(calc(var(--k) * var(--angle)));
+    transition: transform .8s cubic-bezier(.2, .75, .25, 1), opacity .6s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .showcase:hover .shot { --spread: 98px; --angle: 10deg; }
+    .showcase:hover { border-color: color-mix(in srgb, var(--app) 55%, var(--line)); translate: 0 -4px; }
+    .showcase.is-featured:hover .shot { --spread: 138px; --angle: 8deg; }
+  }
+  /* before a card is revealed its screenshots wait in a stack; they deal out centre-first */
+  .js .showcase:not(.is-in) .shot { opacity: 0; transform: translate3d(0, 70px, 0) scale(.9); }
+  .showcase.is-dealing .shot { transition-delay: calc(var(--d) * 120ms + 80ms); }
+
+  .showcase-tag {
+    position: absolute; z-index: 2; top: 16px; left: 18px; display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--stone);
+    background: rgb(18 10 38 / .6); border: 1px solid rgb(255 255 255 / .12);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  /* the sun dot marks the current job, as in the Experience timeline */
+  .showcase-tag.is-current::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--sun); }
+  .showcase-body { display: grid; gap: 12px; align-content: start; padding: 24px 26px 28px; }
+  .showcase-stat { color: var(--haze); font-size: 15px; }
+  .showcase-stat strong { color: var(--stone); font-size: 17px; font-weight: 750; font-stretch: 112%; }
+  .showcase-head { display: flex; align-items: center; gap: 14px; }
+  .showcase-icon { width: 56px; height: 56px; border-radius: 15px; flex: none; box-shadow: 0 0 0 1px rgb(255 255 255 / .08); }
+  .showcase-name { font-size: 23px; font-weight: 750; font-stretch: 115%; line-height: 1.15; letter-spacing: -.01em; }
+  .showcase-alt { color: var(--haze); font-size: 16px; font-weight: 500; font-stretch: 100%; margin-inline-start: 6px; }
+  .showcase-role { margin-top: 3px; color: color-mix(in srgb, var(--app) 70%, var(--stone)); font-size: 14px; font-weight: 650; }
+  .showcase-what { color: var(--haze); max-width: 40em; }
+  .showcase-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .pill {
+    display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--stone); font-size: 14.5px; font-weight: 600; text-decoration: none;
+    transition: border-color .2s, background-color .2s;
+  }
+  .pill:hover { border-color: var(--app); background: color-mix(in srgb, var(--app) 16%, transparent); }
+
+  /* the featured card runs the full width: words on the left, a wider fan of four on the right */
+  .showcase.is-featured { grid-column: 1 / -1; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: none; }
+  .showcase.is-featured .showcase-stage { order: 2; height: 400px; }
+  .showcase.is-featured .shot { --spread: 116px; --angle: 6deg; width: 178px; margin-left: -89px; }
+  .showcase.is-featured .showcase-body { align-content: center; padding: 40px 44px; }
+  .showcase.is-featured .showcase-name { font-size: clamp(26px, 2.6vw, 34px); }
+  .showcase.is-featured.is-flipped { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .showcase.is-featured.is-flipped .showcase-stage { order: 0; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
 
   /* Competitive programming */
   .cp { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -411,8 +528,13 @@
     .portrait-frame { width: min(100%, 470px); }
     .stack-stage { grid-template-columns: minmax(0, 1fr); }
     .stack-visual { width: min(100%, 560px); margin-inline: auto; }
-    .projects, .cp, .split { grid-template-columns: minmax(0, 1fr); }
+    .cp, .split { grid-template-columns: minmax(0, 1fr); }
     .role { grid-template-columns: minmax(0, 1fr); padding-left: 36px; }
+    .showcases { grid-template-columns: minmax(0, 1fr); }
+    .showcase.is-featured, .showcase.is-featured.is-flipped { grid-template-columns: minmax(0, 1fr); }
+    .showcase.is-featured .showcase-stage { order: 0; height: 360px; }
+    .showcase.is-featured .shot { --spread: 64px; width: 150px; margin-left: -75px; }
+    .showcase.is-featured .showcase-body { padding: 24px 26px 28px; }
     .honeycomb { max-width: 460px; }
   }
   @media (max-width: 560px) {
@@ -425,10 +547,13 @@
     html { scroll-behavior: auto; }
     .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions, .js .portrait { animation: none; }
     .portrait { translate: none; }
+    .shot, .fan, .showcase, .topbar, .brand img { transition: none; }
   }
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#top">Skip to content</a>
 
 <header class="topbar">
   <div class="wrap">
@@ -436,9 +561,9 @@
       <img src="brand/mark.svg" alt="" width="42" height="42">
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -453,7 +578,7 @@
         <p class="hero-ar" lang="ar" dir="rtl">محمود شرباتي</p>
         <h1 class="hero-name" id="hero-name"><span>Mahmoud</span> <span>Sharabati</span></h1>
         <p class="hero-role">.NET Core developer in Aleppo, Syria</p>
-        <p class="hero-intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. Over four years of shipping .NET, from payment integrations to dashboards running in production.</p>
+        <p class="hero-intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. I've shipped .NET for over four years, including the APIs behind apps on Google Play and the App Store. Today I scale the back end of Wasiitak, a marketplace with 10K+ downloads.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="mailto:mahmoud.sharabati.dev@gmail.com">Email me</a>
           <a class="btn" href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -485,6 +610,151 @@
     </div>
   </section>
 
+  <!-- PROJECTS -->
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <h2 class="section-title" id="projects-title">Apps I've worked on</h2>
+      <p class="section-lead">Live apps from Evolvo, where I work now, and from Elkood. Each card shows what the app does and the part I played.</p>
+      <div class="showcases">
+        <article class="showcase is-featured" style="--app: #fa8c1b" aria-labelledby="app-wasiitak">
+          <div class="showcase-stage">
+            <p class="showcase-tag is-current">Evolvo <span class="visually-hidden">(current job)</span></p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/wasiitak/1.webp" alt="" width="440" height="957" loading="lazy" decoding="async" style="--k: -1.5; --d: 1.5">
+              <img class="shot" src="apps/wasiitak/2.webp" alt="" width="440" height="954" loading="lazy" decoding="async" style="--k: -.5; --d: .5">
+              <img class="shot" src="apps/wasiitak/3.webp" alt="" width="440" height="954" loading="lazy" decoding="async" style="--k: .5; --d: .5">
+              <img class="shot" src="apps/wasiitak/4.webp" alt="" width="440" height="957" loading="lazy" decoding="async" style="--k: 1.5; --d: 1.5">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/wasiitak/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-wasiitak">Wasiitak <span class="showcase-alt" lang="ar">وسيطك</span></h3>
+                <p class="showcase-role">Back end, scaling, DevOps and data</p>
+              </div>
+            </div>
+            <p class="showcase-what">A marketplace that sits between buyers and sellers: free ads, browsing by category and location, in-app chat, and ratings to build trust.</p>
+            <p class="showcase-stat"><strong>10K+</strong> downloads on Google Play</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.itlegend.wasiitk" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on Google Play">Google Play</a></p>
+          </div>
+        </article>
+
+        <article class="showcase is-featured is-flipped" style="--app: #2bc3b0" aria-labelledby="app-mrcourse">
+          <div class="showcase-stage">
+            <p class="showcase-tag">Elkood</p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/mrcourse/1.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: -1.5; --d: 1.5">
+              <img class="shot" src="apps/mrcourse/2.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: -.5; --d: .5">
+              <img class="shot" src="apps/mrcourse/3.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: .5; --d: .5">
+              <img class="shot" src="apps/mrcourse/4.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: 1.5; --d: 1.5">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/mrcourse/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-mrcourse">Mr Course</h3>
+                <p class="showcase-role">Designed the APIs</p>
+              </div>
+            </div>
+            <p class="showcase-what">A study app for medical students: video lessons, practice tests, and favourites to keep the lessons that matter.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.mrcourse.mrcourse" target="_blank" rel="noopener noreferrer" aria-label="Mr Course on Google Play">Google Play</a></p>
+          </div>
+        </article>
+
+        <article class="showcase" style="--app: #f6a623" aria-labelledby="app-flyorder">
+          <div class="showcase-stage">
+            <p class="showcase-tag">Elkood</p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/flyorder/1.webp" alt="" width="440" height="953" loading="lazy" decoding="async" style="--k: -.8; --d: .8">
+              <img class="shot" src="apps/flyorder/2.webp" alt="" width="440" height="953" loading="lazy" decoding="async" style="--k: .8; --d: .8">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/flyorder/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-flyorder">Fly Order</h3>
+                <p class="showcase-role">Designed the APIs</p>
+              </div>
+            </div>
+            <p class="showcase-what">Delivery from restaurants, supermarkets and pharmacies.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.fly_order.fly_order" target="_blank" rel="noopener noreferrer" aria-label="Fly Order on Google Play">Google Play</a></p>
+          </div>
+        </article>
+
+        <article class="showcase" style="--app: #f2701f" aria-labelledby="app-adsnet">
+          <div class="showcase-stage">
+            <p class="showcase-tag">Elkood</p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/adsnet/1.webp" alt="" width="440" height="881" loading="lazy" decoding="async" style="--k: -.8; --d: .8">
+              <img class="shot" src="apps/adsnet/2.webp" alt="" width="440" height="881" loading="lazy" decoding="async" style="--k: .8; --d: .8">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/adsnet/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-adsnet">Ads Net <span class="showcase-alt" lang="ar">إعلان نت</span></h3>
+                <p class="showcase-role">Designed the APIs</p>
+              </div>
+            </div>
+            <p class="showcase-what">Users earn points for watching ads, then spend them or gift them to others.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.ads_net" target="_blank" rel="noopener noreferrer" aria-label="Ads Net on Google Play">Google Play</a></p>
+          </div>
+        </article>
+
+        <article class="showcase" style="--app: #e50043" aria-labelledby="app-jenacom">
+          <div class="showcase-stage">
+            <p class="showcase-tag">Elkood</p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/jenacom/1.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: 1; --d: 1">
+              <img class="shot" src="apps/jenacom/2.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: 0; --d: 0">
+              <img class="shot" src="apps/jenacom/3.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: -1; --d: 1">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/jenacom/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-jenacom">Jenacom</h3>
+                <p class="showcase-role">Designed the APIs</p>
+              </div>
+            </div>
+            <p class="showcase-what">Delivers goods between cities: drivers accept orders, follow the day's route and share their location.</p>
+            <p class="showcase-links"><a class="pill" href="https://apps.apple.com/us/app/jenacom/id6468572186" target="_blank" rel="noopener noreferrer" aria-label="Jenacom on the App Store">App Store</a></p>
+          </div>
+        </article>
+
+        <article class="showcase" style="--app: #ffd400" aria-labelledby="app-bronz">
+          <div class="showcase-stage">
+            <p class="showcase-tag">Elkood</p>
+            <div class="fan" aria-hidden="true">
+              <img class="shot" src="apps/bronz/1.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: -1; --d: 1">
+              <img class="shot" src="apps/bronz/2.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: 0; --d: 0">
+              <img class="shot" src="apps/bronz/3.webp" alt="" width="440" height="782" loading="lazy" decoding="async" style="--k: 1; --d: 1">
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-head">
+              <img class="showcase-icon" src="apps/bronz/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+              <div>
+                <h3 class="showcase-name" id="app-bronz">Bronz <span class="showcase-alt" lang="ar">برونز</span></h3>
+                <p class="showcase-role">Supervised development</p>
+              </div>
+            </div>
+            <p class="showcase-what">Online kids' clothing store for ages 1 to 16.</p>
+            <p class="showcase-links">
+              <a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.bronze" target="_blank" rel="noopener noreferrer" aria-label="Bronz on Google Play">Google Play</a>
+              <a class="pill" href="https://apps.apple.com/us/app/bronz-mart/id6503243545" target="_blank" rel="noopener noreferrer" aria-label="Bronz on the App Store">App Store</a>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- WORK EXPERIENCE -->
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
@@ -499,6 +769,7 @@
             <h3 class="role-title" id="role-evolvo">.NET Developer <span class="role-org">at Evolvo</span></h3>
             <p class="role-where">Aleppo, Syria</p>
             <ul class="role-points">
+              <li><strong>Wasiitak.</strong> Enhancing and scaling the back end of this buy-and-sell marketplace (10K+ downloads), and running its DevOps and data (see <a href="#projects">Projects</a>).</li>
               <li><strong>Feature development.</strong> Designed and implemented responsive administrative dashboards using Blazor and .NET Core, focusing on real-time data visualization and efficient management tools.</li>
               <li><strong>Production support.</strong> Managed the application in a live production environment, performing regular server health checks and technical troubleshooting to ensure 99.9% uptime.</li>
               <li><strong>Technical support &amp; optimization.</strong> Acted as the primary point of contact for technical issues, identifying root causes in production logs and deploying hotfixes to improve system stability.</li>
@@ -514,6 +785,7 @@
             <h3 class="role-title" id="role-elkood">.NET Backend Developer <span class="role-org">at Elkood</span></h3>
             <p class="role-where">Aleppo, Syria</p>
             <ul class="role-points">
+              <li><strong>Apps in production.</strong> Designed the APIs behind Fly Order, Mr Course, Ads Net and Jenacom, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
               <li><strong>System architecture.</strong> Architected and deployed scalable back-end solutions using .NET Core/6+, translating complex business requirements into high-performance web applications.</li>
               <li><strong>API integration &amp; payment systems.</strong> Streamlined business operations by integrating third-party services including Stripe, Google APIs, and Telegram for automated notification systems.</li>
               <li><strong>Infrastructure &amp; tooling.</strong> Developed and maintained shared internal libraries, reducing boilerplate code across multiple projects and accelerating the development lifecycle.</li>
@@ -580,39 +852,18 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="section" id="projects" aria-labelledby="projects-title">
-    <div class="wrap">
-      <h2 class="section-title" id="projects-title">Projects</h2>
-      <div class="projects">
-        <article class="project" aria-labelledby="project-template">
-          <h3 id="project-template">Clean Architecture Template</h3>
-          <p>A scalable, maintainable project template built on Clean Architecture and Domain-Driven Design. Domain, application, infrastructure and UI each live in their own layer, the same split as the diagram above, which keeps the code testable and easy to adapt.</p>
-          <p class="project-stack">Built with .NET Core, following Clean Architecture and DDD.</p>
-          <a class="project-link" href="https://gitlab.com/mahmoudsh792/template" target="_blank" rel="noopener noreferrer">gitlab.com/mahmoudsh792/template</a>
-        </article>
-        <article class="project" aria-labelledby="project-stockwise">
-          <h3 id="project-stockwise">Stockwise Dashboard</h3>
-          <p>A warehouse management system (WMS) dashboard for product categories, stock levels and admin workflows, built for performance and real-time data display.</p>
-          <p class="project-stack">Built with Blazor, ASP.NET Core and PostgreSQL, on Clean Architecture and DDD.</p>
-          <a class="project-link" href="https://gitlab.com/mahmoudsh792/stockwise" target="_blank" rel="noopener noreferrer">gitlab.com/mahmoudsh792/stockwise</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- COMPETITIVE PROGRAMMING -->
   <section class="section" id="codeforces" aria-labelledby="cp-title">
     <div class="wrap">
       <h2 class="section-title" id="cp-title">Competitive programming</h2>
       <div class="cp">
         <div class="cp-copy">
-          <p class="cp-lead">500+ problems solved on Codeforces.</p>
+          <p class="cp-lead">450+ problems solved on Codeforces.</p>
           <p>I compete as <a href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer">00Mahmoud00</a>, mostly on dynamic programming, graph theory, mathematics, data structures, greedy and implementation problems.</p>
           <p>My team placed 11th at the 2022 ICPC Aleppo University Contest and qualified for the next round. <a class="cert-link" href="Certificate.pdf" target="_blank" rel="noopener" aria-haspopup="dialog">View the certificate</a></p>
         </div>
         <figure class="honeycomb">
-          <svg role="img" aria-label="500 small hexagons, one for each solved problem"><defs><linearGradient id="comb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6a3ff"/><stop offset=".55" stop-color="#6a46f0"/><stop offset="1" stop-color="#2c2152"/></linearGradient></defs><path fill="url(#comb)"/></svg>
+          <svg role="img" aria-label="450 small hexagons, one for each solved problem"><defs><linearGradient id="comb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6a3ff"/><stop offset=".55" stop-color="#6a46f0"/><stop offset="1" stop-color="#2c2152"/></linearGradient></defs><path fill="url(#comb)"/></svg>
           <figcaption>One cell for each solved problem.</figcaption>
         </figure>
       </div>
@@ -678,11 +929,11 @@
 </dialog>
 
 <script>
-  // Honeycomb: 500 cells, one per solved Codeforces problem.
+  // Honeycomb: 450 cells, one per solved Codeforces problem (the profile showed 454 in Oct 2026).
   (function () {
     var svg = document.querySelector('.honeycomb svg');
     if (!svg) return;
-    var cols = 25, rows = 20, r = 7, w = Math.sqrt(3) * r, h = 1.5 * r, cell = r * .84, d = '';
+    var cols = 25, rows = 18, r = 7, w = Math.sqrt(3) * r, h = 1.5 * r, cell = r * .84, d = '';
     for (var y = 0; y < rows; y++) {
       for (var x = 0; x < cols; x++) {
         var cx = w / 2 + x * w + (y % 2) * w / 2, cy = r + y * h;
@@ -710,6 +961,54 @@
     dialog.addEventListener('click', function (event) {
       if (event.target === dialog || event.target.closest('[data-close]')) dialog.close();
     });
+  })();
+
+  // App showcase: deal each card's screenshots in when it scrolls into view; tilt the fan with the pointer.
+  (function () {
+    var cards = document.querySelectorAll('.showcase');
+    if (!cards.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      cards.forEach(function (card) { card.classList.add('is-in'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        card.classList.add('is-dealing', 'is-in');
+        setTimeout(function () { card.classList.remove('is-dealing'); }, 1400);
+        observer.unobserve(card);
+      });
+    }, { threshold: .3 });
+    cards.forEach(function (card) { observer.observe(card); });
+
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    cards.forEach(function (card) {
+      var fan = card.querySelector('.fan');
+      card.addEventListener('pointermove', function (event) {
+        var r = card.getBoundingClientRect();
+        fan.style.setProperty('--ry', (((event.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
+        fan.style.setProperty('--rx', ((.5 - (event.clientY - r.top) / r.height) * 10).toFixed(2) + 'deg');
+      });
+      card.addEventListener('pointerleave', function () {
+        fan.style.setProperty('--ry', '0deg');
+        fan.style.setProperty('--rx', '0deg');
+      });
+    });
+  })();
+
+  // Top bar: frost it once the page scrolls, so the menu stays readable over the content.
+  (function () {
+    var bar = document.querySelector('.topbar');
+    if (!bar) return;
+    var scrolled = false;
+    function update() {
+      var next = window.scrollY > 24;
+      if (next !== scrolled) { scrolled = next; bar.classList.toggle('is-scrolled', next); }
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
   })();
 
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
