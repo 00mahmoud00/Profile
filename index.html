@@ -1340,5 +1340,18 @@
     }
   }
 </script>
+
+<!-- Background options, for review only: they load just for ?lab links. Remove once one is chosen. -->
+<script>
+  if (/[?&](lab|bg)\b/.test(location.search)) {
+    var labCss = document.createElement('link');
+    labCss.rel = 'stylesheet';
+    labCss.href = 'lab/backgrounds.css';
+    document.head.append(labCss);
+    var labJs = document.createElement('script');
+    labJs.src = 'lab/backgrounds.js';
+    document.body.append(labJs);
+  }
+</script>
 </body>
 </html>
