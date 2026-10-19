@@ -1,7 +1,8 @@
 # Mahmoud Sharabati — portfolio
 
-Single-page portfolio for Mahmoud Sharabati (محمود شرباتي), a senior .NET Core developer in Aleppo, Syria.
+Single-page portfolio for Mahmoud Sharabati (محمود شراباتي), a senior .NET Core developer in Aleppo, Syria.
 Everything is in `index.html`: inline CSS, two inline scripts and a Three.js module. There is no build step.
+The site is bilingual: English by default, and Arabic (right to left) at `?lang=ar` (see "Languages"). It has dark and light themes, with dark as the default (see "Themes"). Both defaults were his choice: a first visit always opens dark and in English.
 
 - Live: https://mahmoudsharabati.me/Profile/
 - Repo: https://github.com/00mahmoud00/Profile (public). GitHub Pages builds from `master`.
@@ -17,12 +18,13 @@ Everything is in `index.html`: inline CSS, two inline scripts and a Three.js mod
 
 ## Rules
 
+- **His Arabic name is محمود شراباتي** (ش ر ا ب ا ت ي, with an alef after the ر). It was first misspelled شرباتي everywhere and fixed on 2026-10-19, including the outlined name in `brand/lockup-bilingual-*.svg`, which was redrawn with HarfBuzz and Reem Kufi at weight 600 and size 50, right-aligned at x 784.8.
 - **Codeforces count:** use the number on codeforces.com/profile/00Mahmoud00 ("problems solved for all time": 548 on 2026-10-18). The page says "500+". Never recount from the public API: it undercounts, and once that put a wrong "450+" live.
 - **Experience job titles:** keep each employer's real title. He is "Senior" in the hero and meta, but the timeline entries say ".NET Developer" until he says otherwise.
 - **HASH entry:** some details are my guesses that he hasn't confirmed: the title ".NET Developer", the location "Remote", and no employment type. The company is HASH Information Technology (hashsd.com, Sudan), Apr 2026 – present. Ask him before treating these as fact.
 - **Evolvo:** Nov 2025 – present. He was part-time until May 2026 and has been on contract since. He works on the back end of Wasiitak there.
 - **Elkood:** May 2022 – Apr 2024, full-time, .NET Backend Developer.
-- **The Arabic font** (Reem Kufi 600) is loaded from Google Fonts with `text=` set to only the letters of محمود شرباتي. Any other Arabic text falls back to a system font unless it uses only those letters. مرحبا works.
+- **The Arabic font** (Reem Kufi 600) is loaded from Google Fonts with `text=` set to only the letters of محمود شراباتي. Any other Arabic text falls back to a system font unless it uses only those letters. مرحبا works.
 - **Large originals:** `20260907_135602.jpg` (the source photo, 5.9 MB, no GPS data), `linkedin-banner-1584x396.png` and `linkedin-banner-3168x792.png` are tracked and therefore public. He committed them himself on 2026-10-19.
 
 ## Design system
@@ -55,10 +57,64 @@ Everything is in `index.html`: inline CSS, two inline scripts and a Three.js mod
   - He rejected an earlier 3D isometric cube because it was 3D; he wants flat and modern.
 - **Motion:** respect `prefers-reduced-motion` everywhere. 3D views have static SVG fallbacks (`.fallback`, shown with `.no-3d` / `.is-static`).
 
+## Themes (dark / light)
+
+Added 2026-10-19 at his request.
+
+- **How the theme is picked:**
+  1. The `<head>` script sets `<html data-theme="dark|light">` before the first paint, so nothing flashes.
+  2. **Dark is the default for every first visit** (his decision, 2026-10-19); the system setting is ignored. Light is used only after the visitor picks it (saved in `localStorage.theme`).
+  3. `?theme=light` or `?theme=dark` forces a theme for that visit without saving it. Use it for screenshots and for sharing a link to one theme.
+- **Toggle:** the round sun/moon button (`[data-theme-toggle]`) after the menu.
+  - Clicking it flips the theme, saves the choice, eases colours across with `.theme-switching` (about 0.4 s), updates `<meta name="theme-color">`, and fires a `themechange` event on `document`.
+  - Its `aria-label` and `title` come from `data-label-light` / `data-label-dark`, which `ar.js` translates. `ar.js` fires `i18n:applied` so the label is refreshed after translation.
+- **Colours are tokens.** Dark is the `:root` default; light overrides them in `:root[data-theme="light"]`:
+  - page `--ink #f6f2ea` (warm paper), `--ink-2 #fffdf8`, `--line #ddd4ec`
+  - text `--stone #1c1336` (deep violet ink), `--haze #5d5577`
+  - accent `--lilac #5634d6` and `--sun #d4972c`, the logo's light colours
+  - Translucent tones are tokens too: `--frost` (frosted topbar), `--hairline`, `--shade`, `--rim` and `--halo` (portrait glow), `--glow-gold` and `--glow-violet` (portrait backdrop), `--leader`, `--tag`, `--tag-line`, `--shot-line`, `--icon-line`, `--backdrop` (certificate dialog).
+  - **Never hard-code a colour in page CSS:** use a token, or add one to both themes.
+- **Logo:** `.brand` holds both marks. `mark.svg` is shown in dark and `mark-light.svg` in light.
+- **Skills 3D:** unfocused layers fade toward the current `--ink` (`readInk()`, re-read on `themechange`). The slab colours themselves work on both themes.
+- **The honeycomb gradient** ends in `#4b2cc6` in light (it is `#2c2152` in dark), set through CSS `stop-color`.
+- **On phones (≤ 430 px),** "Skills" (`.nav-wide`) is hidden to make room for the toggle. It's still reachable by scrolling. The bar was measured to fit at 360 and 390 px in both languages.
+- **The ?lab backgrounds and photo backdrops follow the theme:**
+  - `backgrounds.js` swaps its palette (`C.lilac`, `C.sun`, `C.text`, `C.ink`) on `themechange` and re-inits the current scene. Warp takes the page colour as the `uInk` uniform.
+  - In `photo.js`, text that sits on the page itself uses `style="fill: var(--stone)"`. Text on the backdrops' own dark cards keeps its fixed colours.
+- **`og-image.jpg`** should stay the dark hero: render it with `?theme=dark` added to the URL.
+
+## Languages (English / Arabic)
+
+Added 2026-10-19 at his request: "make it Arabic and English". He picked the whole site, with a switch like fat7i.dev's.
+
+- **How it works:**
+  1. The first `<script>` in `<head>` checks for `?lang=ar`. If it's there, it sets `<html lang="ar" dir="rtl">` and adds `.i18n-pending`, which keeps the body hidden.
+  2. It then loads Noto Kufi Arabic from Google Fonts and `i18n/ar.js`.
+  3. `ar.js` swaps the text on `DOMContentLoaded` and un-hides the page. If it never runs, a 2.5 s timeout un-hides the page in English.
+  - English visitors download none of this.
+- **Keys:** every translatable element has `data-i18n="key"` (its inner HTML is replaced) and/or `data-i18n-attr="attr=key;attr=key"` (for `aria-label` and `alt`). `i18n/ar.js` maps each key to Arabic HTML; a missing key simply stays English.
+  - **When you add or change text, update both** the English in `index.html` and the Arabic in `i18n/ar.js` under the same key.
+  - Check coverage with the regex comparison of `data-i18n` keys against the dictionary keys.
+  - Put the key on the element whose text changes. Replacing an element's inner HTML drops any listeners on its children, which is why the certificate link has its own key (`cp.cert`) instead of sharing its paragraph's.
+- **The hero swaps names in Arabic:** the headline becomes محمود شراباتي in Reem Kufi, and the small line becomes "Mahmoud Sharabati" in Archivo. This is done in `apply()` in `ar.js`.
+- **`ar.js` also updates the meta:** `<title>`, the description, og:title and og:description, og:locale, and the canonical (`?lang=ar`). The head has hreflang alternates for en, ar and x-default. Social previews stay English, because their crawlers don't run JS.
+- **Arabic text rules:**
+  - Wrap Latin terms that start or end with punctuation in `<bdi dir="ltr">`: `.NET`, `.NET Core/6+`, `C#`, `99.9%`. Otherwise the dot or sign appears to jump. Chrome showed them correctly with plain `<bdi>` too, but the explicit `dir` is deterministic.
+  - Put a space after the conjunction و before a Latin word ("و Blazor"). Joined, the isolated Kufi و looks like a Latin "g". Use باستخدام rather than attaching بـ to a Latin word.
+  - Months use the names used in Syria (كانون الثاني … كانون الأول), and digits stay Western (2026, 548).
+  - Tool tags (`.tools li`) are forced to left-to-right so "C#" and "Blazor (SSR & WASM)" read correctly.
+- **CSS:**
+  - Anything directional uses logical properties (`inset-inline-start`, `margin-inline-start`, `padding-inline-start`). Grids and flex rows flip by themselves.
+  - Arabic overrides live under `:root[lang="ar"]`: `--font` becomes Archivo with Noto Kufi Arabic for Arabic glyphs; line-height is 1.85; there is no negative letter-spacing, because it breaks joined letters.
+  - Don't use plain `[lang="ar"]` for page-level rules: English elements such as `.hero-ar` carry `lang="ar"` too.
+- **3D leaders:** when `dir="rtl"`, the Skills module mirrors the stack's anchors and draws leaders to each title's right edge. Both directions were checked numerically.
+- **Switch:** `.lang-switch` is the last menu item. It reads عربي / English, and below 430 px it shortens to ع / EN; its `aria-label` keeps the full name. The classic script keeps other query parameters (such as `?lab`) when switching. The bar was measured to fit at 360, 390 and 440 px.
+- **The ?lab panel stays in English.** Portrait-centred lab backgrounds (Layers, ASCII) mirror in Arabic.
+
 ## Page structure (`index.html`, in order)
 
 1. **Head:** meta, Open Graph and Twitter tags, three JSON-LD blocks (Person, WebSite, ItemList of apps), fonts, and the import map for `three@0.170.0` from jsDelivr.
-2. **`.topbar`:** fixed. It frosts (`.is-scrolled`) after the page scrolls 24px.
+2. **`.topbar`:** fixed, with the language switch (عربي / English) as the last menu item. It frosts (`.is-scrolled`) after the page scrolls 24px.
 3. **`.hero`:**
    - Copy: Arabic name, name, "Senior .NET Core developer in Aleppo, Syria", intro, Email/LinkedIn buttons.
    - Portrait: `mahmoud-cutout-*.webp` on a soft CSS glow (`.portrait-frame::before`).
@@ -81,7 +137,7 @@ Scripts:
 
 ## Background lab (`lab/`, under review)
 
-A review-only switcher of 15 animated page backgrounds.
+A review-only panel with two rows: **Page** switches between 15 animated page backgrounds (`lab/backgrounds.js`), and **Photo** switches between 15 backdrops behind the portrait (`lab/photo.js`).
 
 - It loads only when the URL has `?lab` (or `?bg=`), via the small loader at the end of `index.html`. Normal visitors see the flat background.
 - `?bg=<key>` opens a specific option. Keys 1–9 and 0 pick the first ten options, and the panel can be hidden.
@@ -112,10 +168,35 @@ How the lab code works:
 - `resize()` does nothing when the size didn't really change, because phones fire `resize` when the address bar shows or hides.
 - The loop pauses while the tab is hidden. With reduced motion, each option draws one still frame.
 
+**Photo backdrops** (`lab/photo.js`, the "Photo" row of the same panel, `?photo=<key>`):
+- On 2026-10-19 he said the portrait alone "is not good" and asked for something behind it, but **not the 3D structure**.
+- Each backdrop is one SVG in a `.halo` div prepended to `.portrait-frame`. It sits behind the cutout (`.portrait` has z-index 1) and above the CSS glow.
+- The SVG uses the cutout's own coordinates (`viewBox 0 0 1100 1316`). The head spans x 435–748 from y 12, and the shoulders widen to full width below y ≈ 420.
+- A shared loop calls each option's `frame(el, t)`. With reduced motion it gets `t = null` and draws a still frame.
+- Options (`?photo=` key):
+  - **none:** the portrait alone, as the live page is now.
+  - **circle:** violet disc with a gold rim and a slowly turning dotted ring.
+  - **hexagon:** flat hexagon badge with a gold dashed outline that marches round.
+  - **arch:** Aleppo pointed arch with a gold outline and a star lattice inside.
+  - **star:** slowly turning eight-point star.
+  - **name:** giant Kufic محمود with a gold offset outline.
+  - **ring:** rotating circular text, "SENIOR .NET DEVELOPER • CLEAN ARCHITECTURE • …".
+  - **orbit:** the real Skills tags orbiting on two tilted rings.
+  - **code:** an editor window behind him with a C# DDD aggregate typing out. It uses non-breaking spaces because SVG collapses ordinary ones.
+  - **rays:** a rotating sunburst.
+  - **blob:** a morphing gradient shape.
+  - **split:** after Adham Dannaway's designer | coder hero. One card split through the face: a C# endpoint on the left (back end) and a Blazor-style dashboard on the right (front end).
+  - **frame:** the offset photo frame common in developer portfolios (Brittany Chiang's is the best known). A violet panel with a gold outline offset behind it that slides in on hover; the hover rule is in `backgrounds.css`.
+  - **sparkles:** after Josh W. Comeau's animated sparkles. Four-point stars pop in, turn and fade around the head.
+  - **commits:** a GitHub contribution graph in violet, with gold for the busiest days; new commits flash.
+  - **spec:** a technical drawing on grid paper with numbered callouts drawn to him. Labels on the right must stay short to clear the head (x > 750).
+- Without a `photo` parameter, `?lab` opens on Circle.
+
 **When he picks one:**
-1. Move that option into `index.html` as a permanent background. Keep the engineering above: DPR caps, the pause when hidden, reduced motion, the resize guard, and the CSS mask that fades the edges.
+1. Move the chosen option (page background and/or photo backdrop) into `index.html` as a permanent part. For page backgrounds, keep the engineering above: DPR caps, the pause when hidden, reduced motion, the resize guard, and the CSS mask that fades the edges.
 2. Delete `lab/` and the `?lab` loader.
 3. Re-check text contrast over the background.
+4. If the hero changed, re-render `og-image.jpg`.
 
 ## Derived assets (not reproducible from the repo alone)
 
@@ -125,7 +206,7 @@ How the lab code works:
   - The source `20260907_135602.jpg` has EXIF orientation 8: bake the rotation in and strip EXIF.
 - **`og-image.jpg`** (1200×630). Re-render it after **any** hero or topbar change:
   1. Serve a copy of `index.html` over HTTP next to the assets, with this injected in `<head>`: `<style>.nav, .hero-intro, .hero-actions, .skip-link { display: none !important; }</style>`.
-  2. Screenshot it: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=5000 --screenshot=og-2x.png <url>`
+  2. Screenshot it, with `?theme=dark` on the URL: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=5000 --screenshot=og-2x.png <url>`
   3. Convert it: `sips -s format jpeg -s formatOptions 88 -z 630 1200 og-2x.png --out og-image.jpg`
 - **`certificate.webp`:** page 1 of `Certificate.pdf` rendered at 2× (PDFKit).
 - **`apps/<key>/icon.webp` and `1..4.webp`** (440px wide): taken from the public store listings.
@@ -155,9 +236,13 @@ How the lab code works:
   - Removed the 3D rings from the hero (the 3D stays in Skills).
   - Mid-level became Senior.
   - The portrait was centred with the hero text.
+  - Added 10, then 15, photo-backdrop options to ?lab (he wants something behind the portrait, but not 3D). The last five came from a look at famous developer portfolios.
+  - The whole site became bilingual: an Arabic version at `?lang=ar`, right to left, with a عربي / English switch.
+  - His Arabic surname was corrected to شراباتي.
+  - Added dark and light themes with a sun/moon toggle.
 
 ## Open items
 
-- Pick a background from ?lab, then make it permanent and delete `lab/`.
+- Pick a page background and a photo backdrop from ?lab, then make them permanent and delete `lab/`.
 - Confirm the HASH title, location and employment type.
 - LinkedIn and others cache old link previews; refresh them with LinkedIn's Post Inspector after hero changes.

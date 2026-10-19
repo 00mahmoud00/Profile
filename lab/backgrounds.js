@@ -12,12 +12,25 @@
     sun: [242, 198, 109], lilac: [182, 163, 255], violet: [81, 43, 212],
     app: [139, 109, 255], pres: [106, 70, 240], infra: [75, 44, 198], ink: [18, 10, 38],
   };
+  // in Arabic the page runs right to left and the portrait sits on the left, so portrait-centred scenes mirror
+  const rtl = document.documentElement.dir === 'rtl';
   const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
   const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
   const clamp = (v, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, v));
   const smooth = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0)); return t * t * (3 - 2 * t); };
   const ease = (k, dt) => 1 - Math.exp(-k * dt);
   const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+  // scenes that paint with the page colour (Pulse hides lines behind lines with it) follow the theme
+  // the scenes draw with the palette of the current theme: on light paper the lines need deeper colours
+  const DARK = { sun: C.sun, lilac: C.lilac, text: [238, 231, 216] };
+  const LIGHT = { sun: [212, 151, 44], lilac: [86, 52, 214], text: [28, 19, 54] };
+  const readInk = () => {
+    const v = getComputedStyle(root).getPropertyValue('--ink').trim();
+    if (/^#[0-9a-f]{6}$/i.test(v)) C.ink = hex(v);
+    Object.assign(C, root.dataset.theme === 'light' ? LIGHT : DARK);
+  };
+  readInk();
+  document.addEventListener('themechange', () => { readInk(); current && current.init(); });
 
   // seeded random, so a layout is designed once and looks the same on every visit
   function seeded(a) {
@@ -95,7 +108,7 @@
     const ringColor = (k) => k === 0 ? C.sun : k === 1 ? mix(C.sun, C.app, .35) : k === 2 ? C.app : k === 3 ? C.pres : C.lilac;
     const centre = () => {
       const wide = W > 960;
-      return [wide ? W * .745 : W * .5, (wide ? H * .4 : H * .3) - Math.min(S.scroll * .22, H * .3)];
+      return [wide ? W * (rtl ? .255 : .745) : W * .5, (wide ? H * .4 : H * .3) - Math.min(S.scroll * .22, H * .3)];
     };
     function build() {
       s = clamp(Math.max(W, H) / 13, 70, 104);
@@ -622,7 +635,8 @@
       () => [['User ', 'txt'], [`${num(1000, 9999)}`, 'dim'], [' signed in with a JWT', 'txt']],
       () => [['Job ', 'txt'], ['SyncListings', 'key'], [` finished: ${num(20, 300)} updated`, 'txt']],
     ];
-    const styles = { time: [C.lilac, .11], INF: [C.lilac, .22], WRN: [C.sun, .38], svc: [C.app, .24], txt: [[238, 231, 216], .14], dim: [C.lilac, .11], ok: [[125, 223, 154], .3], key: [C.sun, .26] };
+    // read on every frame so the colours follow the theme
+    const styles = () => ({ time: [C.lilac, .11], INF: [C.lilac, .22], WRN: [C.sun, .38], svc: [C.app, .24], txt: [C.text, .14], dim: [C.lilac, .11], ok: [[125, 223, 154], .3], key: [C.sun, .26] });
     let cols = [], cw = 7.2, clock = 9 * 3600 + 41 * 60;
     function line(svc) {
       clock += num(0, 2);
@@ -643,6 +657,7 @@
       });
     }
     function draw(dt) {
+      const palette = styles();
       ctx.font = font;
       ctx.textBaseline = 'alphabetic';
       for (const col of cols) {
@@ -665,7 +680,7 @@
           let x = col.x, left = l.typed;
           for (const [text, style] of l.segs) {
             if (left <= 0) break;
-            const shown = text.slice(0, Math.ceil(left)), [c, al] = styles[style];
+            const shown = text.slice(0, Math.ceil(left)), [c, al] = palette[style];
             ctx.fillStyle = rgba(c, Math.min(.9, al * a));
             ctx.fillText(shown, x, y);
             x += text.length * cw; left -= text.length;
@@ -906,6 +921,7 @@
       precision mediump float;
       uniform vec2 uRes, uMouse;
       uniform float uTime, uScroll, uOn, uEnergy;
+      uniform vec3 uInk;
       float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
       float noise(vec2 p) {
         vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
@@ -927,7 +943,7 @@
         vec2 q = vec2(fbm(p + vec2(0., t)), fbm(p + vec2(5.2, 1.3) - t));
         vec2 r = vec2(fbm(p + 4. * q + vec2(1.7, 9.2) + .15 * t), fbm(p + 4. * q + vec2(8.3, 2.8) - .126 * t));
         float f = fbm(p + 4. * r);
-        vec3 ink = vec3(.071, .039, .149), violet = vec3(.318, .169, .831), sun = vec3(.949, .776, .427);
+        vec3 ink = uInk, violet = vec3(.318, .169, .831), sun = vec3(.949, .776, .427);
         vec3 col = mix(ink, violet, smoothstep(.3, .95, f) * .85);
         col = mix(col, sun, smoothstep(.42, .75, f * length(r)) * .45);
         col = mix(ink, col, .75 + .25 * uEnergy);
@@ -950,7 +966,7 @@
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
       const a = gl.getAttribLocation(prog, 'p');
       gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
-      ['uRes', 'uMouse', 'uTime', 'uScroll', 'uOn', 'uEnergy'].forEach((n) => { loc[n] = gl.getUniformLocation(prog, n); });
+      ['uRes', 'uMouse', 'uTime', 'uScroll', 'uOn', 'uEnergy', 'uInk'].forEach((n) => { loc[n] = gl.getUniformLocation(prog, n); });
     }
     function init() {
       if (!gl && !failed) try { setup(); } catch (e) { failed = true; console.warn('Warp background:', e); }
@@ -965,6 +981,7 @@
       gl.uniform2f(loc.uMouse, S.px * k, (H - S.py) * k);
       gl.uniform1f(loc.uTime, S.t); gl.uniform1f(loc.uScroll, S.scroll * k);
       gl.uniform1f(loc.uOn, S.on); gl.uniform1f(loc.uEnergy, S.energy);
+      gl.uniform3f(loc.uInk, C.ink[0] / 255, C.ink[1] / 255, C.ink[2] / 255);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     return {
@@ -1063,7 +1080,7 @@
       zbuf.fill(0); lum.fill(-1);
       // on wide screens the ring frames the portrait
       const wide = W > 960, size = Math.min(W, H, W * .32) * (wide ? .68 : .9);
-      const cx = wide ? W * .7 : W * .5, cy = wide ? H * .42 : H * .4;
+      const cx = wide ? W * (rtl ? .3 : .7) : W * .5, cy = wide ? H * .42 : H * .4;
       const A = .95 + .15 * Math.sin(S.t * .3) + S.on * (S.py / H - .5) * .6;
       const B = .25 * Math.sin(S.t * .17) + S.on * (S.px / W - .5) * .8;
       const Cr = S.t * .18 + S.scroll * .0015;
@@ -1295,7 +1312,10 @@
   lab.className = 'lab';
   lab.setAttribute('role', 'region');
   lab.setAttribute('aria-label', 'Background options');
-  lab.innerHTML = '<div class="lab-bar"></div><p class="lab-note" aria-live="polite"></p><p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 pick the first ten.</p>';
+  // lab/photo.js adds a second row (what sits behind the portrait) under this one
+  lab.innerHTML = '<div class="lab-row"><span class="lab-label">Page</span><div class="lab-bar"></div></div>'
+    + '<p class="lab-note" aria-live="polite"></p>'
+    + '<p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 pick the first ten page backgrounds.</p>';
   const bar = lab.querySelector('.lab-bar'), note = lab.querySelector('.lab-note');
   options.forEach((opt, i) => {
     const b = document.createElement('button');
@@ -1309,7 +1329,7 @@
     const hidden = lab.classList.toggle('is-hidden');
     hide.textContent = hidden ? 'Show' : 'Hide';
   });
-  bar.append(hide);
+  bar.after(hide);
   document.body.append(lab);
 
   function choose(key) {

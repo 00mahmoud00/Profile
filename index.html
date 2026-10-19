@@ -3,7 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<script>
+  document.documentElement.classList.replace('no-js', 'js');
+  // Theme: dark unless the visitor chose light (saved) or the link asks for it. Set before the first paint so nothing flashes.
+  (function () {
+    var theme = null;
+    try { theme = localStorage.getItem('theme'); } catch (e) {}
+    // ?theme=light or ?theme=dark forces one theme (for sharing a link to it) without saving it
+    var asked = /[?&]theme=(light|dark)\b/.exec(location.search);
+    if (asked) theme = asked[1];
+    if (theme !== 'light') theme = 'dark';
+    document.documentElement.dataset.theme = theme;
+  })();
+  // Arabic (?lang=ar): flip the page to right-to-left before it paints, then load the Arabic font and
+  // the translations (i18n/ar.js), which swap the text in. The page stays hidden until they have.
+  (function () {
+    if (!/[?&]lang=ar(&|$)/.test(location.search)) return;
+    var root = document.documentElement;
+    root.lang = 'ar';
+    root.dir = 'rtl';
+    root.classList.add('i18n-pending');
+    var font = document.createElement('link');
+    font.rel = 'stylesheet';
+    font.href = 'https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap';
+    document.head.append(font);
+    var dict = document.createElement('script');
+    dict.src = 'i18n/ar.js';
+    document.head.append(dict);
+    setTimeout(function () { root.classList.remove('i18n-pending'); }, 2500);
+  })();
+</script>
 
 <!-- ── Primary SEO Meta Tags ── -->
 <title>Mahmoud Sharabati — Senior .NET Core Developer | Clean Architecture &amp; Blazor Expert</title>
@@ -15,6 +44,9 @@
 <meta name="revisit-after" content="7 days">
 <meta name="theme-color" content="#120a26">
 <link rel="canonical" href="https://mahmoudsharabati.me/Profile/">
+<link rel="alternate" hreflang="en" href="https://mahmoudsharabati.me/Profile/">
+<link rel="alternate" hreflang="ar" href="https://mahmoudsharabati.me/Profile/?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://mahmoudsharabati.me/Profile/">
 <link rel="icon" href="brand/favicon.ico" sizes="32x32">
 <link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
@@ -29,6 +61,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mahmoud Sharabati - Senior .NET Developer">
 <meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_SY">
 <meta property="og:site_name" content="Mahmoud Sharabati Portfolio">
 
 <!-- ── Twitter Card ── -->
@@ -45,6 +78,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Mahmoud Sharabati",
+  "alternateName": "محمود شراباتي",
   "jobTitle": "Senior .NET Core Developer",
   "worksFor": [
     {
@@ -175,7 +209,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <!-- Arabic name only: subset to the glyphs it uses -->
-<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&text=%D9%85%D8%AD%D9%85%D9%88%D8%AF%20%D8%B4%D8%B1%D8%A8%D8%A7%D8%AA%D9%8A&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&text=%D9%85%D8%AD%D9%85%D9%88%D8%AF%20%D8%B4%D8%B1%D8%A7%D8%A8%D8%A7%D8%AA%D9%8A&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="mahmoud-cutout-1100.webp" imagesrcset="mahmoud-cutout-640.webp 640w, mahmoud-cutout-1100.webp 1100w" imagesizes="(max-width: 960px) 92vw, 560px">
 
 <script type="importmap">
@@ -197,6 +231,20 @@
     --stone: #eee7d8;
     --haze: #a49bc2;
     --sun: #f2c66d;
+    /* translucent tones derived from the palette, swapped per theme */
+    --frost: rgb(18 10 38 / .8);
+    --hairline: rgb(255 255 255 / .06);
+    --shade: rgb(5 2 15 / .55);
+    --rim: rgb(182 163 255 / .5);
+    --halo: rgb(81 43 212 / .5);
+    --glow-gold: rgb(242 198 109 / .22);
+    --glow-violet: rgb(81 43 212 / .30);
+    --leader: rgb(182 163 255 / .38);
+    --tag: rgb(18 10 38 / .6);
+    --tag-line: rgb(255 255 255 / .12);
+    --shot-line: rgb(255 255 255 / .14);
+    --icon-line: rgb(255 255 255 / .08);
+    --backdrop: rgb(8 4 20 / .78);
 
     --font: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-ar: 'Reem Kufi', 'Geeza Pro', 'Noto Kufi Arabic', sans-serif;
@@ -205,6 +253,34 @@
     --gutter: clamp(20px, 5vw, 64px);
     --space: clamp(112px, 13vw, 184px);
     color-scheme: dark;
+  }
+  /* light theme: warm paper, deep violet ink, and the logo's light colours (#512bd4, #d4972c) */
+  :root[data-theme="light"] {
+    --ink: #f6f2ea;
+    --ink-2: #fffdf8;
+    --line: #ddd4ec;
+    --lilac: #5634d6;
+    --stone: #1c1336;
+    --haze: #5d5577;
+    --sun: #d4972c;
+    --frost: rgb(246 242 234 / .82);
+    --hairline: rgb(28 19 54 / .08);
+    --shade: rgb(40 24 90 / .22);
+    --rim: rgb(81 43 212 / .22);
+    --halo: rgb(81 43 212 / .2);
+    --glow-gold: rgb(242 198 109 / .5);
+    --glow-violet: rgb(123 92 255 / .3);
+    --leader: rgb(86 52 214 / .45);
+    --tag: rgb(255 253 248 / .78);
+    --tag-line: rgb(28 19 54 / .1);
+    --shot-line: rgb(28 19 54 / .1);
+    --icon-line: rgb(28 19 54 / .08);
+    --backdrop: rgb(28 19 54 / .55);
+    color-scheme: light;
+  }
+  /* colours ease across when the theme is switched, and only then */
+  .theme-switching, .theme-switching *, .theme-switching *::before, .theme-switching *::after {
+    transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease, stroke .4s ease !important;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -238,7 +314,7 @@
     transition: padding-top .3s ease, padding-bottom .3s ease, background-color .3s ease, border-color .3s ease;
   }
   .topbar.is-scrolled {
-    padding-top: 11px; padding-bottom: 11px; background: rgb(18 10 38 / .8); border-bottom-color: rgb(255 255 255 / .06);
+    padding-top: 11px; padding-bottom: 11px; background: var(--frost); border-bottom-color: var(--hairline);
     -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
   }
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
@@ -246,7 +322,7 @@
   .brand img { width: 42px; height: 42px; transition: width .3s ease, height .3s ease; }
   .topbar.is-scrolled .brand img { width: 34px; height: 34px; }
   .skip-link {
-    position: fixed; z-index: 20; top: 12px; left: 12px; padding: 10px 18px; border-radius: 999px;
+    position: fixed; z-index: 20; top: 12px; inset-inline-start: 12px; padding: 10px 18px; border-radius: 999px;
     background: var(--stone); color: var(--ink); font-weight: 600; text-decoration: none;
     transform: translateY(-160%); transition: transform .2s ease;
   }
@@ -258,6 +334,33 @@
     transition: color .2s, text-decoration-color .2s;
   }
   .nav a:hover { color: var(--stone); text-decoration-color: var(--lilac); }
+  .nav .lang-switch {
+    padding: 1px 12px 3px; margin-block: -2px; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--stone); text-decoration: none; transition: border-color .2s;
+  }
+  .nav .lang-switch:hover { border-color: var(--lilac); }
+  .lang-short { display: none; }
+  .nav { margin-inline-start: auto; }
+  :root[data-theme="light"] #comb stop:last-child { stop-color: #4b2cc6; }
+  .theme-toggle {
+    display: grid; place-items: center; width: 34px; height: 34px; flex: none; padding: 0; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--stone); transition: border-color .2s;
+  }
+  .theme-toggle:hover { border-color: var(--lilac); }
+  .theme-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .theme-toggle .icon-moon, .brand .mark-light { display: none; }
+  :root[data-theme="light"] .theme-toggle .icon-sun, :root[data-theme="light"] .brand .mark-dark { display: none; }
+  :root[data-theme="light"] .theme-toggle .icon-moon, :root[data-theme="light"] .brand .mark-light { display: block; }
+
+  /* Arabic (?lang=ar): right to left, Kufi type for Arabic letters (Latin stays in Archivo),
+     roomier lines, and no negative tracking, which would break the joined letters */
+  .i18n-pending body { visibility: hidden; }
+  :root[lang="ar"] { --font: 'Archivo', 'Noto Kufi Arabic', 'Geeza Pro', sans-serif; }
+  :root[lang="ar"] body { line-height: 1.85; }
+  :root[lang="ar"] :is(h1, h2, h3, .hero-role, .cp-lead, .contact-mail) { letter-spacing: 0; }
+  :root[lang="ar"] .hero-name { font-family: var(--font-ar); font-weight: 600; font-stretch: normal; line-height: 1.2; }
+  :root[lang="ar"] .hero-ar { font-family: var(--font); font-weight: 700; font-stretch: 125%; letter-spacing: .01em; }
+  :root[lang="ar"] .tools li { direction: ltr; unicode-bidi: isolate; }
 
   /* ── Hero ── */
   .hero { position: relative; display: grid; min-height: clamp(660px, 100svh, 1040px); overflow: clip; isolation: isolate; }
@@ -286,6 +389,7 @@
   .btn:hover { border-color: var(--lilac); }
   .btn-primary { background: var(--stone); border-color: var(--stone); color: var(--ink); }
   .btn-primary:hover { background: #fff; border-color: #fff; }
+  :root[data-theme="light"] .btn-primary:hover { background: var(--violet); border-color: var(--violet); color: #fff; }
 
   /* the portrait is centred on the same band as the words (same top and bottom space as .hero-copy) */
   .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 132px 96px; }
@@ -297,7 +401,7 @@
   /* the glow lives on the wrapper so the image's fade-out mask can't clip it */
   .portrait {
     position: relative; z-index: 1;
-    filter: drop-shadow(0 0 1.5px rgb(182 163 255 / .5)) drop-shadow(0 0 36px rgb(81 43 212 / .5));
+    filter: drop-shadow(0 0 1.5px var(--rim)) drop-shadow(0 0 36px var(--halo));
   }
   .portrait img {
     width: 100%; height: auto;
@@ -308,7 +412,7 @@
   .portrait-frame::before {
     content: ''; position: absolute; z-index: 0; left: 53%; top: 30%; width: 92%; aspect-ratio: 1;
     translate: -50% -50%; border-radius: 50%; pointer-events: none;
-    background: radial-gradient(closest-side, rgb(242 198 109 / .22), rgb(81 43 212 / .30) 48%, transparent 100%);
+    background: radial-gradient(closest-side, var(--glow-gold), var(--glow-violet) 48%, transparent 100%);
     filter: blur(24px);
   }
 
@@ -344,15 +448,15 @@
   /* Experience: a timeline, newest first */
   .timeline { position: relative; display: grid; gap: clamp(56px, 6vw, 88px); }
   .timeline::before {
-    content: ''; position: absolute; left: 7px; top: 14px; bottom: 0; width: 1px;
+    content: ''; position: absolute; inset-inline-start: 7px; top: 14px; bottom: 0; width: 1px;
     background: linear-gradient(var(--line) 80%, transparent);
   }
-  .role { position: relative; display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 14px clamp(24px, 4vw, 64px); padding-left: 44px; }
+  .role { position: relative; display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 14px clamp(24px, 4vw, 64px); padding-inline-start: 44px; }
   .role::before, .role::after {
     content: ''; position: absolute; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   }
-  .role::before { left: 0; top: 6px; width: 15px; height: 17px; background: var(--line); }
-  .role::after { left: 3px; top: 9.5px; width: 9px; height: 10px; background: var(--ink); }
+  .role::before { inset-inline-start: 0; top: 6px; width: 15px; height: 17px; background: var(--line); }
+  .role::after { inset-inline-start: 3px; top: 9.5px; width: 9px; height: 10px; background: var(--ink); }
   .role.is-current::before { background: var(--sun); }
   .role.is-current::after { display: none; }
   .role-when { color: var(--haze); font-size: 15px; line-height: 1.5; font-variant-numeric: tabular-nums; }
@@ -373,7 +477,7 @@
   .stack-visual canvas, .stack-visual .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
   .stack-visual .fallback { padding: 12%; }
   .stack-leaders { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: 0; transition: opacity .3s; }
-  .stack-leaders path { fill: none; stroke: rgb(182 163 255 / .38); stroke-width: 1; transition: stroke .2s; }
+  .stack-leaders path { fill: none; stroke: var(--leader); stroke-width: 1; transition: stroke .2s; }
   .stack-leaders circle { fill: var(--lilac); transition: fill .2s, opacity .2s; }
   .stack-leaders .is-focus path { stroke: var(--lilac); }
   .stack-leaders .is-dim circle { opacity: .35; }
@@ -390,8 +494,8 @@
     content: ''; width: 12px; height: 14px; flex: none; background: var(--c);
     clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   }
-  .layer p { color: var(--haze); font-size: 15px; line-height: 1.55; margin: 6px 0 10px 24px; max-width: 36em; }
-  .tools { display: flex; flex-wrap: wrap; gap: 6px; margin-left: 24px; }
+  .layer p { color: var(--haze); font-size: 15px; line-height: 1.55; margin-block: 6px 10px; margin-inline-start: 24px; max-width: 36em; }
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; margin-inline-start: 24px; }
   .tools li { font-size: 14px; font-weight: 500; line-height: 1.3; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; }
   .stack-stage.has-focus .layer:not(.is-focus) { opacity: .45; }
   .stack-also { margin-top: clamp(32px, 4vw, 56px); color: var(--haze); max-width: 40em; }
@@ -421,7 +525,7 @@
     --spread: 76px; --angle: 7deg; --drop: 16px;
     position: absolute; left: 50%; bottom: -46px; width: 166px; height: auto; aspect-ratio: 9 / 16; margin-left: -83px;
     object-fit: cover; object-position: top; border-radius: 20px; background: var(--ink);
-    border: 1px solid rgb(255 255 255 / .14); box-shadow: 0 26px 50px rgb(5 2 15 / .55);
+    border: 1px solid var(--shot-line); box-shadow: 0 26px 50px var(--shade);
     transform: translate3d(calc(var(--k) * var(--spread)), calc(var(--d) * var(--drop)), calc((2 - var(--d)) * 22px)) rotate(calc(var(--k) * var(--angle)));
     transition: transform .8s cubic-bezier(.2, .75, .25, 1), opacity .6s ease;
   }
@@ -435,9 +539,9 @@
   .showcase.is-dealing .shot { transition-delay: calc(var(--d) * 120ms + 80ms); }
 
   .showcase-tag {
-    position: absolute; z-index: 2; top: 16px; left: 18px; display: inline-flex; align-items: center; gap: 8px;
+    position: absolute; z-index: 2; top: 16px; inset-inline-start: 18px; display: inline-flex; align-items: center; gap: 8px;
     padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--stone);
-    background: rgb(18 10 38 / .6); border: 1px solid rgb(255 255 255 / .12);
+    background: var(--tag); border: 1px solid var(--tag-line);
     -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   }
   /* the sun dot marks the current job, as in the Experience timeline */
@@ -446,7 +550,7 @@
   .showcase-stat { color: var(--haze); font-size: 15px; }
   .showcase-stat strong { color: var(--stone); font-size: 17px; font-weight: 750; font-stretch: 112%; }
   .showcase-head { display: flex; align-items: center; gap: 14px; }
-  .showcase-icon { width: 56px; height: 56px; border-radius: 15px; flex: none; box-shadow: 0 0 0 1px rgb(255 255 255 / .08); }
+  .showcase-icon { width: 56px; height: 56px; border-radius: 15px; flex: none; box-shadow: 0 0 0 1px var(--icon-line); }
   .showcase-name { font-size: 23px; font-weight: 750; font-stretch: 115%; line-height: 1.15; letter-spacing: -.01em; }
   .showcase-alt { color: var(--haze); font-size: 16px; font-weight: 500; font-stretch: 100%; margin-inline-start: 6px; }
   .showcase-role { margin-top: 3px; color: color-mix(in srgb, var(--app) 70%, var(--stone)); font-size: 14px; font-weight: 650; }
@@ -513,10 +617,10 @@
     width: min(1040px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0;
     border: 1px solid var(--line); border-radius: 14px; background: var(--ink-2); color: var(--stone); overflow: auto;
   }
-  .cert::backdrop { background: rgb(8 4 20 / .78); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .cert::backdrop { background: var(--backdrop); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
   .cert-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 18px; }
   .cert-bar h2 { font-size: 16px; font-weight: 650; font-stretch: 108%; white-space: nowrap; }
-  .cert-actions { display: flex; align-items: center; gap: 18px; font-size: 15px; margin-left: auto; }
+  .cert-actions { display: flex; align-items: center; gap: 18px; font-size: 15px; margin-inline-start: auto; }
   .cert-actions a { color: var(--lilac); text-underline-offset: 4px; white-space: nowrap; }
   .cert-close { min-height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--stone); font: inherit; font-weight: 600; cursor: pointer; }
   .cert-close:hover { border-color: var(--lilac); }
@@ -532,7 +636,7 @@
     .stack-stage { grid-template-columns: minmax(0, 1fr); }
     .stack-visual { width: min(100%, 560px); margin-inline: auto; }
     .cp, .split { grid-template-columns: minmax(0, 1fr); }
-    .role { grid-template-columns: minmax(0, 1fr); padding-left: 36px; }
+    .role { grid-template-columns: minmax(0, 1fr); padding-inline-start: 36px; }
     .showcases { grid-template-columns: minmax(0, 1fr); }
     .showcase.is-featured, .showcase.is-featured.is-flipped { grid-template-columns: minmax(0, 1fr); }
     .showcase.is-featured .showcase-stage { order: 0; height: 360px; }
@@ -546,6 +650,16 @@
     .hero-actions .btn { flex: 1 1 auto; }
     .contact-note { margin-top: -28px; }
   }
+  /* phones: five menu items share the bar with the logo, so tighten them and shorten the language pill */
+  @media (max-width: 430px) {
+    .topbar .wrap { gap: 12px; }
+    .nav { gap: 10px; font-size: 13px; }
+    .nav .lang-switch { padding: 0 8px 2px; }
+    .lang-full { display: none; }
+    .lang-short { display: inline; }
+    .theme-toggle { width: 30px; height: 30px; }
+    .nav .nav-wide { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions, .js .portrait { animation: none; }
@@ -555,19 +669,27 @@
 </head>
 <body>
 
-<a class="skip-link" href="#top">Skip to content</a>
+<a class="skip-link" href="#top" data-i18n="skip">Skip to content</a>
 
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Mahmoud Sharabati, back to top">
-      <img src="brand/mark.svg" alt="" width="42" height="42">
+    <a class="brand" href="#top" aria-label="Mahmoud Sharabati, back to top" data-i18n-attr="aria-label=brand">
+      <img class="mark-dark" src="brand/mark.svg" alt="" width="42" height="42">
+      <img class="mark-light" src="brand/mark-light.svg" alt="" width="42" height="42">
     </a>
-    <nav class="nav" aria-label="Sections">
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav" aria-label="Sections" data-i18n-attr="aria-label=nav">
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#experience" data-i18n="nav.experience">Experience</a>
+      <a class="nav-wide" href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <a class="lang-switch" href="?lang=ar" hreflang="ar" lang="ar" aria-label="العربية" data-lang-switch><span class="lang-full">عربي</span><span class="lang-short" aria-hidden="true">ع</span></a>
     </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle
+            data-label-light="Switch to light theme" data-label-dark="Switch to dark theme"
+            data-i18n-attr="data-label-light=theme.light;data-label-dark=theme.dark">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M5.4 18.6 7 17M17 7l1.6-1.6"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8Z"/></svg>
+    </button>
   </div>
 </header>
 
@@ -577,12 +699,12 @@
   <section class="hero" aria-labelledby="hero-name">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="hero-ar" lang="ar" dir="rtl">محمود شرباتي</p>
+        <p class="hero-ar" lang="ar" dir="rtl">محمود شراباتي</p>
         <h1 class="hero-name" id="hero-name"><span>Mahmoud</span> <span>Sharabati</span></h1>
-        <p class="hero-role">Senior .NET Core developer in Aleppo, Syria</p>
-        <p class="hero-intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. I've shipped .NET for over four years, including the APIs behind apps on Google Play and the App Store. Today I build and maintain management systems at HASH Information Technology, and scale the back end of Wasiitak, a marketplace with 10K+ downloads.</p>
+        <p class="hero-role" data-i18n="hero.role">Senior .NET Core developer in Aleppo, Syria</p>
+        <p class="hero-intro" data-i18n="hero.intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. I've shipped .NET for over four years, including the APIs behind apps on Google Play and the App Store. Today I build and maintain management systems at HASH Information Technology, and scale the back end of Wasiitak, a marketplace with 10K+ downloads.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="mailto:mahmoud.sharabati.dev@gmail.com">Email me</a>
+          <a class="btn btn-primary" href="mailto:mahmoud.sharabati.dev@gmail.com" data-i18n="hero.email">Email me</a>
           <a class="btn" href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
@@ -594,7 +716,7 @@
                  srcset="mahmoud-cutout-640.webp 640w, mahmoud-cutout-1100.webp 1100w"
                  sizes="(max-width: 960px) 92vw, 560px"
                  width="1100" height="1316"
-                 alt="Mahmoud Sharabati in a stone-coloured blazer and sunglasses"
+                 alt="Mahmoud Sharabati in a stone-coloured blazer and sunglasses" data-i18n-attr="alt=hero.photo"
                  fetchpriority="high">
           </div>
         </div>
@@ -605,12 +727,12 @@
   <!-- PROJECTS -->
   <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      <h2 class="section-title" id="projects-title">Apps I've worked on</h2>
-      <p class="section-lead">Live apps from Evolvo, where I work now, and from Elkood. Each card shows what the app does and the part I played.</p>
+      <h2 class="section-title" id="projects-title" data-i18n="projects.title">Apps I've worked on</h2>
+      <p class="section-lead" data-i18n="projects.lead">Live apps from Evolvo, where I work now, and from Elkood. Each card shows what the app does and the part I played.</p>
       <div class="showcases">
         <article class="showcase is-featured" style="--app: #fa8c1b" aria-labelledby="app-wasiitak">
           <div class="showcase-stage">
-            <p class="showcase-tag is-current">Evolvo <span class="visually-hidden">(current job)</span></p>
+            <p class="showcase-tag is-current" data-i18n="projects.current">Evolvo <span class="visually-hidden">(current job)</span></p>
             <div class="fan" aria-hidden="true">
               <img class="shot" src="apps/wasiitak/1.webp" alt="" width="440" height="957" loading="lazy" decoding="async" style="--k: -1.5; --d: 1.5">
               <img class="shot" src="apps/wasiitak/2.webp" alt="" width="440" height="954" loading="lazy" decoding="async" style="--k: -.5; --d: .5">
@@ -622,13 +744,13 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/wasiitak/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-wasiitak">Wasiitak <span class="showcase-alt" lang="ar">وسيطك</span></h3>
-                <p class="showcase-role">Back end, scaling, DevOps and data</p>
+                <h3 class="showcase-name" id="app-wasiitak" data-i18n="app.wasiitak.name">Wasiitak <span class="showcase-alt" lang="ar">وسيطك</span></h3>
+                <p class="showcase-role" data-i18n="app.wasiitak.role">Back end, scaling, DevOps and data</p>
               </div>
             </div>
-            <p class="showcase-what">A marketplace that sits between buyers and sellers: free ads, browsing by category and location, in-app chat, and ratings to build trust.</p>
-            <p class="showcase-stat"><strong>10K+</strong> downloads on Google Play</p>
-            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.itlegend.wasiitk" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on Google Play">Google Play</a></p>
+            <p class="showcase-what" data-i18n="app.wasiitak.what">A marketplace that sits between buyers and sellers: free ads, browsing by category and location, in-app chat, and ratings to build trust.</p>
+            <p class="showcase-stat" data-i18n="app.wasiitak.stat"><strong>10K+</strong> downloads on Google Play</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.itlegend.wasiitk" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on Google Play" data-i18n-attr="aria-label=app.wasiitak.play">Google Play</a></p>
           </div>
         </article>
 
@@ -646,12 +768,12 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/mrcourse/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-mrcourse">Mr Course</h3>
-                <p class="showcase-role">Designed the APIs</p>
+                <h3 class="showcase-name" id="app-mrcourse" data-i18n="app.mrcourse.name">Mr Course</h3>
+                <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what">A study app for medical students: video lessons, practice tests, and favourites to keep the lessons that matter.</p>
-            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.mrcourse.mrcourse" target="_blank" rel="noopener noreferrer" aria-label="Mr Course on Google Play">Google Play</a></p>
+            <p class="showcase-what" data-i18n="app.mrcourse.what">A study app for medical students: video lessons, practice tests, and favourites to keep the lessons that matter.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.mrcourse.mrcourse" target="_blank" rel="noopener noreferrer" aria-label="Mr Course on Google Play" data-i18n-attr="aria-label=app.mrcourse.play">Google Play</a></p>
           </div>
         </article>
 
@@ -667,12 +789,12 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/flyorder/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-flyorder">Fly Order</h3>
-                <p class="showcase-role">Designed the APIs</p>
+                <h3 class="showcase-name" id="app-flyorder" data-i18n="app.flyorder.name">Fly Order</h3>
+                <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what">Delivery from restaurants, supermarkets and pharmacies.</p>
-            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.fly_order.fly_order" target="_blank" rel="noopener noreferrer" aria-label="Fly Order on Google Play">Google Play</a></p>
+            <p class="showcase-what" data-i18n="app.flyorder.what">Delivery from restaurants, supermarkets and pharmacies.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.fly_order.fly_order" target="_blank" rel="noopener noreferrer" aria-label="Fly Order on Google Play" data-i18n-attr="aria-label=app.flyorder.play">Google Play</a></p>
           </div>
         </article>
 
@@ -688,12 +810,12 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/adsnet/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-adsnet">Ads Net <span class="showcase-alt" lang="ar">إعلان نت</span></h3>
-                <p class="showcase-role">Designed the APIs</p>
+                <h3 class="showcase-name" id="app-adsnet" data-i18n="app.adsnet.name">Ads Net <span class="showcase-alt" lang="ar">إعلان نت</span></h3>
+                <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what">Users earn points for watching ads, then spend them or gift them to others.</p>
-            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.ads_net" target="_blank" rel="noopener noreferrer" aria-label="Ads Net on Google Play">Google Play</a></p>
+            <p class="showcase-what" data-i18n="app.adsnet.what">Users earn points for watching ads, then spend them or gift them to others.</p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.ads_net" target="_blank" rel="noopener noreferrer" aria-label="Ads Net on Google Play" data-i18n-attr="aria-label=app.adsnet.play">Google Play</a></p>
           </div>
         </article>
 
@@ -710,12 +832,12 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/jenacom/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-jenacom">Jenacom</h3>
-                <p class="showcase-role">Designed the APIs</p>
+                <h3 class="showcase-name" id="app-jenacom" data-i18n="app.jenacom.name">Jenacom</h3>
+                <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what">Delivers goods between cities: drivers accept orders, follow the day's route and share their location.</p>
-            <p class="showcase-links"><a class="pill" href="https://apps.apple.com/us/app/jenacom/id6468572186" target="_blank" rel="noopener noreferrer" aria-label="Jenacom on the App Store">App Store</a></p>
+            <p class="showcase-what" data-i18n="app.jenacom.what">Delivers goods between cities: drivers accept orders, follow the day's route and share their location.</p>
+            <p class="showcase-links"><a class="pill" href="https://apps.apple.com/us/app/jenacom/id6468572186" target="_blank" rel="noopener noreferrer" aria-label="Jenacom on the App Store" data-i18n-attr="aria-label=app.jenacom.store">App Store</a></p>
           </div>
         </article>
 
@@ -732,14 +854,14 @@
             <div class="showcase-head">
               <img class="showcase-icon" src="apps/bronz/icon.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
               <div>
-                <h3 class="showcase-name" id="app-bronz">Bronz <span class="showcase-alt" lang="ar">برونز</span></h3>
-                <p class="showcase-role">Supervised development</p>
+                <h3 class="showcase-name" id="app-bronz" data-i18n="app.bronz.name">Bronz <span class="showcase-alt" lang="ar">برونز</span></h3>
+                <p class="showcase-role" data-i18n="app.bronz.role">Supervised development</p>
               </div>
             </div>
-            <p class="showcase-what">Online kids' clothing store for ages 1 to 16.</p>
+            <p class="showcase-what" data-i18n="app.bronz.what">Online kids' clothing store for ages 1 to 16.</p>
             <p class="showcase-links">
-              <a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.bronze" target="_blank" rel="noopener noreferrer" aria-label="Bronz on Google Play">Google Play</a>
-              <a class="pill" href="https://apps.apple.com/us/app/bronz-mart/id6503243545" target="_blank" rel="noopener noreferrer" aria-label="Bronz on the App Store">App Store</a>
+              <a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.bronze" target="_blank" rel="noopener noreferrer" aria-label="Bronz on Google Play" data-i18n-attr="aria-label=app.bronz.play">Google Play</a>
+              <a class="pill" href="https://apps.apple.com/us/app/bronz-mart/id6503243545" target="_blank" rel="noopener noreferrer" aria-label="Bronz on the App Store" data-i18n-attr="aria-label=app.bronz.store">App Store</a>
             </p>
           </div>
         </article>
@@ -750,56 +872,56 @@
   <!-- WORK EXPERIENCE -->
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
-      <h2 class="section-title" id="experience-title">Experience</h2>
+      <h2 class="section-title" id="experience-title" data-i18n="exp.title">Experience</h2>
       <ol class="timeline">
         <li class="role is-current">
           <div class="role-when">
-            <span class="role-dates"><time datetime="2026-04">Apr 2026</time> – present</span>
+            <span class="role-dates" data-i18n="exp.hash.dates"><time datetime="2026-04">Apr 2026</time> – present</span>
           </div>
           <article aria-labelledby="role-hash">
-            <h3 class="role-title" id="role-hash">.NET Developer <span class="role-org">at HASH Information Technology</span></h3>
-            <p class="role-where">Remote</p>
+            <h3 class="role-title" id="role-hash" data-i18n="exp.hash.title">.NET Developer <span class="role-org">at HASH Information Technology</span></h3>
+            <p class="role-where" data-i18n="exp.remote">Remote</p>
             <ul class="role-points">
-              <li><strong>Management systems.</strong> Developing and maintaining the management systems <a href="https://hashsd.com" target="_blank" rel="noopener noreferrer">HASH</a> builds for businesses and institutions, from new modules to fixes in production.</li>
-              <li><strong>Database design.</strong> Designing relational schemas that model each client's business processes, with a focus on data integrity and fast queries as the data grows.</li>
-              <li><strong>API development.</strong> Building ASP.NET Core APIs that carry the business workflows and serve the systems' front ends.</li>
-              <li><strong>Business requirements.</strong> Turning business needs into working features, and structuring them with Clean Architecture so the systems stay easy to extend.</li>
-              <li><strong>Maintenance &amp; performance.</strong> Keeping systems healthy in production: tracking down bugs, tuning slow queries and endpoints, and adapting features as clients' needs change.</li>
+              <li data-i18n="exp.hash.1"><strong>Management systems.</strong> Developing and maintaining the management systems <a href="https://hashsd.com" target="_blank" rel="noopener noreferrer">HASH</a> builds for businesses and institutions, from new modules to fixes in production.</li>
+              <li data-i18n="exp.hash.2"><strong>Database design.</strong> Designing relational schemas that model each client's business processes, with a focus on data integrity and fast queries as the data grows.</li>
+              <li data-i18n="exp.hash.3"><strong>API development.</strong> Building ASP.NET Core APIs that carry the business workflows and serve the systems' front ends.</li>
+              <li data-i18n="exp.hash.4"><strong>Business requirements.</strong> Turning business needs into working features, and structuring them with Clean Architecture so the systems stay easy to extend.</li>
+              <li data-i18n="exp.hash.5"><strong>Maintenance &amp; performance.</strong> Keeping systems healthy in production: tracking down bugs, tuning slow queries and endpoints, and adapting features as clients' needs change.</li>
             </ul>
           </article>
         </li>
         <li class="role is-current">
           <div class="role-when">
-            <span class="role-dates"><time datetime="2025-11">Nov 2025</time> – present</span>
-            Part-time, then contract from <time datetime="2026-05">May 2026</time>
+            <span class="role-dates" data-i18n="exp.evolvo.dates"><time datetime="2025-11">Nov 2025</time> – present</span>
+            <span data-i18n="exp.evolvo.type">Part-time, then contract from <time datetime="2026-05">May 2026</time></span>
           </div>
           <article aria-labelledby="role-evolvo">
-            <h3 class="role-title" id="role-evolvo">.NET Developer <span class="role-org">at Evolvo</span></h3>
-            <p class="role-where">Aleppo, Syria</p>
+            <h3 class="role-title" id="role-evolvo" data-i18n="exp.evolvo.title">.NET Developer <span class="role-org">at Evolvo</span></h3>
+            <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
             <ul class="role-points">
-              <li><strong>Wasiitak.</strong> Enhancing and scaling the back end of this buy-and-sell marketplace (10K+ downloads), and running its DevOps and data (see <a href="#projects">Projects</a>).</li>
-              <li><strong>Feature development.</strong> Designed and implemented responsive administrative dashboards using Blazor and .NET Core, focusing on real-time data visualization and efficient management tools.</li>
-              <li><strong>Production support.</strong> Managed the application in a live production environment, performing regular server health checks and technical troubleshooting to ensure 99.9% uptime.</li>
-              <li><strong>Technical support &amp; optimization.</strong> Acted as the primary point of contact for technical issues, identifying root causes in production logs and deploying hotfixes to improve system stability.</li>
+              <li data-i18n="exp.evolvo.1"><strong>Wasiitak.</strong> Enhancing and scaling the back end of this buy-and-sell marketplace (10K+ downloads), and running its DevOps and data (see <a href="#projects">Projects</a>).</li>
+              <li data-i18n="exp.evolvo.2"><strong>Feature development.</strong> Designed and implemented responsive administrative dashboards using Blazor and .NET Core, focusing on real-time data visualization and efficient management tools.</li>
+              <li data-i18n="exp.evolvo.3"><strong>Production support.</strong> Managed the application in a live production environment, performing regular server health checks and technical troubleshooting to ensure 99.9% uptime.</li>
+              <li data-i18n="exp.evolvo.4"><strong>Technical support &amp; optimization.</strong> Acted as the primary point of contact for technical issues, identifying root causes in production logs and deploying hotfixes to improve system stability.</li>
             </ul>
           </article>
         </li>
         <li class="role">
           <div class="role-when">
-            <span class="role-dates"><time datetime="2022-05">May 2022</time> – <time datetime="2024-04">Apr 2024</time></span>
-            Full-time
+            <span class="role-dates" data-i18n="exp.elkood.dates"><time datetime="2022-05">May 2022</time> – <time datetime="2024-04">Apr 2024</time></span>
+            <span data-i18n="exp.elkood.type">Full-time</span>
           </div>
           <article aria-labelledby="role-elkood">
-            <h3 class="role-title" id="role-elkood">.NET Backend Developer <span class="role-org">at Elkood</span></h3>
-            <p class="role-where">Aleppo, Syria</p>
+            <h3 class="role-title" id="role-elkood" data-i18n="exp.elkood.title">.NET Backend Developer <span class="role-org">at Elkood</span></h3>
+            <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
             <ul class="role-points">
-              <li><strong>Apps in production.</strong> Designed the APIs behind Fly Order, Mr Course, Ads Net and Jenacom, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
-              <li><strong>System architecture.</strong> Architected and deployed scalable back-end solutions using .NET Core/6+, translating complex business requirements into high-performance web applications.</li>
-              <li><strong>API integration &amp; payment systems.</strong> Streamlined business operations by integrating third-party services including Stripe, Google APIs, and Telegram for automated notification systems.</li>
-              <li><strong>Infrastructure &amp; tooling.</strong> Developed and maintained shared internal libraries, reducing boilerplate code across multiple projects and accelerating the development lifecycle.</li>
-              <li><strong>Code quality &amp; optimization.</strong> Refactored legacy codebases to implement modern design patterns, resulting in measurable decreases in production bugs and faster project delivery.</li>
-              <li><strong>Mentorship &amp; leadership.</strong> Mentored engineering interns through code reviews and technical workshops to foster a high-performing development team.</li>
-              <li><strong>Technical problem solving.</strong> Engineered custom solutions for diverse business sectors, ensuring high availability and alignment with industry best practices.</li>
+              <li data-i18n="exp.elkood.1"><strong>Apps in production.</strong> Designed the APIs behind Fly Order, Mr Course, Ads Net and Jenacom, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
+              <li data-i18n="exp.elkood.2"><strong>System architecture.</strong> Architected and deployed scalable back-end solutions using .NET Core/6+, translating complex business requirements into high-performance web applications.</li>
+              <li data-i18n="exp.elkood.3"><strong>API integration &amp; payment systems.</strong> Streamlined business operations by integrating third-party services including Stripe, Google APIs, and Telegram for automated notification systems.</li>
+              <li data-i18n="exp.elkood.4"><strong>Infrastructure &amp; tooling.</strong> Developed and maintained shared internal libraries, reducing boilerplate code across multiple projects and accelerating the development lifecycle.</li>
+              <li data-i18n="exp.elkood.5"><strong>Code quality &amp; optimization.</strong> Refactored legacy codebases to implement modern design patterns, resulting in measurable decreases in production bugs and faster project delivery.</li>
+              <li data-i18n="exp.elkood.6"><strong>Mentorship &amp; leadership.</strong> Mentored engineering interns through code reviews and technical workshops to foster a high-performing development team.</li>
+              <li data-i18n="exp.elkood.7"><strong>Technical problem solving.</strong> Engineered custom solutions for diverse business sectors, ensuring high availability and alignment with industry best practices.</li>
             </ul>
           </article>
         </li>
@@ -810,8 +932,8 @@
   <!-- SKILLS, AS ARCHITECTURE LAYERS -->
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      <h2 class="section-title" id="skills-title">How I structure a .NET solution</h2>
-      <p class="section-lead">Dependencies point inward. The domain is plain C# with no database or framework in it, so the business rules can be tested on their own. These are the tools I use at each layer.</p>
+      <h2 class="section-title" id="skills-title" data-i18n="skills.title">How I structure a .NET solution</h2>
+      <p class="section-lead" data-i18n="skills.lead">Dependencies point inward. The domain is plain C# with no database or framework in it, so the business rules can be tested on their own. These are the tools I use at each layer.</p>
 
       <div class="stack-stage">
         <div class="stack-visual" aria-hidden="true">
@@ -827,28 +949,28 @@
 
         <ol class="layers">
           <li class="layer" data-layer="domain">
-            <h3>Domain</h3>
-            <p>Entities, value objects and aggregates, modelled with Domain-Driven Design.</p>
+            <h3 data-i18n="layer.domain">Domain</h3>
+            <p data-i18n="layer.domain.text">Entities, value objects and aggregates, modelled with Domain-Driven Design.</p>
             <ul class="tools"><li>C#</li><li>Domain-Driven Design</li></ul>
           </li>
           <li class="layer" data-layer="application">
-            <h3>Application</h3>
-            <p>Use cases that coordinate the domain and declare the interfaces the outer layers implement.</p>
+            <h3 data-i18n="layer.application">Application</h3>
+            <p data-i18n="layer.application.text">Use cases that coordinate the domain and declare the interfaces the outer layers implement.</p>
             <ul class="tools"><li>.NET Core</li><li>Clean Architecture</li></ul>
           </li>
           <li class="layer" data-layer="presentation">
-            <h3>Presentation</h3>
-            <p>Admin dashboards, interactive UIs and HTTP APIs.</p>
+            <h3 data-i18n="layer.presentation">Presentation</h3>
+            <p data-i18n="layer.presentation.text">Admin dashboards, interactive UIs and HTTP APIs.</p>
             <ul class="tools"><li>Blazor (SSR &amp; WASM)</li><li>MudBlazor</li><li>ASP.NET Core</li></ul>
           </li>
           <li class="layer" data-layer="infrastructure">
-            <h3>Infrastructure</h3>
-            <p>Persistence and the third-party services the use cases depend on.</p>
+            <h3 data-i18n="layer.infrastructure">Infrastructure</h3>
+            <p data-i18n="layer.infrastructure.text">Persistence and the third-party services the use cases depend on.</p>
             <ul class="tools"><li>PostgreSQL</li><li>Stripe API</li><li>Google APIs</li><li>Telegram Bots</li></ul>
           </li>
           <li class="layer" data-layer="hosting">
-            <h3>Hosting</h3>
-            <p>Where it all runs in production.</p>
+            <h3 data-i18n="layer.hosting">Hosting</h3>
+            <p data-i18n="layer.hosting.text">Where it all runs in production.</p>
             <ul class="tools"><li>Linux</li><li>Nginx</li><li>Docker</li></ul>
           </li>
         </ol>
@@ -856,49 +978,49 @@
         <svg class="stack-leaders" aria-hidden="true"></svg>
       </div>
 
-      <p class="stack-also">Around all of it: <strong>debugging</strong>, <strong>problem solving</strong> and <strong>mentoring</strong>.</p>
+      <p class="stack-also" data-i18n="skills.also">Around all of it: <strong>debugging</strong>, <strong>problem solving</strong> and <strong>mentoring</strong>.</p>
     </div>
   </section>
 
   <!-- COMPETITIVE PROGRAMMING -->
   <section class="section" id="codeforces" aria-labelledby="cp-title">
     <div class="wrap">
-      <h2 class="section-title" id="cp-title">Competitive programming</h2>
+      <h2 class="section-title" id="cp-title" data-i18n="cp.title">Competitive programming</h2>
       <div class="cp">
         <div class="cp-copy">
-          <p class="cp-lead">500+ problems solved on Codeforces.</p>
-          <p>I compete as <a href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer">00Mahmoud00</a>, mostly on dynamic programming, graph theory, mathematics, data structures, greedy and implementation problems.</p>
-          <p>My team placed 11th at the 2022 ICPC Aleppo University Contest and qualified for the next round. <a class="cert-link" href="Certificate.pdf" target="_blank" rel="noopener" aria-haspopup="dialog">View the certificate</a></p>
+          <p class="cp-lead" data-i18n="cp.lead">500+ problems solved on Codeforces.</p>
+          <p data-i18n="cp.handle">I compete as <a href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer">00Mahmoud00</a>, mostly on dynamic programming, graph theory, mathematics, data structures, greedy and implementation problems.</p>
+          <p><span data-i18n="cp.icpc">My team placed 11th at the 2022 ICPC Aleppo University Contest and qualified for the next round.</span> <a class="cert-link" data-i18n="cp.cert" href="Certificate.pdf" target="_blank" rel="noopener" aria-haspopup="dialog">View the certificate</a></p>
         </div>
         <figure class="honeycomb">
-          <svg role="img" aria-label="500 small hexagons, one for each solved problem"><defs><linearGradient id="comb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6a3ff"/><stop offset=".55" stop-color="#6a46f0"/><stop offset="1" stop-color="#2c2152"/></linearGradient></defs><path fill="url(#comb)"/></svg>
-          <figcaption>One cell for each solved problem.</figcaption>
+          <svg role="img" aria-label="500 small hexagons, one for each solved problem" data-i18n-attr="aria-label=cp.comb"><defs><linearGradient id="comb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6a3ff"/><stop offset=".55" stop-color="#6a46f0"/><stop offset="1" stop-color="#2c2152"/></linearGradient></defs><path fill="url(#comb)"/></svg>
+          <figcaption data-i18n="cp.caption">One cell for each solved problem.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
   <!-- EDUCATION + VOLUNTEERING -->
-  <section class="section" aria-label="Education and volunteering">
+  <section class="section" aria-label="Education and volunteering" data-i18n-attr="aria-label=edu.section">
     <div class="wrap split">
       <div>
-        <h2 class="section-title" id="education-title">Education</h2>
+        <h2 class="section-title" id="education-title" data-i18n="edu.title">Education</h2>
         <article class="entry" aria-labelledby="education-degree">
-          <h3 id="education-degree">B.Sc. in IT Engineering</h3>
-          <p class="meta">Aleppo University, <time datetime="2020-09">Sep 2020</time> – <time datetime="2026-11">Nov 2026</time></p>
+          <h3 id="education-degree" data-i18n="edu.degree">B.Sc. in IT Engineering</h3>
+          <p class="meta" data-i18n="edu.meta">Aleppo University, <time datetime="2020-09">Sep 2020</time> – <time datetime="2026-11">Nov 2026</time></p>
         </article>
       </div>
       <div>
-        <h2 class="section-title" id="volunteering-title">Volunteering</h2>
+        <h2 class="section-title" id="volunteering-title" data-i18n="vol.title">Volunteering</h2>
         <article class="entry" aria-labelledby="vol-sanad">
           <h3 id="vol-sanad">Sanad</h3>
-          <p class="meta"><time datetime="2025-03">Mar</time> – <time datetime="2025-05">May 2025</time>, Aleppo</p>
-          <p>Delivered a hands-on training course on <strong>.NET Core MVC</strong> at Al-Shahba Private University.</p>
+          <p class="meta" data-i18n="vol.sanad.meta"><time datetime="2025-03">Mar</time> – <time datetime="2025-05">May 2025</time>, Aleppo</p>
+          <p data-i18n="vol.sanad.text">Delivered a hands-on training course on <strong>.NET Core MVC</strong> at Al-Shahba Private University.</p>
         </article>
         <article class="entry" aria-labelledby="vol-bluebits">
           <h3 id="vol-bluebits">BlueBitsTeam</h3>
-          <p class="meta"><time datetime="2020-11">Nov 2020</time> – <time datetime="2022-11">Nov 2022</time>, Aleppo</p>
-          <p>Digitized university lectures by transforming professors' notes into structured digital materials, improving accessibility for students.</p>
+          <p class="meta" data-i18n="vol.bluebits.meta"><time datetime="2020-11">Nov 2020</time> – <time datetime="2022-11">Nov 2022</time>, Aleppo</p>
+          <p data-i18n="vol.bluebits.text">Digitized university lectures by transforming professors' notes into structured digital materials, improving accessibility for students.</p>
         </article>
       </div>
     </div>
@@ -909,31 +1031,31 @@
 <!-- CONTACT -->
 <footer class="contact" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
-    <h2 class="section-title" id="contact-title">Get in touch</h2>
-    <p class="contact-note">Email is the quickest way to reach me.</p>
-    <a class="contact-mail" href="mailto:mahmoud.sharabati.dev@gmail.com">mahmoud.sharabati.dev@gmail.com</a>
+    <h2 class="section-title" id="contact-title" data-i18n="contact.title">Get in touch</h2>
+    <p class="contact-note" data-i18n="contact.note">Email is the quickest way to reach me.</p>
+    <a class="contact-mail" dir="ltr" href="mailto:mahmoud.sharabati.dev@gmail.com">mahmoud.sharabati.dev@gmail.com</a>
     <ul class="contact-links">
-      <li><a href="tel:+963985839618">+963&nbsp;985&nbsp;839&nbsp;618</a></li>
+      <li><a href="tel:+963985839618" dir="ltr">+963&nbsp;985&nbsp;839&nbsp;618</a></li>
       <li><a href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       <li><a href="https://gitlab.com/mahmoudsh792" target="_blank" rel="noopener noreferrer">GitLab</a></li>
       <li><a href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer">Codeforces</a></li>
     </ul>
     <div class="fineprint">
-      <span>© <span data-year>2026</span> Mahmoud Sharabati</span>
-      <span>Aleppo, Syria</span>
+      <span data-i18n="footer.copy">© <span data-year>2026</span> Mahmoud Sharabati</span>
+      <span data-i18n="aleppo">Aleppo, Syria</span>
     </div>
   </div>
 </footer>
 
 <dialog class="cert" id="certificate" aria-labelledby="cert-title">
   <div class="cert-bar">
-    <h2 id="cert-title">ICPC certificate, 2022</h2>
+    <h2 id="cert-title" data-i18n="cert.title">ICPC certificate, 2022</h2>
     <div class="cert-actions">
-      <a href="Certificate.pdf" download>Download PDF</a>
-      <button type="button" class="cert-close" data-close>Close</button>
+      <a href="Certificate.pdf" download data-i18n="cert.download">Download PDF</a>
+      <button type="button" class="cert-close" data-close data-i18n="cert.close">Close</button>
     </div>
   </div>
-  <img src="certificate.webp" loading="lazy" width="1684" height="1190" alt="Certificate of Achievement: eleventh place at the 2022 ICPC Aleppo University Contest, 18 to 19 June 2022, Aleppo University.">
+  <img src="certificate.webp" loading="lazy" width="1684" height="1190" data-i18n-attr="alt=cert.alt" alt="Certificate of Achievement: eleventh place at the 2022 ICPC Aleppo University Contest, 18 to 19 June 2022, Aleppo University.">
 </dialog>
 
 <script>
@@ -1021,6 +1143,50 @@
 
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
+  // Theme toggle: flip data-theme and remember the choice.
+  (function () {
+    var root = document.documentElement, button = document.querySelector('[data-theme-toggle]');
+    var meta = document.querySelector('meta[name="theme-color"]');
+    function label() {
+      if (!button) return;
+      var text = button.getAttribute('data-label-' + (root.dataset.theme === 'light' ? 'dark' : 'light'));
+      button.setAttribute('aria-label', text);
+      button.title = text;
+    }
+    function apply(theme, animate) {
+      if (animate) {
+        root.classList.add('theme-switching');
+        setTimeout(function () { root.classList.remove('theme-switching'); }, 450);
+      }
+      root.dataset.theme = theme;
+      if (meta) meta.content = theme === 'light' ? '#f6f2ea' : '#120a26';
+      label();
+      document.dispatchEvent(new CustomEvent('themechange', { detail: theme }));
+    }
+    apply(root.dataset.theme === 'light' ? 'light' : 'dark');
+    if (button) button.addEventListener('click', function () {
+      var theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+      apply(theme, true);
+    });
+    // the Arabic translations replace the button's labels after this runs
+    document.addEventListener('i18n:applied', label);
+  })();
+
+  // Language switch: keep the rest of the query (such as ?lab) and turn lang=ar on or off.
+  (function () {
+    var link = document.querySelector('[data-lang-switch]');
+    if (!link || !window.URL) return;
+    var url = new URL(location.href), arabic = document.documentElement.lang === 'ar';
+    if (arabic) url.searchParams.delete('lang'); else url.searchParams.set('lang', 'ar');
+    link.href = url.pathname + url.search;
+    if (arabic) {
+      link.lang = 'en'; link.hreflang = 'en'; link.setAttribute('aria-label', 'English');
+      link.querySelector('.lang-full').textContent = 'English';
+      link.querySelector('.lang-short').textContent = 'EN';
+    }
+  })();
+
   // The 3D module marks <html> with has-3d once it runs; without it, show the static diagrams.
   setTimeout(function () {
     var root = document.documentElement;
@@ -1037,7 +1203,10 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const S3 = Math.sqrt(3) / 2;
-  const INK = new THREE.Color('#120a26');
+  // unfocused layers fade toward the page colour, which changes with the theme
+  const INK = new THREE.Color();
+  const readInk = () => INK.set(getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#120a26');
+  readInk();
   const lerp = THREE.MathUtils.lerp;
   const clamp01 = v => Math.min(Math.max(v, 0), 1);
   const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
@@ -1090,6 +1259,8 @@
         { emissive: '#f2c66d', emissiveIntensity: .55, roughness: .45, clearcoat: .3 }) },
   ];
 
+  const rtl = document.documentElement.dir === 'rtl';
+
   function buildStack() {
     const root = new THREE.Group();
     const spin = new THREE.Group();
@@ -1097,7 +1268,7 @@
     const layers = LAYERS.map(def => {
       const mesh = def.mesh();
       const anchor = new THREE.Object3D();
-      anchor.position.set(def.anchor[0], def.anchor[1], 0);
+      anchor.position.set(rtl ? -def.anchor[0] : def.anchor[0], def.anchor[1], 0);
       mesh.add(anchor);
       spin.add(mesh);
       return { key: def.key, level: def.level, mesh, anchor,
@@ -1224,8 +1395,8 @@
         const ax = c.left - s.left + (v.x + 1) / 2 * c.width;
         const ay = c.top - s.top + (1 - v.y) / 2 * c.height;
         const h = l.heading.getBoundingClientRect();
-        const ex = h.left - s.left - 14, ey = h.top - s.top + h.height / 2;
-        const knee = Math.max(ax + 12, ex - 36);
+        const ex = rtl ? h.right - s.left + 14 : h.left - s.left - 14, ey = h.top - s.top + h.height / 2;
+        const knee = rtl ? Math.min(ax - 12, ex + 36) : Math.max(ax + 12, ex - 36);
         l.path.setAttribute('d', `M${ax.toFixed(1)} ${ay.toFixed(1)}L${knee.toFixed(1)} ${ey.toFixed(1)}H${ex.toFixed(1)}`);
         l.dot.setAttribute('cx', ax.toFixed(1));
         l.dot.setAttribute('cy', ay.toFixed(1));
@@ -1244,6 +1415,7 @@
       if (progress !== target || turn !== turnAim) raf = requestAnimationFrame(tick);
     }
     function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+    document.addEventListener('themechange', () => { readInk(); kick(); });
 
     let near = false;
     new IntersectionObserver(([entry]) => {
@@ -1272,16 +1444,20 @@
   }
 </script>
 
-<!-- Background options, for review only: they load just for ?lab links. Remove once one is chosen. -->
+<!-- Background and photo-backdrop options, for review only: they load just for ?lab links. Remove once chosen. -->
 <script>
-  if (/[?&](lab|bg)\b/.test(location.search)) {
+  if (/[?&](lab|bg|photo)\b/.test(location.search)) {
     var labCss = document.createElement('link');
     labCss.rel = 'stylesheet';
     labCss.href = 'lab/backgrounds.css';
     document.head.append(labCss);
-    var labJs = document.createElement('script');
-    labJs.src = 'lab/backgrounds.js';
-    document.body.append(labJs);
+    // page backgrounds first: photo.js adds its row to their panel
+    ['lab/backgrounds.js', 'lab/photo.js'].forEach(function (src) {
+      var labJs = document.createElement('script');
+      labJs.src = src;
+      labJs.async = false;
+      document.body.append(labJs);
+    });
   }
 </script>
 </body>
