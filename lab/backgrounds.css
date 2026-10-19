@@ -10,7 +10,7 @@
 /* the line patterns fade out towards the edges so they never crowd the text */
 [data-bg="blueprint"] .bg-canvas, [data-bg="aleppo"] .bg-canvas, [data-bg="contours"] .bg-canvas,
 [data-bg="ripples"] .bg-canvas, [data-bg="logs"] .bg-canvas, [data-bg="silk"] .bg-canvas,
-[data-bg="pulse"] .bg-canvas, [data-bg="beams"] .bg-canvas {
+[data-bg="pulse"] .bg-canvas, [data-bg="beams"] .bg-canvas, [data-bg="contexts"] .bg-canvas, [data-bg="growth"] .bg-canvas {
   -webkit-mask-image: radial-gradient(ellipse 95% 85% at 60% 35%, #000 35%, transparent 100%);
           mask-image: radial-gradient(ellipse 95% 85% at 60% 35%, #000 35%, transparent 100%);
 }

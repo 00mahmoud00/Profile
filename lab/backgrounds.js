@@ -46,7 +46,12 @@
   const grain = document.createElement('div');
   grain.className = 'bg-grain';
   grain.setAttribute('aria-hidden', 'true');
-  document.body.prepend(canvas, grain);
+  // shader backgrounds (Warp) draw with WebGL on a canvas of their own
+  const glCanvas = document.createElement('canvas');
+  glCanvas.className = 'bg-canvas';
+  glCanvas.setAttribute('aria-hidden', 'true');
+  glCanvas.hidden = true;
+  document.body.prepend(canvas, glCanvas, grain);
   const ctx = canvas.getContext('2d');
 
   let W = 0, H = 0, dpr = 1;
@@ -880,8 +885,381 @@
     };
   })();
 
+  // the page section under the middle of the screen: hero, projects, experience, skills, codeforces or contact
+  function sectionKey() {
+    const mid = H * .5;
+    let key = 'hero';
+    document.querySelectorAll('main > section, footer.contact').forEach((sec) => {
+      if (sec.getBoundingClientRect().top < mid) key = sec.id || (sec.classList.contains('hero') ? 'hero' : key);
+    });
+    return key;
+  }
+
+  /* ── 11. Warp: after Inigo Quilez (co-creator of Shadertoy) ─────────────
+     Domain warping: noise fed through noise fed through noise, which gives marbled
+     smoke and ink. Runs as a WebGL shader on its own canvas at half resolution.
+     The cursor pushes the flow aside; scrolling moves through it. */
+  const warp = (() => {
+    let gl = null, loc = {}, failed = false;
+    const vert = 'attribute vec2 p; void main() { gl_Position = vec4(p, 0., 1.); }';
+    const frag = `
+      precision mediump float;
+      uniform vec2 uRes, uMouse;
+      uniform float uTime, uScroll, uOn, uEnergy;
+      float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float noise(vec2 p) {
+        vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
+        return mix(mix(hash(i), hash(i + vec2(1., 0.)), u.x), mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), u.x), u.y);
+      }
+      float fbm(vec2 p) {
+        float v = 0., a = .5;
+        mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+        for (int i = 0; i < 5; i++) { v += a * noise(p); p = m * p; a *= .5; }
+        return v;
+      }
+      void main() {
+        vec2 uv = gl_FragCoord.xy / uRes.y;
+        vec2 p = uv * 1.8 - vec2(0., uScroll * .35 / uRes.y);
+        vec2 m = uMouse / uRes.y;
+        float d = length(uv - m);
+        p -= uOn * .9 * (uv - m) * exp(-d * d * 9.);
+        float t = uTime * .045;
+        vec2 q = vec2(fbm(p + vec2(0., t)), fbm(p + vec2(5.2, 1.3) - t));
+        vec2 r = vec2(fbm(p + 4. * q + vec2(1.7, 9.2) + .15 * t), fbm(p + 4. * q + vec2(8.3, 2.8) - .126 * t));
+        float f = fbm(p + 4. * r);
+        vec3 ink = vec3(.071, .039, .149), violet = vec3(.318, .169, .831), sun = vec3(.949, .776, .427);
+        vec3 col = mix(ink, violet, smoothstep(.3, .95, f) * .85);
+        col = mix(col, sun, smoothstep(.42, .75, f * length(r)) * .45);
+        col = mix(ink, col, .75 + .25 * uEnergy);
+        gl_FragColor = vec4(col, 1.);
+      }`;
+    function setup() {
+      gl = glCanvas.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: true });
+      if (!gl) throw new Error('WebGL is not available');
+      const shader = (type, src) => {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src); gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+        return s;
+      };
+      const prog = gl.createProgram();
+      gl.attachShader(prog, shader(gl.VERTEX_SHADER, vert));
+      gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, frag));
+      gl.linkProgram(prog); gl.useProgram(prog);
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      const a = gl.getAttribLocation(prog, 'p');
+      gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+      ['uRes', 'uMouse', 'uTime', 'uScroll', 'uOn', 'uEnergy'].forEach((n) => { loc[n] = gl.getUniformLocation(prog, n); });
+    }
+    function init() {
+      if (!gl && !failed) try { setup(); } catch (e) { failed = true; console.warn('Warp background:', e); }
+      if (!gl) return;
+      glCanvas.width = Math.round(W * .5 * Math.min(dpr, 1.5)); glCanvas.height = Math.round(H * .5 * Math.min(dpr, 1.5));
+      gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+    }
+    function draw() {
+      if (!gl) return;
+      const k = glCanvas.width / W;
+      gl.uniform2f(loc.uRes, glCanvas.width, glCanvas.height);
+      gl.uniform2f(loc.uMouse, S.px * k, (H - S.py) * k);
+      gl.uniform1f(loc.uTime, S.t); gl.uniform1f(loc.uScroll, S.scroll * k);
+      gl.uniform1f(loc.uOn, S.on); gl.uniform1f(loc.uEnergy, S.energy);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    return {
+      key: 'warp', label: 'Warp', gl: true,
+      note: '<strong>11 · Warp.</strong> After <em>Inigo Quilez</em>, co-creator of Shadertoy: domain warping, noise fed through noise fed through noise, which gives marbled smoke and ink in violet and gold. It runs on the graphics card. The cursor pushes the flow aside; scrolling moves through it.',
+      init, resize: init, draw,
+    };
+  })();
+
+  /* ── 12. Contexts: bounded contexts as a living map ───────────────────────
+     A Voronoi diagram where each cell is a bounded context (Eric Evans' DDD) with
+     its name at the seed. The contexts drift; the cursor founds a new context
+     that pushes its neighbours' borders back. */
+  const contexts = (() => {
+    const names = ['Catalog', 'Ordering', 'Payments', 'Identity', 'Messaging', 'Reviews', 'Search', 'Shipping', 'Notifications', 'Billing',
+      'Inventory', 'Reporting', 'Pricing', 'Accounts', 'Media', 'Analytics', 'Promotions', 'Support', 'Scheduling', 'Sellers', 'Chat', 'Audit',
+      'Delivery', 'Ratings', 'Subscriptions', 'Favorites', 'Coupons', 'Feeds'];
+    const tints = [C.violet, C.infra, C.pres, C.app, C.sun];
+    const pad = 140, font = '11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    let seeds = [], span = 0;
+    function init() {
+      const rnd = seeded(77), n = Math.round(clamp(W * H / 60000, 9, 24));
+      span = H + pad * 2;
+      const gx = Math.max(2, Math.round(Math.sqrt(n * W / span))), gy = Math.ceil(n / gx);
+      seeds = Array.from({ length: gx * gy }, (_, i) => ({
+        bx: ((i % gx) + .15 + rnd() * .7) * W / gx, by: (Math.floor(i / gx) + .15 + rnd() * .7) * span / gy - pad,
+        ax: 14 + rnd() * 30, ay: 14 + rnd() * 30, f: .015 + rnd() * .025, p: rnd() * TAU,
+        name: names[i % names.length], tint: tints[i % tints.length],
+      }));
+    }
+    // keep the side of the line n·p = c that holds the seed (Sutherland–Hodgman, one edge)
+    function clip(poly, nx, ny, c) {
+      const out = [];
+      for (let i = 0; i < poly.length; i += 2) {
+        const j = (i + 2) % poly.length, ax = poly[i], ay = poly[i + 1], bx = poly[j], by = poly[j + 1];
+        const da = nx * ax + ny * ay - c, db = nx * bx + ny * by - c;
+        if (da <= 0) out.push(ax, ay);
+        if ((da <= 0) !== (db <= 0)) { const t = da / (da - db); out.push(ax + (bx - ax) * t, ay + (by - ay) * t); }
+      }
+      return out;
+    }
+    function draw() {
+      const pts = seeds.map((s) => {
+        const y = s.by - S.scroll * .3 + s.ay * Math.cos(S.t * s.f * TAU + s.p);
+        return { s, x: s.bx + s.ax * Math.sin(S.t * s.f * TAU + s.p), y: ((y + pad) % span + span) % span - pad };
+      });
+      if (S.on > .3) pts.push({ s: { name: 'Your context', tint: C.lilac, you: true }, x: S.px, y: S.py });
+      ctx.font = font;
+      ctx.textAlign = 'center';
+      for (const a of pts) {
+        let poly = [-pad, -pad, W + pad, -pad, W + pad, H + pad, -pad, H + pad];
+        for (const b of pts) {
+          if (a === b || !poly.length) continue;
+          const nx = b.x - a.x, ny = b.y - a.y;
+          poly = clip(poly, nx, ny, nx * (a.x + b.x) / 2 + ny * (a.y + b.y) / 2);
+        }
+        if (poly.length < 6) continue;
+        ctx.beginPath();
+        ctx.moveTo(poly[0], poly[1]);
+        for (let i = 2; i < poly.length; i += 2) ctx.lineTo(poly[i], poly[i + 1]);
+        ctx.closePath();
+        ctx.fillStyle = rgba(a.s.tint, a.s.you ? .09 * S.on : .035);
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = rgba(C.lilac, (a.s.you ? .4 : .13) + .1 * S.energy);
+        ctx.stroke();
+        ctx.fillStyle = rgba(a.s.you ? C.sun : C.lilac, a.s.you ? .8 : .5);
+        ctx.beginPath(); ctx.arc(a.x, a.y, 2.2, 0, TAU); ctx.fill();
+        ctx.fillStyle = rgba(a.s.you ? C.sun : C.lilac, a.s.you ? .7 : .32);
+        ctx.fillText(a.s.name.toUpperCase(), a.x, a.y - 9);
+      }
+      ctx.textAlign = 'start';
+    }
+    return {
+      key: 'contexts', label: 'Contexts',
+      note: '<strong>12 · Contexts.</strong> Bounded contexts from Domain-Driven Design, drawn as a <em>Voronoi diagram</em>: each cell is a context with its name at the centre, and the borders shift as the contexts drift. Hover to found a new context of your own and watch it push its neighbours\' borders back.',
+      init, resize: init, draw,
+    };
+  })();
+
+  /* ── 13. ASCII: after Andy Sloane's spinning donut (donut.c) ─────────────
+     A 3D ring rendered in text characters with a depth buffer, the classic demo,
+     but the ring is a hexagon: the layer ring from the hero, drawn in code.
+     It turns as you scroll; the cursor tilts it. */
+  const ascii = (() => {
+    const ramp = '.,-~:;=!*#$@', font = '600 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace', lineH = 15;
+    const tones = [[C.lilac, .16], [C.lilac, .3], [mix(C.lilac, C.sun, .5), .42], [C.sun, .62]];
+    let cw = 8, cols = 0, rows = 0, zbuf = null, lum = null;
+    function init() {
+      ctx.font = font;
+      cw = ctx.measureText('M').width;
+      cols = Math.ceil(W / cw); rows = Math.ceil(H / lineH);
+      zbuf = new Float32Array(cols * rows); lum = new Int8Array(cols * rows);
+    }
+    function draw() {
+      zbuf.fill(0); lum.fill(-1);
+      // on wide screens the ring frames the portrait, like the hero's own layer rings
+      const wide = W > 960, size = Math.min(W, H, W * .32) * (wide ? .68 : .9);
+      const cx = wide ? W * .7 : W * .5, cy = wide ? H * .42 : H * .4;
+      const A = .95 + .15 * Math.sin(S.t * .3) + S.on * (S.py / H - .5) * .6;
+      const B = .25 * Math.sin(S.t * .17) + S.on * (S.px / W - .5) * .8;
+      const Cr = S.t * .18 + S.scroll * .0015;
+      const cA = Math.cos(A), sA = Math.sin(A), cB = Math.cos(B), sB = Math.sin(B), cC = Math.cos(Cr), sC = Math.sin(Cr);
+      const R1 = 1, R2 = .34, K2 = 5, K1 = size * K2 / (R1 / Math.cos(Math.PI / 6) + R2);
+      const lx = 0, ly = .7071, lz = -.7071;
+      for (let th = 0; th < TAU; th += .016) {
+        // the ring follows a hexagon: on side k the tube faces straight out along that side's normal
+        const k = Math.round(th / (Math.PI / 3)), tk = k * Math.PI / 3, r = R1 / Math.cos(th - tk);
+        const px = r * Math.cos(th), py = r * Math.sin(th), nkx = Math.cos(tk), nky = Math.sin(tk);
+        for (let ph = 0; ph < TAU; ph += .07) {
+          const cp = Math.cos(ph), sp = Math.sin(ph);
+          // spin in the ring's own plane by C, tilt about x by A, then turn about y by B
+          const nx0 = cp * nkx, ny0 = cp * nky, nz = sp;
+          const nx = nx0 * cC - ny0 * sC, ny = nx0 * sC + ny0 * cC;
+          const x0 = px + R2 * nx0, y0 = py + R2 * ny0, z = R2 * nz;
+          const x = x0 * cC - y0 * sC, y = x0 * sC + y0 * cC;
+          const y2 = y * cA - z * sA, z2 = y * sA + z * cA;
+          const x3 = x * cB + z2 * sB, z3 = -x * sB + z2 * cB;
+          const ny2 = ny * cA - nz * sA, nz2 = ny * sA + nz * cA;
+          const nx3 = nx * cB + nz2 * sB, nz3 = -nx * sB + nz2 * cB;
+          const ooz = 1 / (z3 + K2);
+          const col = Math.floor((cx + K1 * ooz * x3) / cw), row = Math.floor((cy - K1 * ooz * y2) / lineH);
+          if (col < 0 || col >= cols || row < 0 || row >= rows) continue;
+          const i = row * cols + col;
+          if (ooz > zbuf[i]) {
+            zbuf[i] = ooz;
+            lum[i] = Math.max(0, Math.min(11, Math.floor((nx3 * lx + ny2 * ly + nz3 * lz) * 11.5)));
+          }
+        }
+      }
+      ctx.font = font;
+      ctx.textBaseline = 'top';
+      const lines = tones.map(() => new Array(cols));
+      for (let row = 0; row < rows; row++) {
+        let any = false;
+        lines.forEach((l) => l.fill(' '));
+        for (let col = 0; col < cols; col++) {
+          const L = lum[row * cols + col];
+          if (L < 0) continue;
+          lines[Math.min(3, Math.floor(L / 3))][col] = ramp[L];
+          any = true;
+        }
+        if (!any) continue;
+        lines.forEach((l, b) => {
+          ctx.fillStyle = rgba(tones[b][0], tones[b][1] * (1 + .4 * S.energy));
+          ctx.fillText(l.join(''), 0, row * lineH);
+        });
+      }
+      ctx.textBaseline = 'alphabetic';
+    }
+    return {
+      key: 'ascii', label: 'ASCII',
+      note: '<strong>13 · ASCII.</strong> After <em>Andy Sloane\'s spinning donut</em> (donut.c), the classic 3D render made only of text characters. Here the ring is a hexagon, the layer ring from the hero drawn in code. It turns as you scroll, and the cursor tilts it.',
+      init, resize: init, draw,
+    };
+  })();
+
+  /* ── 14. Words: after Daniel Shiffman's steering behaviours (The Coding Train) ──
+     A swarm of particles that steer to "arrive" at the letters of a word, and flee
+     the cursor. The word follows the section in view, so the dust re-forms as you
+     scroll: محمود on the hero, SHIPPED on the apps, 548 on Codeforces... */
+  const words = (() => {
+    const off = document.createElement('canvas'), o = off.getContext('2d', { willReadFrequently: true });
+    const byKey = { hero: 'محمود', projects: 'SHIPPED', experience: '.NET', skills: 'DDD', codeforces: '548', contact: 'مرحبا' };
+    let parts = [], word = '', check = 0;
+    function targets(text) {
+      off.width = W; off.height = H;
+      const arabic = /[؀-ۿ]/.test(text), wide = W > 960;
+      const size = Math.min(H * .5, W * (wide ? .78 : .92) / Math.max(1.6, text.length * (arabic ? .5 : .7)));
+      o.font = arabic ? `600 ${size}px 'Reem Kufi', 'Geeza Pro', sans-serif` : `800 ${size}px 'Archivo', sans-serif`;
+      o.textAlign = 'center'; o.textBaseline = 'middle'; o.fillStyle = '#fff';
+      o.fillText(text, W * .5, H * .48);
+      const d = o.getImageData(0, 0, W, H).data, gap = wide ? 6 : 5, pts = [];
+      for (let y = 0; y < H; y += gap) for (let x = 0; x < W; x += gap) if (d[(y * W + x) * 4 + 3] > 128) pts.push(x, y);
+      return pts;
+    }
+    function retarget(force) {
+      const text = byKey[sectionKey()] || word || byKey.hero;
+      if (!force && text === word) return;
+      word = text;
+      const pts = targets(text), n = pts.length / 2;
+      if (!n) return;
+      const order = Array.from({ length: n }, (_, i) => i);
+      for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+      parts.forEach((p, i) => { const k = order[i % n]; p.tx = pts[k * 2]; p.ty = pts[k * 2 + 1]; });
+    }
+    function init() {
+      parts = Array.from({ length: W > 960 ? 1600 : 800 }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0, tx: W / 2, ty: H / 2, gold: Math.random() < .1, ph: Math.random() * TAU }));
+      word = '';
+      retarget(true);
+      // the Arabic and display fonts may still be loading; draw the word again once they are in
+      document.fonts && document.fonts.ready.then(() => { if (current === words) retarget(true); });
+    }
+    function draw(dt) {
+      check += dt;
+      if (check > .3 || !dt) { check = 0; retarget(false); }
+      const segs = [[], []];
+      for (const p of parts) {
+        if (!dt) { p.x = p.tx; p.y = p.ty; }
+        const wob = 2.5 * Math.sin(S.t * 1.3 + p.ph);
+        const dx = p.tx + wob - p.x, dy = p.ty + wob * .6 - p.y, d = Math.hypot(dx, dy) || 1;
+        // arrive: full speed when far, slowing down inside 120px
+        const max = 300 * (1 + S.energy), want = d < 120 ? max * d / 120 : max;
+        let sx = dx / d * want - p.vx, sy = dy / d * want - p.vy;
+        if (S.on > .01) {
+          const ex = p.x - S.px, ey = p.y - S.py, e = Math.hypot(ex, ey);
+          if (e < 110 && e > .1) { const k = (1 - e / 110) * 1600 * S.on; sx += ex / e * k; sy += ey / e * k; }
+        }
+        const g = Math.min(1, dt * 5);
+        p.vx += sx * g + (Math.random() - .5) * S.energy * 900 * dt;
+        p.vy += sy * g + (Math.random() - .5) * S.energy * 900 * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        segs[p.gold ? 1 : 0].push(p.x, p.y);
+      }
+      [[C.lilac, .5], [C.sun, .75]].forEach(([c, a], i) => {
+        ctx.fillStyle = rgba(c, a);
+        ctx.beginPath();
+        const s = segs[i];
+        for (let j = 0; j < s.length; j += 2) ctx.rect(s[j] - .9, s[j + 1] - .9, 1.8, 1.8);
+        ctx.fill();
+      });
+    }
+    return {
+      key: 'words', label: 'Words',
+      note: '<strong>14 · Words.</strong> After <em>Daniel Shiffman\'s steering behaviours</em> (The Coding Train): a swarm of particles that steer to arrive at the letters of a word and flee the cursor. The word follows the section you are on: محمود on the hero, SHIPPED on the apps, .NET, DDD, 548 on Codeforces, مرحبا at the end.',
+      init, resize: init, draw,
+    };
+  })();
+
+  /* ── 15. Growth: after Karl Sims' reaction-diffusion ───────────────────────
+     Two virtual chemicals react and spread (the Gray-Scott model) and grow like coral,
+     the way patterns form on shells and fish skin. The cursor plants new growth;
+     patches clear now and then so the pattern keeps regrowing. */
+  const growth = (() => {
+    const cell = 4, Da = 1, Db = .5, feed = .055, kill = .062;
+    const off = document.createElement('canvas'), o = off.getContext('2d');
+    let gw = 0, gh = 0, A, B, A2, B2, img = null, plant = 0, clear = 0, lastX = -1e4, lastY = -1e4;
+    function init() {
+      gw = Math.ceil(W / cell); gh = Math.ceil(H / cell);
+      A = new Float32Array(gw * gh).fill(1); A2 = new Float32Array(gw * gh).fill(1);
+      B = new Float32Array(gw * gh); B2 = new Float32Array(gw * gh);
+      off.width = gw; off.height = gh;
+      img = o.createImageData(gw, gh);
+      const rnd = seeded(5);
+      for (let i = 0; i < 8; i++) paint(rnd() * gw, rnd() * gh, 3, 1);
+    }
+    function paint(cx, cy, r, v) {
+      for (let y = Math.max(1, Math.floor(cy - r)); y < Math.min(gh - 1, cy + r); y++) {
+        for (let x = Math.max(1, Math.floor(cx - r)); x < Math.min(gw - 1, cx + r); x++) {
+          if ((x - cx) ** 2 + (y - cy) ** 2 <= r * r) { B[y * gw + x] = v; if (!v) A[y * gw + x] = 1; }
+        }
+      }
+    }
+    function react() {
+      for (let y = 1; y < gh - 1; y++) {
+        for (let x = 1, i = y * gw + 1; x < gw - 1; x++, i++) {
+          const a = A[i], b = B[i];
+          const la = (A[i - 1] + A[i + 1] + A[i - gw] + A[i + gw]) * .2 + (A[i - gw - 1] + A[i - gw + 1] + A[i + gw - 1] + A[i + gw + 1]) * .05 - a;
+          const lb = (B[i - 1] + B[i + 1] + B[i - gw] + B[i + gw]) * .2 + (B[i - gw - 1] + B[i - gw + 1] + B[i + gw - 1] + B[i + gw + 1]) * .05 - b;
+          const abb = a * b * b;
+          A2[i] = a + Da * la - abb + feed * (1 - a);
+          B2[i] = b + Db * lb + abb - (kill + feed) * b;
+        }
+      }
+      [A, A2] = [A2, A]; [B, B2] = [B2, B];
+    }
+    function draw(dt) {
+      if (S.on > .5 && Math.hypot(S.mx - lastX, S.my - lastY) > 40) { paint(S.mx / cell, S.my / cell, 2.5, 1); lastX = S.mx; lastY = S.my; }
+      plant += dt; clear += dt;
+      if (plant > 2.5) { plant = 0; paint(Math.random() * gw, Math.random() * gh, 3, 1); }
+      if (clear > 1.6) { clear = 0; paint(Math.random() * gw, Math.random() * gh, 9 + Math.random() * 8, 0); }
+      const steps = dt ? Math.round(5 + 7 * S.energy) : 500;
+      for (let s = 0; s < steps; s++) react();
+      const px = img.data;
+      for (let i = 0, j = 0; i < B.length; i++, j += 4) {
+        const gx = i % gw, gy = (i - gx) / gw, edge = gx < 3 || gy < 3 || gx > gw - 4 || gy > gh - 4;
+        const v = edge ? 0 : B[i], a = clamp((v - .12) * 3.4), warm = clamp((v - .32) * 4);
+        px[j] = C.lilac[0] + (C.sun[0] - C.lilac[0]) * warm;
+        px[j + 1] = C.lilac[1] + (C.sun[1] - C.lilac[1]) * warm;
+        px[j + 2] = C.lilac[2] + (C.sun[2] - C.lilac[2]) * warm;
+        px[j + 3] = a * 95;
+      }
+      o.putImageData(img, 0, 0);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(off, 0, 0, W, H);
+    }
+    return {
+      key: 'growth', label: 'Growth',
+      note: '<strong>15 · Growth.</strong> After <em>Karl Sims\' reaction-diffusion</em>: two virtual chemicals react and spread (the Gray-Scott model) and grow like coral, the way patterns form on shells and fish skin. Move the mouse to plant new growth; patches clear now and then, so it keeps regrowing.',
+      init, resize: init, draw,
+    };
+  })();
+
   const none = { key: 'none', label: 'Now', note: '<strong>Now.</strong> The current flat background, for comparison.', init() {}, resize() {}, draw() {} };
-  const options = [none, layers, blueprint, aurora, aleppo, contours, ripples, logs, silk, pulse, beams];
+  const options = [none, layers, blueprint, aurora, aleppo, contours, ripples, logs, silk, pulse, beams, warp, contexts, ascii, words, growth];
 
   /* ── loop ── */
   let current = null, raf = 0, last = 0;
@@ -917,7 +1295,7 @@
   lab.className = 'lab';
   lab.setAttribute('role', 'region');
   lab.setAttribute('aria-label', 'Background options');
-  lab.innerHTML = '<div class="lab-bar"></div><p class="lab-note" aria-live="polite"></p><p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 switch.</p>';
+  lab.innerHTML = '<div class="lab-bar"></div><p class="lab-note" aria-live="polite"></p><p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 pick the first ten.</p>';
   const bar = lab.querySelector('.lab-bar'), note = lab.querySelector('.lab-note');
   options.forEach((opt, i) => {
     const b = document.createElement('button');
@@ -937,6 +1315,8 @@
   function choose(key) {
     current = options.find((o) => o.key === key) || layers;
     root.dataset.bg = current.key;
+    canvas.hidden = !!current.gl;
+    glCanvas.hidden = !current.gl;
     ctx.clearRect(0, 0, W, H);
     current.init();
     note.innerHTML = current.note;
