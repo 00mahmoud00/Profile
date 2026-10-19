@@ -86,8 +86,8 @@
   }
 
   /* ── 1. Layers: the system as a living network ───────────────────────────
-     Nodes sit on hexagonal rings around the Domain core (the hero's layer rings,
-     carried out across the whole page). Gold requests travel inward ring by ring;
+     Nodes sit on hexagonal rings around the Domain core (the architecture section's
+     layer rings, carried out across the whole page). Gold requests travel inward ring by ring;
      lilac responses travel back out. Scrolling twists the rings, the cursor sends requests. */
   const layers = (() => {
     let nodes = [], ringStart = [], rings = 0, s = 96, packets = [], spawn = 0, cursorSpawn = 0, pulse = 0;
@@ -1047,7 +1047,7 @@
 
   /* ── 13. ASCII: after Andy Sloane's spinning donut (donut.c) ─────────────
      A 3D ring rendered in text characters with a depth buffer, the classic demo,
-     but the ring is a hexagon: the layer ring from the hero, drawn in code.
+     but the ring is a hexagon: the Clean Architecture layer ring, drawn in code.
      It turns as you scroll; the cursor tilts it. */
   const ascii = (() => {
     const ramp = '.,-~:;=!*#$@', font = '600 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace', lineH = 15;
@@ -1061,7 +1061,7 @@
     }
     function draw() {
       zbuf.fill(0); lum.fill(-1);
-      // on wide screens the ring frames the portrait, like the hero's own layer rings
+      // on wide screens the ring frames the portrait
       const wide = W > 960, size = Math.min(W, H, W * .32) * (wide ? .68 : .9);
       const cx = wide ? W * .7 : W * .5, cy = wide ? H * .42 : H * .4;
       const A = .95 + .15 * Math.sin(S.t * .3) + S.on * (S.py / H - .5) * .6;
@@ -1117,7 +1117,7 @@
     }
     return {
       key: 'ascii', label: 'ASCII',
-      note: '<strong>13 · ASCII.</strong> After <em>Andy Sloane\'s spinning donut</em> (donut.c), the classic 3D render made only of text characters. Here the ring is a hexagon, the layer ring from the hero drawn in code. It turns as you scroll, and the cursor tilts it.',
+      note: '<strong>13 · ASCII.</strong> After <em>Andy Sloane\'s spinning donut</em> (donut.c), the classic 3D render made only of text characters. Here the ring is a hexagon: the Clean Architecture layer ring, drawn in code. It turns as you scroll, and the cursor tilts it.',
       init, resize: init, draw,
     };
   })();

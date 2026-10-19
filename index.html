@@ -6,8 +6,8 @@
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 <!-- ── Primary SEO Meta Tags ── -->
-<title>Mahmoud Sharabati — Mid-Level .NET Core Developer | Clean Architecture &amp; Blazor Expert</title>
-<meta name="description" content="Mahmoud Sharabati is a mid-level .NET Core Developer with 4+ years of experience specializing in Clean Architecture, Domain-Driven Design, and Blazor. Based in Aleppo, Syria.">
+<title>Mahmoud Sharabati — Senior .NET Core Developer | Clean Architecture &amp; Blazor Expert</title>
+<meta name="description" content="Mahmoud Sharabati is a senior .NET Core Developer with 4+ years of experience specializing in Clean Architecture, Domain-Driven Design, and Blazor. Based in Aleppo, Syria.">
 <meta name="keywords" content=".NET Developer, .NET Core, Blazor, Clean Architecture, Domain-Driven Design, DDD, ASP.NET Core, PostgreSQL, Mahmoud Sharabati, backend developer, software engineer, Syria">
 <meta name="author" content="Mahmoud Sharabati">
 <meta name="robots" content="index, follow">
@@ -22,22 +22,22 @@
 <!-- ── Open Graph / Facebook ── -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mahmoudsharabati.me/Profile/">
-<meta property="og:title" content="Mahmoud Sharabati — .NET Core Developer">
-<meta property="og:description" content="Mid-level .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor. View portfolio, projects, and experience.">
+<meta property="og:title" content="Mahmoud Sharabati — Senior .NET Core Developer">
+<meta property="og:description" content="Senior .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor. View portfolio, projects, and experience.">
 <meta property="og:image" content="https://mahmoudsharabati.me/Profile/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mahmoud Sharabati - .NET Developer">
+<meta property="og:image:alt" content="Mahmoud Sharabati - Senior .NET Developer">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Mahmoud Sharabati Portfolio">
 
 <!-- ── Twitter Card ── -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://mahmoudsharabati.me/Profile/">
-<meta name="twitter:title" content="Mahmoud Sharabati — .NET Core Developer">
-<meta name="twitter:description" content="Mid-level .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor.">
+<meta name="twitter:title" content="Mahmoud Sharabati — Senior .NET Core Developer">
+<meta name="twitter:description" content="Senior .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor.">
 <meta name="twitter:image" content="https://mahmoudsharabati.me/Profile/og-image.jpg">
-<meta name="twitter:image:alt" content="Mahmoud Sharabati - .NET Developer">
+<meta name="twitter:image:alt" content="Mahmoud Sharabati - Senior .NET Developer">
 
 <!-- ── Structured Data: Person ── -->
 <script type="application/ld+json">
@@ -45,7 +45,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Mahmoud Sharabati",
-  "jobTitle": "Mid-level .NET Core Developer",
+  "jobTitle": "Senior .NET Core Developer",
   "worksFor": [
     {
       "@type": "Organization",
@@ -96,7 +96,7 @@
   "@type": "WebSite",
   "name": "Mahmoud Sharabati Portfolio",
   "url": "https://mahmoudsharabati.me/Profile/",
-  "description": "Portfolio of Mahmoud Sharabati, a mid-level .NET Core Developer specializing in Clean Architecture and Blazor.",
+  "description": "Portfolio of Mahmoud Sharabati, a senior .NET Core Developer specializing in Clean Architecture and Blazor.",
   "author": {
     "@type": "Person",
     "name": "Mahmoud Sharabati"
@@ -297,34 +297,29 @@
   .portrait {
     position: relative; z-index: 1;
     filter: drop-shadow(0 0 1.5px rgb(182 163 255 / .5)) drop-shadow(0 0 36px rgb(81 43 212 / .5));
-    translate: calc(var(--px, 0) * -10px) calc(var(--py, 0) * -6px);
   }
   .portrait img {
     width: 100%; height: auto;
     -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 99%);
             mask-image: linear-gradient(to bottom, #000 80%, transparent 99%);
   }
-  /* the layer rings sit behind the portrait, centred on the upper chest */
-  .rings {
-    position: absolute; z-index: 0; left: 53%; top: 30%; width: 128%; aspect-ratio: 1;
-    translate: -50% -50%; pointer-events: none;
-  }
-  .rings::before {
-    content: ''; position: absolute; inset: 14%; border-radius: 50%;
+  /* a soft violet and gold glow behind the portrait, centred on the upper chest */
+  .portrait-frame::before {
+    content: ''; position: absolute; z-index: 0; left: 53%; top: 30%; width: 92%; aspect-ratio: 1;
+    translate: -50% -50%; border-radius: 50%; pointer-events: none;
     background: radial-gradient(closest-side, rgb(242 198 109 / .22), rgb(81 43 212 / .30) 48%, transparent 100%);
     filter: blur(24px);
   }
-  .rings canvas, .rings .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-  /* static diagrams stand in only when the 3D views can't run (no WebGL, CDN blocked) */
+  /* the static diagram stands in only when the 3D view can't run (no WebGL, CDN blocked) */
   .fallback { transition: opacity .6s ease; }
   .js .fallback { opacity: 0; }
   .no-3d .fallback, .is-static .fallback { opacity: 1; }
-  .rings canvas, .stack-visual canvas { opacity: 0; transition: opacity .9s ease; }
+  .stack-visual canvas { opacity: 0; transition: opacity .9s ease; }
   .is-live canvas { opacity: 1; }
   .is-live .fallback { opacity: 0; }
 
-  /* one load sequence: name, words, portrait (rings assemble in 3D) */
+  /* one load sequence: name, words, portrait */
   @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
   @keyframes appear { from { opacity: 0; transform: translateY(36px); } }
   .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions {
@@ -553,7 +548,6 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions, .js .portrait { animation: none; }
-    .portrait { translate: none; }
     .shot, .fan, .showcase, .topbar, .brand img { transition: none; }
   }
 </style>
@@ -584,7 +578,7 @@
       <div class="hero-copy">
         <p class="hero-ar" lang="ar" dir="rtl">محمود شرباتي</p>
         <h1 class="hero-name" id="hero-name"><span>Mahmoud</span> <span>Sharabati</span></h1>
-        <p class="hero-role">.NET Core developer in Aleppo, Syria</p>
+        <p class="hero-role">Senior .NET Core developer in Aleppo, Syria</p>
         <p class="hero-intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. I've shipped .NET for over four years, including the APIs behind apps on Google Play and the App Store. Today I build and maintain management systems at HASH Information Technology, and scale the back end of Wasiitak, a marketplace with 10K+ downloads.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="mailto:mahmoud.sharabati.dev@gmail.com">Email me</a>
@@ -594,16 +588,6 @@
 
       <div class="hero-visual">
         <div class="portrait-frame">
-          <div class="rings" aria-hidden="true">
-            <svg class="fallback" viewBox="-3.24 -3.24 6.48 6.48">
-              <polygon points="0,-2.36 -2.044,-1.18 -2.044,1.18 0,2.36 2.044,1.18 2.044,-1.18" fill="none" stroke="#b6a3ff" stroke-opacity=".7" stroke-width=".06"/>
-              <polygon points="1.749,-.05 1.749,-1.01 0,-2.02 -1.749,-1.01 -1.749,-.05 -1.351,-.05 -1.351,-.78 0,-1.56 1.351,-.78 1.351,-.05" fill="#6a46f0"/>
-              <polygon points="1.749,.05 1.749,1.01 0,2.02 -1.749,1.01 -1.749,.05 -1.351,.05 -1.351,.78 0,1.56 1.351,.78 1.351,.05" fill="#4b2cc6"/>
-              <polygon points="0,-1.08 -.935,-.54 -.935,.54 0,1.08 .935,.54 .935,-.54" fill="none" stroke="#8b6dff" stroke-width=".44"/>
-              <polygon points="0,-.56 -.485,-.28 -.485,.28 0,.56 .485,.28 .485,-.28" fill="#f2c66d"/>
-            </svg>
-            <canvas></canvas>
-          </div>
           <div class="portrait">
             <img src="mahmoud-cutout-1100.webp"
                  srcset="mahmoud-cutout-640.webp 640w, mahmoud-cutout-1100.webp 1100w"
@@ -1165,58 +1149,6 @@
     return true;
   }
 
-  function startHero() {
-    const hero = document.querySelector('.hero');
-    const box = hero?.querySelector('.rings');
-    const canvas = box?.querySelector('canvas');
-    if (!canvas) return;
-    const view = createView(canvas, 28, 13);
-    const stack = buildStack();
-    view.scene.add(stack.root);
-
-    const aim = { x: 0, y: 0 }, look = { x: 0, y: 0 };
-    if (finePointer && !reduceMotion) {
-      hero.addEventListener('pointermove', e => {
-        const r = hero.getBoundingClientRect();
-        aim.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-        aim.y = ((e.clientY - r.top) / r.height) * 2 - 1;
-      });
-      hero.addEventListener('pointerleave', () => { aim.x = 0; aim.y = 0; });
-    }
-
-    let start = null, tilt = '';
-    function draw(now) {
-      if (!fit(view, box)) return;
-      if (start === null) start = now;
-      const t = reduceMotion ? 0 : (now - start) / 1000;
-      const built = reduceMotion ? 1 : 1 - Math.pow(1 - clamp01(t / 2.2), 4);
-      look.x += (aim.x - look.x) * .05;
-      look.y += (aim.y - look.y) * .05;
-      // the portrait drifts against the rings; only touch styles when the value moves
-      const next = `${look.x.toFixed(3)} ${look.y.toFixed(3)}`;
-      if (next !== tilt) {
-        tilt = next;
-        hero.style.setProperty('--px', look.x.toFixed(3));
-        hero.style.setProperty('--py', look.y.toFixed(3));
-      }
-      const sway = reduceMotion ? 0 : Math.sin(t * .35) * .1;
-      stack.root.rotation.set(-.14 + look.y * .25, .3 + sway + look.x * .45, 0);
-      stack.spin.rotation.z = (1 - built) * -1.2;
-      stack.root.scale.setScalar(lerp(.7, 1, built));
-      stack.spread(lerp(2.4, .38, built), t);
-      view.renderer.render(view.scene, view.camera);
-      if (!box.classList.contains('is-live')) box.classList.add('is-live');
-    }
-
-    if (reduceMotion) {
-      new ResizeObserver(() => draw(0)).observe(box);
-      return;
-    }
-    new IntersectionObserver(([entry]) => {
-      view.renderer.setAnimationLoop(entry.isIntersecting ? draw : null);
-    }).observe(box);
-  }
-
   function startArchitecture() {
     const stage = document.querySelector('.stack-stage');
     const box = stage?.querySelector('.stack-visual');
@@ -1331,13 +1263,11 @@
   }
 
   document.documentElement.classList.add('has-3d');
-  for (const [start, container] of [[startHero, '.rings'], [startArchitecture, '.stack-visual']]) {
-    try {
-      start();
-    } catch (error) {
-      document.querySelector(container)?.classList.add('is-static');
-      console.warn('3D view unavailable, showing the static diagram.', error);
-    }
+  try {
+    startArchitecture();
+  } catch (error) {
+    document.querySelector('.stack-visual')?.classList.add('is-static');
+    console.warn('3D view unavailable, showing the static diagram.', error);
   }
 </script>
 
