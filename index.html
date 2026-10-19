@@ -287,7 +287,8 @@
   .btn-primary { background: var(--stone); border-color: var(--stone); color: var(--ink); }
   .btn-primary:hover { background: #fff; border-color: #fff; }
 
-  .hero-visual { position: relative; display: flex; align-items: flex-end; justify-content: center; min-width: 0; }
+  /* the portrait is centred on the same band as the words (same top and bottom space as .hero-copy) */
+  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 132px 96px; }
   .portrait-frame {
     position: relative;
     width: min(100%, calc(min(82svh, 900px) * .836));
@@ -526,7 +527,7 @@
     .hero-grid { grid-template-columns: minmax(0, 1fr); }
     .hero-copy { padding-block: 112px 8px; }
     .hero-name { font-size: min(15.5vw, 96px); }
-    .hero-visual { margin-top: 56px; }
+    .hero-visual { margin-top: 56px; padding-block: 0; }
     .portrait-frame { width: min(100%, 470px); }
     .stack-stage { grid-template-columns: minmax(0, 1fr); }
     .stack-visual { width: min(100%, 560px); margin-inline: auto; }
