@@ -1311,11 +1311,15 @@
   const lab = document.createElement('div');
   lab.className = 'lab';
   lab.setAttribute('role', 'region');
-  lab.setAttribute('aria-label', 'Background options');
-  // lab/photo.js adds a second row (what sits behind the portrait) under this one
-  lab.innerHTML = '<div class="lab-row"><span class="lab-label">Page</span><div class="lab-bar"></div></div>'
+  lab.setAttribute('aria-label', 'Design options');
+  // a drawer: the handle slides the body away and back; lab/photo.js and lab/logos.js add their rows under this one
+  lab.innerHTML = '<button class="lab-handle" type="button" aria-expanded="true" aria-controls="lab-body">'
+    + '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 10l5-5 5 5"/></svg><span>Options</span></button>'
+    + '<div class="lab-body" id="lab-body">'
+    + '<div class="lab-row"><span class="lab-label">Page</span><div class="lab-bar"></div></div>'
     + '<p class="lab-note" aria-live="polite"></p>'
-    + '<p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 pick the first ten page backgrounds.</p>';
+    + '<p class="lab-hint">Scroll, move the mouse and click to see each one react. Keys 1 to 9 and 0 pick the first ten page backgrounds; Esc closes the drawer.</p>'
+    + '</div>';
   const bar = lab.querySelector('.lab-bar'), note = lab.querySelector('.lab-note');
   options.forEach((opt, i) => {
     const b = document.createElement('button');
@@ -1323,13 +1327,19 @@
     b.addEventListener('click', () => choose(opt.key));
     bar.append(b);
   });
-  const hide = document.createElement('button');
-  hide.type = 'button'; hide.className = 'lab-hide'; hide.textContent = 'Hide';
-  hide.addEventListener('click', () => {
-    const hidden = lab.classList.toggle('is-hidden');
-    hide.textContent = hidden ? 'Show' : 'Hide';
-  });
-  bar.after(hide);
+  const handle = lab.querySelector('.lab-handle'), body = lab.querySelector('.lab-body');
+  function setDrawer(open) {
+    lab.classList.toggle('is-closed', !open);
+    handle.setAttribute('aria-expanded', String(open));
+    handle.querySelector('span').textContent = open ? 'Hide options' : 'Options';
+    body.inert = !open;
+    try { localStorage.setItem('lab-drawer', open ? 'open' : 'closed'); } catch (e) {}
+  }
+  handle.addEventListener('click', () => setDrawer(lab.classList.contains('is-closed')));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lab.classList.contains('is-closed')) setDrawer(false); });
+  let startOpen = true;
+  try { startOpen = localStorage.getItem('lab-drawer') !== 'closed'; } catch (e) {}
+  setDrawer(startOpen);
   document.body.append(lab);
 
   function choose(key) {

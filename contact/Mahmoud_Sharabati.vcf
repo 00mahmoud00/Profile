@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Sharabati;Mahmoud;;;
+FN:Mahmoud Sharabati
+TITLE:Senior .NET Core Developer
+EMAIL;TYPE=INTERNET,PREF:mahmoud.sharabati.dev@gmail.com
+TEL;TYPE=CELL:+963985839618
+ADR;TYPE=WORK:;;;Aleppo;;;Syria
+URL:https://mahmoudsharabati.me/Profile/
+X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/mahmoud-sharabati-0226b223a
+NOTE:.NET Core\, Clean Architecture\, Domain-Driven Design\, Blazor
+END:VCARD

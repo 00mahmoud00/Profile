@@ -36,7 +36,7 @@
 
 <!-- ── Primary SEO Meta Tags ── -->
 <title>Mahmoud Sharabati — Senior .NET Core Developer | Clean Architecture &amp; Blazor Expert</title>
-<meta name="description" content="Mahmoud Sharabati is a senior .NET Core Developer with 4+ years of experience specializing in Clean Architecture, Domain-Driven Design, and Blazor. Based in Aleppo, Syria.">
+<meta name="description" content="Mahmoud Sharabati is a senior .NET Core developer in Aleppo, Syria, building Clean Architecture and DDD back ends with Blazor front ends: a multi-tenant warehouse platform, delivery apps, and the APIs behind apps on Google Play and the App Store.">
 <meta name="keywords" content=".NET Developer, .NET Core, Blazor, Clean Architecture, Domain-Driven Design, DDD, ASP.NET Core, PostgreSQL, Mahmoud Sharabati, backend developer, software engineer, Syria">
 <meta name="author" content="Mahmoud Sharabati">
 <meta name="robots" content="index, follow">
@@ -55,7 +55,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mahmoudsharabati.me/Profile/">
 <meta property="og:title" content="Mahmoud Sharabati — Senior .NET Core Developer">
-<meta property="og:description" content="Senior .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor. View portfolio, projects, and experience.">
+<meta property="og:description" content="Senior .NET Core developer: Clean Architecture, DDD and Blazor, with 4+ years of production systems, from a multi-tenant warehouse platform to delivery apps.">
 <meta property="og:image" content="https://mahmoudsharabati.me/Profile/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -68,7 +68,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://mahmoudsharabati.me/Profile/">
 <meta name="twitter:title" content="Mahmoud Sharabati — Senior .NET Core Developer">
-<meta name="twitter:description" content="Senior .NET Core Developer with 4+ years of experience in Clean Architecture, DDD, and Blazor.">
+<meta name="twitter:description" content="Senior .NET Core developer: Clean Architecture, DDD and Blazor, from a multi-tenant warehouse platform to delivery apps.">
 <meta name="twitter:image" content="https://mahmoudsharabati.me/Profile/og-image.jpg">
 <meta name="twitter:image:alt" content="Mahmoud Sharabati - Senior .NET Developer">
 
@@ -91,7 +91,7 @@
       "name": "Evolvo"
     }
   ],
-  "description": "Software engineer with 4+ years of experience specializing in Clean Architecture, Domain-Driven Design, and Blazor.",
+  "description": "Senior .NET Core developer with 4+ years building Clean Architecture and DDD back ends, including a multi-tenant warehouse and order platform and delivery apps.",
   "email": "mahmoud.sharabati.dev@gmail.com",
   "telephone": "+963985839618",
   "url": "https://mahmoudsharabati.me/Profile/",
@@ -108,7 +108,7 @@
   },
   "knowsAbout": [
     ".NET Core", "Blazor", "Clean Architecture", "Domain-Driven Design",
-    "ASP.NET Core", "PostgreSQL", "C#", "Docker", "Software Engineering"
+    "ASP.NET Core", "PostgreSQL", "Entity Framework Core", "C#", "Docker", "Multi-tenant SaaS", "Software Engineering"
   ],
   "award": "11th place, 2022 ICPC Aleppo University Contest",
   "alumniOf": {
@@ -152,7 +152,7 @@
         "@type": "SoftwareApplication",
         "name": "Wasiitak",
         "description": "Buy-and-sell marketplace app. Mahmoud Sharabati scales its back end and runs its DevOps and data at Evolvo.",
-        "operatingSystem": "Android",
+        "operatingSystem": "Android, iOS",
         "url": "https://play.google.com/store/apps/details?id=com.itlegend.wasiitk"
       }
     },
@@ -357,10 +357,10 @@
   .i18n-pending body { visibility: hidden; }
   :root[lang="ar"] { --font: 'Archivo', 'Noto Kufi Arabic', 'Geeza Pro', sans-serif; }
   :root[lang="ar"] body { line-height: 1.85; }
-  :root[lang="ar"] :is(h1, h2, h3, .hero-role, .cp-lead, .contact-mail) { letter-spacing: 0; }
+  :root[lang="ar"] :is(h1, h2, h3, .hero-role, .cp-lead) { letter-spacing: 0; }
   :root[lang="ar"] .hero-name { font-family: var(--font-ar); font-weight: 600; font-stretch: normal; line-height: 1.2; }
   :root[lang="ar"] .hero-ar { font-family: var(--font); font-weight: 700; font-stretch: 125%; letter-spacing: .01em; }
-  :root[lang="ar"] .tools li { direction: ltr; unicode-bidi: isolate; }
+  :root[lang="ar"] :is(.tools, .role-foot .chips) li { direction: ltr; unicode-bidi: isolate; }
 
   /* ── Hero ── */
   .hero { position: relative; display: grid; min-height: clamp(660px, 100svh, 1040px); overflow: clip; isolation: isolate; }
@@ -377,8 +377,30 @@
   }
   .hero-name span { display: block; }
   .hero-role { font-size: clamp(19px, 1.65vw, 24px); font-weight: 650; font-stretch: 108%; line-height: 1.3; margin-bottom: 14px; }
+  /* a terminal line that types what he builds, holds it, deletes it and moves to the next */
+  .hero-type {
+    min-height: 1.6em; margin: -2px 0 16px; white-space: nowrap;
+    font: 500 clamp(14px, 1.2vw, 17px)/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--lilac);
+  }
+  .type-prompt { color: var(--sun); font-weight: 700; }
+  .type-text { color: var(--stone); }
+  .type-caret {
+    display: inline-block; width: .55em; height: 1.15em; margin-inline-start: 3px; vertical-align: -.2em;
+    background: var(--sun); border-radius: 1px;
+  }
+  .hero-type.is-holding .type-caret { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  :root[lang="ar"] .hero-type { font-family: var(--font); }
   .hero-intro { max-width: 31em; color: var(--haze); font-size: clamp(16px, 1.2vw, 18px); margin-bottom: 38px; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  /* key numbers under the buttons: the scope a senior CV leads with */
+  .facts {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px 24px; max-width: 36em;
+    margin: 44px 0 0; padding-top: 26px; border-top: 1px solid var(--line);
+  }
+  .facts div { display: grid; gap: 6px; align-content: start; }
+  .facts dd { order: -1; margin: 0; font-size: clamp(24px, 2.2vw, 31px); font-weight: 750; font-stretch: 118%; line-height: 1; }
+  .facts dt { color: var(--haze); font-size: 13.5px; line-height: 1.4; }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px;
@@ -387,12 +409,15 @@
     transition: background-color .2s, border-color .2s, color .2s;
   }
   .btn:hover { border-color: var(--lilac); }
+  .btn-icon { width: 18px; height: 18px; margin-inline-end: 8px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn:hover .btn-icon { animation: nudge .6s ease; }
+  @keyframes nudge { 40% { transform: translateY(2px); } }
   .btn-primary { background: var(--stone); border-color: var(--stone); color: var(--ink); }
   .btn-primary:hover { background: #fff; border-color: #fff; }
   :root[data-theme="light"] .btn-primary:hover { background: var(--violet); border-color: var(--violet); color: #fff; }
 
-  /* the portrait is centred on the same band as the words (same top and bottom space as .hero-copy) */
-  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 132px 96px; }
+  /* the portrait sits a little above the middle of the words, so the head lines up with the Arabic name */
+  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 40px 188px; }
   .portrait-frame {
     position: relative;
     width: min(100%, calc(min(82svh, 900px) * .836));
@@ -403,6 +428,8 @@
     position: relative; z-index: 1;
     filter: drop-shadow(0 0 1.5px var(--rim)) drop-shadow(0 0 36px var(--halo));
   }
+  .halo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .halo svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; direction: ltr; }
   .portrait img {
     width: 100%; height: auto;
     -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 99%);
@@ -433,8 +460,10 @@
   .js .hero-name span:nth-child(1) { animation-delay: .06s; }
   .js .hero-name span:nth-child(2) { animation-delay: .14s; }
   .js .hero-role { animation-delay: .24s; }
+  .js .hero-type { animation: rise .9s cubic-bezier(.2, .75, .25, 1) .27s both; }
   .js .hero-intro { animation-delay: .3s; }
   .js .hero-actions { animation-delay: .36s; }
+  .js .facts { animation: rise .9s cubic-bezier(.2, .75, .25, 1) .42s both; }
   .js .portrait { animation: appear 1.3s cubic-bezier(.2, .75, .25, 1) .12s both; }
 
   /* ── Sections ── */
@@ -467,6 +496,22 @@
   .role-points { display: grid; gap: 14px; max-width: 66ch; color: var(--haze); }
   .role-points strong { color: var(--stone); font-weight: 600; }
   .role-points a { color: var(--lilac); text-underline-offset: 4px; }
+  /* each role opens with its numbers and closes with what was built there and the stack it ran on */
+  .role-stats { display: flex; flex-wrap: wrap; gap: 14px 40px; margin: -4px 0 26px; }
+  .role-stats div { display: grid; gap: 5px; }
+  .role-stats dd { order: -1; margin: 0; font-size: clamp(22px, 2vw, 28px); font-weight: 750; font-stretch: 118%; line-height: 1; }
+  .role-stats dt { max-width: 15em; color: var(--haze); font-size: 13px; line-height: 1.35; }
+  .role-foot { display: grid; gap: 14px; max-width: 66ch; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .role-built { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .role-label { margin-inline-end: 6px; color: var(--haze); font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+  .role-built a {
+    padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--stone);
+    font-size: 13.5px; font-weight: 600; text-decoration: none; transition: border-color .2s, background-color .2s;
+  }
+  .role-built a:hover { border-color: var(--lilac); background: color-mix(in srgb, var(--lilac) 12%, transparent); }
+  .role-foot .chips li { color: var(--haze); }
+  /* in-page links land below the fixed top bar */
+  section[id], h3[id] { scroll-margin-top: 96px; }
 
   /* Skills, arranged as the layers of a solution */
   .stack-stage {
@@ -571,6 +616,49 @@
   .showcase.is-featured .showcase-name { font-size: clamp(26px, 2.6vw, 34px); }
   .showcase.is-featured.is-flipped { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
   .showcase.is-featured.is-flipped .showcase-stage { order: 0; }
+  /* feature chips: what was built, at a glance */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips li { font-size: 13px; font-weight: 500; line-height: 1.3; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; }
+  .showcase .chips li { border-color: color-mix(in srgb, var(--app) 35%, var(--line)); }
+
+  /* Platforms: systems without an app-store listing, written up as short case studies */
+  .systems { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: clamp(32px, 4vw, 56px); }
+  .system {
+    display: grid; gap: 12px; align-content: start; padding: 26px 26px 28px;
+    border: 1px solid var(--line); border-radius: 22px; background: var(--ink-2);
+    transition: border-color .3s, translate .4s cubic-bezier(.2, .75, .25, 1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .system:hover { border-color: color-mix(in srgb, var(--lilac) 45%, var(--line)); translate: 0 -4px; }
+  }
+  .system-copy { display: grid; gap: 12px; align-content: start; }
+  .system-tag {
+    width: fit-content; padding: 4px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+    background: var(--tag); border: 1px solid var(--tag-line);
+  }
+  .system-tag.is-lead::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-inline-end: 7px; border-radius: 50%; background: var(--sun); vertical-align: 1px; }
+  .system-name { font-size: 23px; font-weight: 750; font-stretch: 115%; line-height: 1.15; letter-spacing: -.01em; }
+  .system-sub { margin-top: -6px; color: var(--lilac); font-size: 14px; font-weight: 650; }
+  .system-what { color: var(--haze); }
+  .system-stack { color: var(--haze); font-size: 13.5px; font-weight: 600; }
+  .system .pill:hover { border-color: var(--lilac); background: color-mix(in srgb, var(--lilac) 14%, transparent); }
+  .system.is-featured {
+    grid-column: 1 / -1; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center;
+    gap: 24px clamp(28px, 4vw, 64px); padding: clamp(28px, 3vw, 40px);
+  }
+  .system.is-featured .system-name { font-size: clamp(28px, 2.8vw, 38px); }
+  /* the Matp diagram: isolated tenants on a shared core, with merchants and drivers */
+  .sys-diagram { width: 100%; height: auto; overflow: visible; }
+  .sys-diagram .tenant { fill: var(--ink); stroke: var(--lilac); stroke-width: 1.5; stroke-dasharray: 6 5; }
+  .sys-diagram .wire { fill: none; stroke: var(--line); stroke-width: 2; }
+  .sys-diagram .core { fill: var(--violet); }
+  .sys-diagram .core-ring { fill: none; stroke: var(--sun); stroke-width: 2; stroke-dasharray: 3 7; }
+  .sys-diagram .node { fill: var(--ink); stroke: var(--line); stroke-width: 1.5; }
+  .sys-diagram .pulse { fill: var(--sun); }
+  .sys-diagram text { fill: var(--stone); font: 650 15px var(--font); text-anchor: middle; }
+  .sys-diagram .t-dim { fill: var(--haze); font-size: 12.5px; font-weight: 500; }
+  .sys-diagram .t-core { fill: #fff; font-size: 22px; font-weight: 750; }
+
   .visually-hidden {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -597,19 +685,63 @@
   .entry p:not(.meta) { color: var(--haze); max-width: 44ch; margin-top: 10px; }
   .entry strong { color: var(--stone); font-weight: 600; }
 
+  /* Page background: faint live server logs, drawn on a fixed canvas and faded towards the edges */
+  .page-bg {
+    position: fixed; inset: 0 0 auto; z-index: -1; width: 100%; height: 100lvh; pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 95% 85% at 60% 35%, #000 35%, transparent 100%);
+            mask-image: radial-gradient(ellipse 95% 85% at 60% 35%, #000 35%, transparent 100%);
+  }
+
+  /* Experience and volunteering: the role in the middle of the screen is in focus, and a gold line fills the timeline */
+  .timeline .role { transition: opacity .45s ease, filter .45s ease; }
+  .timeline:has(.is-focus) .role:not(.is-focus) { opacity: .25; filter: blur(1.5px) saturate(.6); }
+  .role::before { transition: transform .4s ease, background-color .4s ease; }
+  .role.is-focus::before { background: var(--sun); transform: scale(1.35); }
+  .timeline::after {
+    content: ''; position: absolute; inset-inline-start: 6.5px; top: 14px; width: 2px; height: calc(var(--p, 0) * (100% - 14px));
+    background: linear-gradient(var(--lilac), var(--sun)); box-shadow: 0 0 10px color-mix(in srgb, var(--sun) 60%, transparent);
+  }
+
   /* Contact */
   .contact { padding-block: var(--space) 40px; }
-  .contact-note { color: var(--haze); margin: -40px 0 18px; }
-  .contact-mail {
-    display: inline-block; max-width: 100%; font-size: clamp(22px, 4.6vw, 64px); font-weight: 700; font-stretch: 112%;
-    line-height: 1.15; letter-spacing: -.025em; overflow-wrap: anywhere; color: var(--stone);
-    text-decoration: underline; text-decoration-color: var(--violet); text-decoration-thickness: .06em; text-underline-offset: .16em;
-    transition: text-decoration-color .2s;
+  #volunteering .section-lead { margin-bottom: clamp(36px, 4.5vw, 60px); }
+  .contact-lead { margin-bottom: clamp(32px, 4vw, 52px); }
+  /* every way to reach him, equal, beside a composer that sends through the visitor's own email or WhatsApp */
+  .contact-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 22px; align-items: start; }
+  .channels { display: grid; gap: 10px; }
+  .channel {
+    display: flex; align-items: center; gap: 14px; padding: 12px 18px 12px 12px; border: 1px solid var(--line); border-radius: 16px;
+    background: var(--ink-2); color: var(--stone); font-size: 15.5px; font-weight: 650; text-decoration: none;
+    transition: border-color .3s, translate .4s cubic-bezier(.2, .75, .25, 1);
   }
-  .contact-mail:hover { text-decoration-color: var(--lilac); }
-  .contact-links { display: flex; flex-wrap: wrap; gap: 14px 36px; margin-top: 40px; font-weight: 500; }
-  .contact-links a { color: var(--haze); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: color .2s, text-decoration-color .2s; }
-  .contact-links a:hover { color: var(--stone); text-decoration-color: var(--lilac); }
+  @media (hover: hover) and (pointer: fine) {
+    .channel:hover { border-color: color-mix(in srgb, var(--c) 55%, var(--line)); translate: 0 -2px; }
+  }
+  .channel-icon {
+    display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 12px;
+    background: color-mix(in srgb, var(--c) 15%, transparent); color: var(--c);
+  }
+  .channel-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .compose { display: grid; gap: 14px; padding: clamp(22px, 3vw, 34px); border: 1px solid var(--line); border-radius: 22px; background: var(--ink-2); }
+  .compose-title { font-size: 24px; font-weight: 750; font-stretch: 115%; }
+  .compose label { display: grid; gap: 6px; color: var(--haze); font-size: 14px; font-weight: 600; }
+  .compose :is(input, textarea) {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--ink); color: var(--stone);
+    font: 16px/1.5 var(--font); resize: vertical; transition: border-color .2s;
+  }
+  .compose :is(input, textarea):focus { outline: none; border-color: var(--lilac); }
+  .compose.is-empty textarea { border-color: #e5484d; }
+  .compose-hint { color: var(--haze); font-size: 13.5px; }
+  .compose-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .compose-actions .btn { min-height: 48px; cursor: pointer; font-family: inherit; }
+  .compose-actions .btn:not(.btn-primary) { background: none; }
+  .contact-extras { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 28px; }
+  .contact-time { display: inline-flex; align-items: center; gap: 8px; margin-inline-start: auto; color: var(--haze); font-size: 14.5px; }
+  .contact-time svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+  .contact-clock { color: var(--stone); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .contact-tz { direction: ltr; unicode-bidi: isolate; }
+  .to-top { color: var(--haze); text-decoration: none; transition: color .2s; }
+  .to-top:hover { color: var(--stone); }
   .fineprint { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: clamp(80px, 10vw, 140px); padding-top: 24px; border-top: 1px solid var(--line); color: var(--haze); font-size: 14px; }
 
   /* Certificate viewer */
@@ -637,7 +769,10 @@
     .stack-visual { width: min(100%, 560px); margin-inline: auto; }
     .cp, .split { grid-template-columns: minmax(0, 1fr); }
     .role { grid-template-columns: minmax(0, 1fr); padding-inline-start: 36px; }
-    .showcases { grid-template-columns: minmax(0, 1fr); }
+    .showcases, .systems, .system.is-featured { grid-template-columns: minmax(0, 1fr); }
+    .contact-split { grid-template-columns: minmax(0, 1fr); }
+    .channels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-time { margin-inline-start: 0; }
     .showcase.is-featured, .showcase.is-featured.is-flipped { grid-template-columns: minmax(0, 1fr); }
     .showcase.is-featured .showcase-stage { order: 0; height: 360px; }
     .showcase.is-featured .shot { --spread: 64px; width: 150px; margin-left: -75px; }
@@ -648,7 +783,10 @@
     body { font-size: 16px; }
     .nav { gap: 18px; font-size: 14px; }
     .hero-actions .btn { flex: 1 1 auto; }
-    .contact-note { margin-top: -28px; }
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .channels { grid-template-columns: minmax(0, 1fr); }
+    .contact-extras .btn { flex: 1 1 auto; }
+    .hero-type { font-size: 13.5px; }
   }
   /* phones: five menu items share the bar with the logo, so tighten them and shorten the language pill */
   @media (max-width: 430px) {
@@ -662,12 +800,14 @@
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions, .js .portrait { animation: none; }
+    .js .hero-ar, .js .hero-name span, .js .hero-role, .js .hero-intro, .js .hero-actions, .js .facts, .js .hero-type, .js .portrait { animation: none; }
     .shot, .fan, .showcase, .topbar, .brand img { transition: none; }
+    .timeline:has(.is-focus) .role:not(.is-focus) { filter: none; }
   }
 </style>
 </head>
 <body>
+<canvas class="page-bg" dir="ltr" aria-hidden="true"></canvas>
 
 <a class="skip-link" href="#top" data-i18n="skip">Skip to content</a>
 
@@ -702,15 +842,49 @@
         <p class="hero-ar" lang="ar" dir="rtl">محمود شراباتي</p>
         <h1 class="hero-name" id="hero-name"><span>Mahmoud</span> <span>Sharabati</span></h1>
         <p class="hero-role" data-i18n="hero.role">Senior .NET Core developer in Aleppo, Syria</p>
-        <p class="hero-intro" data-i18n="hero.intro">I design back-end systems around Clean Architecture and Domain-Driven Design, and build their interfaces in Blazor. I've shipped .NET for over four years, including the APIs behind apps on Google Play and the App Store. Today I build and maintain management systems at HASH Information Technology, and scale the back end of Wasiitak, a marketplace with 10K+ downloads.</p>
+        <p class="hero-type" data-phrases="multi-tenant SaaS platforms|Clean Architecture back ends|real-time Blazor dashboards|APIs behind mobile apps|order &amp; delivery systems|management systems at HASH" data-i18n-attr="data-phrases=type.phrases">
+          <span aria-hidden="true"><span class="type-prompt">›</span> <span data-i18n="type.prefix">I build</span> <span class="type-text">multi-tenant SaaS platforms</span><span class="type-caret"></span></span>
+          <span class="visually-hidden" data-i18n="type.static">I build multi-tenant SaaS platforms, Clean Architecture back ends, real-time Blazor dashboards, APIs behind mobile apps, order and delivery systems, and management systems at HASH.</span>
+        </p>
+        <p class="hero-intro" data-i18n="hero.intro">I turn complex business domains into .NET back ends that stay maintainable long after hand-off, built on Clean Architecture and Domain-Driven Design with Blazor on the front. In over four years I've led the architecture of a multi-tenant warehouse and order platform, built delivery systems including one operating in Saudi Arabia, and shipped the APIs behind apps on Google Play and the App Store. Today I build management systems at HASH Information Technology and scale Wasiitak, a marketplace with 10K+ downloads.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="mailto:mahmoud.sharabati.dev@gmail.com" data-i18n="hero.email">Email me</a>
+          <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf">
+            <svg class="btn-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12"/></svg>
+            <span data-i18n="hero.cv">Download CV</span>
+          </a>
+          <a class="btn" href="mailto:mahmoud.sharabati.dev@gmail.com" data-i18n="hero.email">Email me</a>
           <a class="btn" href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
+        <dl class="facts" aria-label="Highlights" data-i18n-attr="aria-label=facts.label">
+          <div><dt data-i18n="facts.years">years shipping .NET to production</dt><dd>4+</dd></div>
+          <div><dt data-i18n="facts.products">products built, from apps to platforms</dt><dd>9</dd></div>
+          <div><dt data-i18n="facts.downloads">downloads on Wasiitak</dt><dd>10K+</dd></div>
+          <div><dt data-i18n="facts.cf">Codeforces problems solved</dt><dd>500+</dd></div>
+        </dl>
       </div>
 
       <div class="hero-visual">
         <div class="portrait-frame">
+          <div class="halo" aria-hidden="true">
+            <svg viewBox="0 0 1100 1316">
+              <defs><radialGradient id="orbit-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#6a46f0" stop-opacity=".7"/><stop offset="1" stop-color="#6a46f0" stop-opacity="0"/></radialGradient></defs>
+              <circle cx="590" cy="360" r="420" fill="url(#orbit-glow)"/>
+              <ellipse cx="590" cy="300" rx="520" ry="150" transform="rotate(-10 590 300)" fill="none" style="stroke: var(--lilac)" stroke-opacity=".3" stroke-width="2" stroke-dasharray="6 10"/>
+              <ellipse cx="590" cy="470" rx="500" ry="135" transform="rotate(12 590 470)" fill="none" style="stroke: var(--lilac)" stroke-opacity=".3" stroke-width="2" stroke-dasharray="6 10"/>
+              <g data-tag="0-0" transform="translate(1102.1 209.7) scale(0.890)" opacity="0.750"><rect x="-39.0" y="-27" width="78" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--sun)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">C#</text></g>
+              <g data-tag="0-1" transform="translate(868.6 382.8) scale(0.985)" opacity="0.967"><rect x="-98.5" y="-27" width="197" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">.NET Core</text></g>
+              <g data-tag="0-2" transform="translate(356.5 473.1) scale(0.985)" opacity="0.967"><rect x="-73.0" y="-27" width="146" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Blazor</text></g>
+              <g data-tag="0-3" transform="translate(77.9 390.3) scale(0.890)" opacity="0.750"><rect x="-107.0" y="-27" width="214" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--sun)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">PostgreSQL</text></g>
+              <g data-tag="0-4" transform="translate(311.4 217.2) scale(0.795)" opacity="0.533"><rect x="-73.0" y="-27" width="146" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Docker</text></g>
+              <g data-tag="0-5" transform="translate(823.5 126.9) scale(0.795)" opacity="0.533"><rect x="-47.5" y="-27" width="95" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">DDD</text></g>
+              <g data-tag="1-0" transform="translate(830.6 637.3) scale(0.983)" opacity="0.960"><rect x="-124.0" y="-27" width="248" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--sun)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">ASP.NET Core</text></g>
+              <g data-tag="1-1" transform="translate(340.8 539.7) scale(0.988)" opacity="0.972"><rect x="-175.0" y="-27" width="350" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Clean Architecture</text></g>
+              <g data-tag="1-2" transform="translate(100.1 372.4) scale(0.895)" opacity="0.762"><rect x="-98.5" y="-27" width="197" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">MudBlazor</text></g>
+              <g data-tag="1-3" transform="translate(349.4 302.7) scale(0.797)" opacity="0.540"><rect x="-64.5" y="-27" width="129" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--sun)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Linux</text></g>
+              <g data-tag="1-4" transform="translate(839.2 400.3) scale(0.792)" opacity="0.528"><rect x="-64.5" y="-27" width="129" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Nginx</text></g>
+              <g data-tag="1-5" transform="translate(1079.9 567.6) scale(0.885)" opacity="0.738"><rect x="-107.0" y="-27" width="214" height="54" rx="27" style="fill: var(--ink-2); stroke: var(--lilac)" fill-opacity=".92" stroke-opacity=".55" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Archivo, sans-serif" font-weight="600" font-size="28" style="fill: var(--stone)">Stripe API</text></g>
+            </svg>
+          </div>
           <div class="portrait">
             <img src="mahmoud-cutout-1100.webp"
                  srcset="mahmoud-cutout-640.webp 640w, mahmoud-cutout-1100.webp 1100w"
@@ -750,7 +924,8 @@
             </div>
             <p class="showcase-what" data-i18n="app.wasiitak.what">A marketplace that sits between buyers and sellers: free ads, browsing by category and location, in-app chat, and ratings to build trust.</p>
             <p class="showcase-stat" data-i18n="app.wasiitak.stat"><strong>10K+</strong> downloads on Google Play</p>
-            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.itlegend.wasiitk" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on Google Play" data-i18n-attr="aria-label=app.wasiitak.play">Google Play</a></p>
+            <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.itlegend.wasiitk" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on Google Play" data-i18n-attr="aria-label=app.wasiitak.play">Google Play</a>
+              <a class="pill" href="https://apps.apple.com/us/app/wasiitak/id6749491110" target="_blank" rel="noopener noreferrer" aria-label="Wasiitak on the App Store" data-i18n-attr="aria-label=app.wasiitak.store">App Store</a></p>
           </div>
         </article>
 
@@ -772,7 +947,9 @@
                 <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what" data-i18n="app.mrcourse.what">A study app for medical students: video lessons, practice tests, and favourites to keep the lessons that matter.</p>
+            <p class="showcase-what" data-i18n="app.mrcourse.what">A study app for medical students: video courses unlocked with point-of-sale codes, practice tests, and favourites to keep the lessons that matter.</p>
+            <ul class="chips" data-i18n="app.mrcourse.chips"><li>POS code system</li><li>Video upload &amp; storage</li><li>Role-based access</li><li>Admin APIs</li></ul>
+            <p class="showcase-stat" data-i18n="app.mrcourse.stat"><strong>5K+</strong> downloads on Google Play</p>
             <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.mrcourse.mrcourse" target="_blank" rel="noopener noreferrer" aria-label="Mr Course on Google Play" data-i18n-attr="aria-label=app.mrcourse.play">Google Play</a></p>
           </div>
         </article>
@@ -793,7 +970,8 @@
                 <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what" data-i18n="app.flyorder.what">Delivery from restaurants, supermarkets and pharmacies.</p>
+            <p class="showcase-what" data-i18n="app.flyorder.what">Food and grocery delivery operating in Saudi Arabia, in the spirit of Talabat: order from restaurants, supermarkets and pharmacies, then follow the driver live.</p>
+            <ul class="chips" data-i18n="app.flyorder.chips"><li>Real-time order tracking</li><li>Store management</li><li>Driver dispatch</li><li>Promo codes &amp; discounts</li></ul>
             <p class="showcase-links"><a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.fly_order.fly_order" target="_blank" rel="noopener noreferrer" aria-label="Fly Order on Google Play" data-i18n-attr="aria-label=app.flyorder.play">Google Play</a></p>
           </div>
         </article>
@@ -836,7 +1014,8 @@
                 <p class="showcase-role" data-i18n="app.apis">Designed the APIs</p>
               </div>
             </div>
-            <p class="showcase-what" data-i18n="app.jenacom.what">Delivers goods between cities: drivers accept orders, follow the day's route and share their location.</p>
+            <p class="showcase-what" data-i18n="app.jenacom.what">Furniture delivery between cities and across time zones: drivers accept orders, follow the day's route and share their location.</p>
+            <ul class="chips" data-i18n="app.jenacom.chips"><li>Multi-timezone scheduling</li><li>Live truck tracking</li><li>Order lifecycle</li><li>Push notifications</li></ul>
             <p class="showcase-links"><a class="pill" href="https://apps.apple.com/us/app/jenacom/id6468572186" target="_blank" rel="noopener noreferrer" aria-label="Jenacom on the App Store" data-i18n-attr="aria-label=app.jenacom.store">App Store</a></p>
           </div>
         </article>
@@ -858,7 +1037,9 @@
                 <p class="showcase-role" data-i18n="app.bronz.role">Supervised development</p>
               </div>
             </div>
-            <p class="showcase-what" data-i18n="app.bronz.what">Online kids' clothing store for ages 1 to 16.</p>
+            <p class="showcase-what" data-i18n="app.bronz.what">Online kids' clothing store for ages 1 to 16, with size and colour variants, cart and checkout, and stock management.</p>
+            <ul class="chips" data-i18n="app.bronz.chips"><li>Product variants</li><li>Cart &amp; checkout</li><li>Inventory</li></ul>
+            <p class="showcase-stat" data-i18n="app.bronz.stat"><strong>1K+</strong> downloads on Google Play</p>
             <p class="showcase-links">
               <a class="pill" href="https://play.google.com/store/apps/details?id=com.elkood.bronze" target="_blank" rel="noopener noreferrer" aria-label="Bronz on Google Play" data-i18n-attr="aria-label=app.bronz.play">Google Play</a>
               <a class="pill" href="https://apps.apple.com/us/app/bronz-mart/id6503243545" target="_blank" rel="noopener noreferrer" aria-label="Bronz on the App Store" data-i18n-attr="aria-label=app.bronz.store">App Store</a>
@@ -869,12 +1050,86 @@
     </div>
   </section>
 
+  <!-- PLATFORMS -->
+  <section class="section" id="systems" aria-labelledby="systems-title">
+    <div class="wrap">
+      <h2 class="section-title" id="systems-title" data-i18n="sys.title">Platforms I've built</h2>
+      <p class="section-lead" data-i18n="sys.lead">Not everything ships to an app store. These run behind the scenes: a multi-tenant SaaS, two marketplaces, and the template I start every solution from.</p>
+      <div class="systems">
+        <article class="system is-featured" aria-labelledby="sys-matp">
+          <div class="system-copy">
+            <p class="system-tag is-lead" data-i18n="sys.matp.tag">Elkood · Led the architecture</p>
+            <h3 class="system-name" id="sys-matp">Matp</h3>
+            <p class="system-sub" data-i18n="sys.matp.sub">Warehouse &amp; order management (WMS + OMS)</p>
+            <p class="system-what" data-i18n="sys.matp.what">A multi-tenant platform where every warehouse owner runs in an isolated tenant, connects to online merchants and follows each order from the shelf to the doorstep. I led its architecture and technical direction, and mentored the developers who built it with me.</p>
+            <ul class="chips" data-i18n="sys.matp.chips"><li>Multi-tenancy</li><li>Inventory, locations &amp; zones</li><li>Merchant integrations</li><li>Order &amp; driver tracking</li><li>Per-tenant auth &amp; roles</li><li>Billing &amp; subscriptions</li><li>Push &amp; email notifications</li></ul>
+            <p class="system-stack"><bdi dir="ltr">ASP.NET Core · Clean Architecture · DDD · PostgreSQL</bdi></p>
+          </div>
+          <svg class="sys-diagram" viewBox="0 0 560 372" role="img" aria-label="Matp: three isolated warehouse tenants connected to a shared core, with online merchants and drivers" data-i18n-attr="aria-label=sys.d.label">
+            <path class="wire" id="w0" d="M90 92 C90 128 280 118 280 150"/>
+            <path class="wire" id="w1" d="M280 92 C280 128 280 118 280 150"/>
+            <path class="wire" id="w2" d="M470 92 C470 128 280 118 280 150"/>
+            <path class="wire" id="w3" d="M232 236 C170 250 110 280 110 318"/>
+            <path class="wire" id="w4" d="M328 236 C390 250 450 280 450 318"/>
+            <rect class="tenant" x="20" y="18" width="140" height="74" rx="14"/>
+            <text x="90" y="50" data-i18n="sys.d.wa">Warehouse A</text>
+            <text class="t-dim" x="90" y="72" data-i18n="sys.d.own">own data &amp; users</text>
+            <rect class="tenant" x="210" y="18" width="140" height="74" rx="14"/>
+            <text x="280" y="50" data-i18n="sys.d.wb">Warehouse B</text>
+            <text class="t-dim" x="280" y="72" data-i18n="sys.d.own">own data &amp; users</text>
+            <rect class="tenant" x="400" y="18" width="140" height="74" rx="14"/>
+            <text x="470" y="50" data-i18n="sys.d.wc">Warehouse C</text>
+            <text class="t-dim" x="470" y="72" data-i18n="sys.d.own">own data &amp; users</text>
+            <polygon class="core-ring" points="280.0,136.0 340.6,171.0 340.6,241.0 280.0,276.0 219.4,241.0 219.4,171.0"/>
+            <polygon class="core" points="280.0,150.0 328.5,178.0 328.5,234.0 280.0,262.0 231.5,234.0 231.5,178.0"/>
+            <text class="t-core" x="280" y="213">Matp</text>
+            <text class="t-dim" x="280" y="300" data-i18n="sys.d.core">Inventory · Orders · Billing</text>
+            <rect class="node" x="20" y="318" width="180" height="46" rx="23"/>
+            <text x="110" y="346" data-i18n="sys.d.merchants">Online merchants</text>
+            <rect class="node" x="360" y="318" width="180" height="46" rx="23"/>
+            <text x="450" y="346" data-i18n="sys.d.drivers">Drivers &amp; delivery</text>
+            <circle class="pulse" r="4.5"><animateMotion dur="2.6s" begin="-0.0s" repeatCount="indefinite"><mpath href="#w0"/></animateMotion></circle>
+            <circle class="pulse" r="4.5"><animateMotion dur="2.6s" begin="-0.7s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
+            <circle class="pulse" r="4.5"><animateMotion dur="2.6s" begin="-1.4s" repeatCount="indefinite"><mpath href="#w2"/></animateMotion></circle>
+            <circle class="pulse" r="4.5"><animateMotion dur="2.6s" begin="-1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w3"/></animateMotion></circle>
+            <circle class="pulse" r="4.5"><animateMotion dur="2.6s" begin="-1.9s" repeatCount="indefinite"><mpath href="#w4"/></animateMotion></circle>
+          </svg>
+        </article>
+        <article class="system" aria-labelledby="sys-30s">
+          <p class="system-tag" data-i18n="sys.30s.tag">Freelance · Whole back end</p>
+          <h3 class="system-name" id="sys-30s"><bdi>30-S</bdi></h3>
+          <p class="system-sub" data-i18n="sys.30s.sub">Product marketplace with 30-second reels</p>
+          <p class="system-what" data-i18n="sys.30s.what">A marketplace in the spirit of OpenSooq: sellers list products with dynamic attributes and promote them with 30-second reels on a discovery feed. I built the back end end to end.</p>
+          <ul class="chips" data-i18n="sys.30s.chips"><li>Dynamic attributes</li><li>Search &amp; filters</li><li>Real-time chat</li><li>Reels feed</li><li>Push notifications</li></ul>
+          <p class="system-stack"><bdi dir="ltr">ASP.NET Core · Clean Architecture · DDD · PostgreSQL</bdi></p>
+        </article>
+        <article class="system" aria-labelledby="sys-qr">
+          <p class="system-tag" data-i18n="sys.qr.tag">Elkood · Back end</p>
+          <h3 class="system-name" id="sys-qr">QrGermany</h3>
+          <p class="system-sub" data-i18n="sys.qr.sub">QR code platform &amp; marketplace</p>
+          <p class="system-what" data-i18n="sys.qr.what">A platform for generating, managing and selling customizable QR codes, with dynamic attributes on each code and analytics on every scan.</p>
+          <ul class="chips" data-i18n="sys.qr.chips"><li>Dynamic QR codes</li><li>Marketplace</li><li>Scan analytics</li><li>Roles &amp; admin APIs</li></ul>
+          <p class="system-stack"><bdi dir="ltr">ASP.NET Core · C#</bdi></p>
+        </article>
+        <article class="system" aria-labelledby="sys-tpl">
+          <p class="system-tag" data-i18n="sys.tpl.tag">Open source</p>
+          <h3 class="system-name" id="sys-tpl" data-i18n="sys.tpl.name">Clean Architecture template</h3>
+          <p class="system-sub" data-i18n="sys.tpl.sub">.NET solution template</p>
+          <p class="system-what" data-i18n="sys.tpl.what">The starting point for my solutions: domain, application, infrastructure and UI layers already separated, on DDD principles, so a new project begins with the right boundaries.</p>
+          <ul class="chips" data-i18n="sys.tpl.chips"><li>Clean Architecture</li><li>DDD</li><li>Separation of concerns</li></ul>
+          <p class="system-stack"><bdi dir="ltr">.NET Core · C#</bdi></p>
+          <p class="showcase-links"><a class="pill" href="https://gitlab.com/mahmoudsh792/template" target="_blank" rel="noopener noreferrer" aria-label="Clean Architecture template on GitLab" data-i18n-attr="aria-label=sys.tpl.aria" data-i18n="sys.tpl.link">View on GitLab</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- WORK EXPERIENCE -->
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
       <h2 class="section-title" id="experience-title" data-i18n="exp.title">Experience</h2>
       <ol class="timeline">
-        <li class="role is-current">
+        <li class="role is-current" data-org="HASH">
           <div class="role-when">
             <span class="role-dates" data-i18n="exp.hash.dates"><time datetime="2026-04">Apr 2026</time> – present</span>
           </div>
@@ -888,9 +1143,12 @@
               <li data-i18n="exp.hash.4"><strong>Business requirements.</strong> Turning business needs into working features, and structuring them with Clean Architecture so the systems stay easy to extend.</li>
               <li data-i18n="exp.hash.5"><strong>Maintenance &amp; performance.</strong> Keeping systems healthy in production: tracking down bugs, tuning slow queries and endpoints, and adapting features as clients' needs change.</li>
             </ul>
+            <div class="role-foot">
+              <ul class="chips" data-i18n="exp.hash.stack" aria-label="Stack" data-i18n-attr="aria-label=exp.stack"><li>ASP.NET Core</li><li>Clean Architecture</li><li>Relational databases</li></ul>
+            </div>
           </article>
         </li>
-        <li class="role is-current">
+        <li class="role is-current" data-org="Evolvo">
           <div class="role-when">
             <span class="role-dates" data-i18n="exp.evolvo.dates"><time datetime="2025-11">Nov 2025</time> – present</span>
             <span data-i18n="exp.evolvo.type">Part-time, then contract from <time datetime="2026-05">May 2026</time></span>
@@ -898,15 +1156,19 @@
           <article aria-labelledby="role-evolvo">
             <h3 class="role-title" id="role-evolvo" data-i18n="exp.evolvo.title">.NET Developer <span class="role-org">at Evolvo</span></h3>
             <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
+            <dl class="role-stats"><div><dt data-i18n="exp.evolvo.s1">downloads on Wasiitak, the app I scale</dt><dd>10K+</dd></div><div><dt data-i18n="exp.evolvo.s2">uptime held in production</dt><dd>99.9%</dd></div></dl>
             <ul class="role-points">
               <li data-i18n="exp.evolvo.1"><strong>Wasiitak.</strong> Enhancing and scaling the back end of this buy-and-sell marketplace (10K+ downloads), and running its DevOps and data (see <a href="#projects">Projects</a>).</li>
-              <li data-i18n="exp.evolvo.2"><strong>Feature development.</strong> Designed and implemented responsive administrative dashboards using Blazor and .NET Core, focusing on real-time data visualization and efficient management tools.</li>
-              <li data-i18n="exp.evolvo.3"><strong>Production support.</strong> Managed the application in a live production environment, performing regular server health checks and technical troubleshooting to ensure 99.9% uptime.</li>
-              <li data-i18n="exp.evolvo.4"><strong>Technical support &amp; optimization.</strong> Acted as the primary point of contact for technical issues, identifying root causes in production logs and deploying hotfixes to improve system stability.</li>
+              <li data-i18n="exp.evolvo.2"><strong>Admin dashboards.</strong> Build real-time Blazor dashboards that keep the business data actionable for clients.</li>
+              <li data-i18n="exp.evolvo.3"><strong>Production ownership.</strong> Own production readiness: server health checks, root-causing issues from production logs, and hotfixes that hold uptime at 99.9%.</li>
             </ul>
+            <div class="role-foot">
+              <p class="role-built"><span class="role-label" data-i18n="exp.built">Built here</span><a href="#app-wasiitak" data-i18n="pill.wasiitak">Wasiitak</a></p>
+              <ul class="chips" aria-label="Stack" data-i18n-attr="aria-label=exp.stack"><li>Blazor</li><li>ASP.NET Core</li><li>Entity Framework Core</li><li>Linux</li></ul>
+            </div>
           </article>
         </li>
-        <li class="role">
+        <li class="role" data-org="Elkood">
           <div class="role-when">
             <span class="role-dates" data-i18n="exp.elkood.dates"><time datetime="2022-05">May 2022</time> – <time datetime="2024-04">Apr 2024</time></span>
             <span data-i18n="exp.elkood.type">Full-time</span>
@@ -914,15 +1176,66 @@
           <article aria-labelledby="role-elkood">
             <h3 class="role-title" id="role-elkood" data-i18n="exp.elkood.title">.NET Backend Developer <span class="role-org">at Elkood</span></h3>
             <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
+            <dl class="role-stats"><div><dt data-i18n="exp.elkood.s1">products shipped to production</dt><dd>7</dd></div><div><dt data-i18n="exp.elkood.s2">multi-tenant platform whose architecture I led</dt><dd>Matp</dd></div><div><dt data-i18n="exp.elkood.s3">downloads on Mr Course</dt><dd>5K+</dd></div></dl>
             <ul class="role-points">
-              <li data-i18n="exp.elkood.1"><strong>Apps in production.</strong> Designed the APIs behind Fly Order, Mr Course, Ads Net and Jenacom, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
-              <li data-i18n="exp.elkood.2"><strong>System architecture.</strong> Architected and deployed scalable back-end solutions using .NET Core/6+, translating complex business requirements into high-performance web applications.</li>
-              <li data-i18n="exp.elkood.3"><strong>API integration &amp; payment systems.</strong> Streamlined business operations by integrating third-party services including Stripe, Google APIs, and Telegram for automated notification systems.</li>
-              <li data-i18n="exp.elkood.4"><strong>Infrastructure &amp; tooling.</strong> Developed and maintained shared internal libraries, reducing boilerplate code across multiple projects and accelerating the development lifecycle.</li>
-              <li data-i18n="exp.elkood.5"><strong>Code quality &amp; optimization.</strong> Refactored legacy codebases to implement modern design patterns, resulting in measurable decreases in production bugs and faster project delivery.</li>
-              <li data-i18n="exp.elkood.6"><strong>Mentorship &amp; leadership.</strong> Mentored engineering interns through code reviews and technical workshops to foster a high-performing development team.</li>
-              <li data-i18n="exp.elkood.7"><strong>Technical problem solving.</strong> Engineered custom solutions for diverse business sectors, ensuring high availability and alignment with industry best practices.</li>
+              <li data-i18n="exp.elkood.1"><strong>Led the architecture of Matp.</strong> Designed a multi-tenant warehouse and order platform (WMS + OMS) where each warehouse owner runs in an isolated tenant: inventory and zones, merchant integrations, order and driver tracking, per-tenant roles, billing and subscriptions. Guided the team's technical decisions and mentored its developers (see <a href="#systems">Platforms</a>).</li>
+              <li data-i18n="exp.elkood.2"><strong>Apps in production.</strong> Built the back ends and APIs behind Fly Order, Mr Course, Ads Net, Jenacom and QrGermany, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
+              <li data-i18n="exp.elkood.3"><strong>Domain-driven back ends.</strong> Turned complex business flows into .NET 6+ back ends on Clean Architecture and DDD, from order and delivery lifecycles to subscriptions and payments.</li>
+              <li data-i18n="exp.elkood.4"><strong>Payments &amp; integrations.</strong> Integrated Stripe payments, Google APIs and Telegram bots so payments and notifications run without manual work.</li>
+              <li data-i18n="exp.elkood.5"><strong>Shared libraries.</strong> Built internal libraries that removed repeated boilerplate across projects, so every new project started faster.</li>
+              <li data-i18n="exp.elkood.6"><strong>Code quality.</strong> Refactored legacy code onto modern design patterns, cutting production bugs and shortening delivery.</li>
+              <li data-i18n="exp.elkood.7"><strong>Mentorship.</strong> Mentored engineering interns through code reviews and hands-on technical workshops.</li>
             </ul>
+            <div class="role-foot">
+              <p class="role-built"><span class="role-label" data-i18n="exp.built">Built here</span><a href="#sys-matp">Matp</a><a href="#app-flyorder">Fly Order</a><a href="#app-mrcourse">Mr Course</a><a href="#app-adsnet" data-i18n="pill.adsnet">Ads Net</a><a href="#app-jenacom">Jenacom</a><a href="#sys-qr">QrGermany</a><a href="#app-bronz" data-i18n="pill.bronz">Bronz</a></p>
+              <ul class="chips" aria-label="Stack" data-i18n-attr="aria-label=exp.stack"><li>.NET 6+</li><li>ASP.NET Core</li><li>Clean Architecture</li><li>DDD</li><li>PostgreSQL</li><li>Stripe</li></ul>
+            </div>
+          </article>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- VOLUNTEERING & LEADERSHIP -->
+  <section class="section" id="volunteering" aria-labelledby="volunteering-title">
+    <div class="wrap">
+      <h2 class="section-title" id="volunteering-title" data-i18n="vol.title">Volunteering &amp; leadership</h2>
+      <p class="section-lead" data-i18n="vol.lead">Teaching what I use every day, and making study material easier to reach.</p>
+      <ol class="timeline">
+        <li class="role" data-org="Sanad">
+          <div class="role-when">
+            <span class="role-dates" data-i18n="vol.sanad.dates"><time datetime="2025-03">Mar 2025</time> – <time datetime="2025-05">May 2025</time></span>
+            <span data-i18n="vol.type">Volunteer</span>
+          </div>
+          <article aria-labelledby="vol-sanad">
+            <h3 class="role-title" id="vol-sanad" data-i18n="vol.sanad.title">Volunteer instructor <span class="role-org">at Sanad</span></h3>
+            <p class="role-where" data-i18n="vol.sanad.where">Al-Shahba Private University, Aleppo</p>
+            <ul class="role-points">
+              <li data-i18n="vol.sanad.1"><strong>Course design.</strong> Designed a structured ASP.NET Core MVC course that follows a request through its whole lifecycle, from routing to the database.</li>
+              <li data-i18n="vol.sanad.2"><strong>Teaching.</strong> Taught conventional and attribute routing, controllers and actions, Razor views and layouts, model binding, and CRUD with Entity Framework Core.</li>
+              <li data-i18n="vol.sanad.3"><strong>Hands-on projects.</strong> Guided students through real projects, so every concept ended up in a working web application.</li>
+            </ul>
+            <div class="role-foot">
+              <ul class="chips" aria-label="Stack" data-i18n-attr="aria-label=exp.stack"><li>ASP.NET Core MVC</li><li>Razor</li><li>Entity Framework Core</li></ul>
+            </div>
+          </article>
+        </li>
+        <li class="role" data-org="BlueBits">
+          <div class="role-when">
+            <span class="role-dates" data-i18n="vol.bluebits.dates"><time datetime="2020-11">Nov 2020</time> – <time datetime="2022-11">Nov 2022</time></span>
+            <span data-i18n="vol.type">Volunteer</span>
+          </div>
+          <article aria-labelledby="vol-bluebits">
+            <h3 class="role-title" id="vol-bluebits" data-i18n="vol.bluebits.title">Content digitizer <span class="role-org">at BlueBitsTeam</span></h3>
+            <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
+            <ul class="role-points">
+              <li data-i18n="vol.bluebits.1"><strong>Digital lectures.</strong> Turned professors' handwritten and spoken lectures into structured digital materials (DOCX and PDF).</li>
+              <li data-i18n="vol.bluebits.2"><strong>Quality assurance.</strong> Checked every document for technical and conceptual errors before it reached students.</li>
+              <li data-i18n="vol.bluebits.3"><strong>Student access.</strong> Delivered clear, searchable and organized resources that made studying easier for the whole student body.</li>
+            </ul>
+            <div class="role-foot">
+              <ul class="chips" data-i18n="vol.bluebits.chips"><li>Technical writing</li><li>Quality assurance</li><li>Documentation</li></ul>
+            </div>
           </article>
         </li>
       </ol>
@@ -951,12 +1264,12 @@
           <li class="layer" data-layer="domain">
             <h3 data-i18n="layer.domain">Domain</h3>
             <p data-i18n="layer.domain.text">Entities, value objects and aggregates, modelled with Domain-Driven Design.</p>
-            <ul class="tools"><li>C#</li><li>Domain-Driven Design</li></ul>
+            <ul class="tools"><li>C#</li><li>Domain-Driven Design</li><li>OOP</li></ul>
           </li>
           <li class="layer" data-layer="application">
             <h3 data-i18n="layer.application">Application</h3>
             <p data-i18n="layer.application.text">Use cases that coordinate the domain and declare the interfaces the outer layers implement.</p>
-            <ul class="tools"><li>.NET Core</li><li>Clean Architecture</li></ul>
+            <ul class="tools"><li>.NET Core</li><li>Clean Architecture</li><li>SOLID</li><li>Design patterns</li></ul>
           </li>
           <li class="layer" data-layer="presentation">
             <h3 data-i18n="layer.presentation">Presentation</h3>
@@ -966,12 +1279,12 @@
           <li class="layer" data-layer="infrastructure">
             <h3 data-i18n="layer.infrastructure">Infrastructure</h3>
             <p data-i18n="layer.infrastructure.text">Persistence and the third-party services the use cases depend on.</p>
-            <ul class="tools"><li>PostgreSQL</li><li>Stripe API</li><li>Google APIs</li><li>Telegram Bots</li></ul>
+            <ul class="tools"><li>PostgreSQL</li><li>Entity Framework Core</li><li>Stripe API</li><li>Google APIs</li><li>Telegram Bots</li></ul>
           </li>
           <li class="layer" data-layer="hosting">
             <h3 data-i18n="layer.hosting">Hosting</h3>
             <p data-i18n="layer.hosting.text">Where it all runs in production.</p>
-            <ul class="tools"><li>Linux</li><li>Nginx</li><li>Docker</li></ul>
+            <ul class="tools"><li>Linux</li><li>Nginx</li><li>Docker</li><li>Git &amp; GitLab</li></ul>
           </li>
         </ol>
 
@@ -1000,29 +1313,14 @@
     </div>
   </section>
 
-  <!-- EDUCATION + VOLUNTEERING -->
-  <section class="section" aria-label="Education and volunteering" data-i18n-attr="aria-label=edu.section">
-    <div class="wrap split">
-      <div>
-        <h2 class="section-title" id="education-title" data-i18n="edu.title">Education</h2>
-        <article class="entry" aria-labelledby="education-degree">
-          <h3 id="education-degree" data-i18n="edu.degree">B.Sc. in IT Engineering</h3>
-          <p class="meta" data-i18n="edu.meta">Aleppo University, <time datetime="2020-09">Sep 2020</time> – <time datetime="2026-11">Nov 2026</time></p>
-        </article>
-      </div>
-      <div>
-        <h2 class="section-title" id="volunteering-title" data-i18n="vol.title">Volunteering</h2>
-        <article class="entry" aria-labelledby="vol-sanad">
-          <h3 id="vol-sanad">Sanad</h3>
-          <p class="meta" data-i18n="vol.sanad.meta"><time datetime="2025-03">Mar</time> – <time datetime="2025-05">May 2025</time>, Aleppo</p>
-          <p data-i18n="vol.sanad.text">Delivered a hands-on training course on <strong>.NET Core MVC</strong> at Al-Shahba Private University.</p>
-        </article>
-        <article class="entry" aria-labelledby="vol-bluebits">
-          <h3 id="vol-bluebits">BlueBitsTeam</h3>
-          <p class="meta" data-i18n="vol.bluebits.meta"><time datetime="2020-11">Nov 2020</time> – <time datetime="2022-11">Nov 2022</time>, Aleppo</p>
-          <p data-i18n="vol.bluebits.text">Digitized university lectures by transforming professors' notes into structured digital materials, improving accessibility for students.</p>
-        </article>
-      </div>
+  <!-- EDUCATION -->
+  <section class="section" aria-labelledby="education-title">
+    <div class="wrap">
+      <h2 class="section-title" id="education-title" data-i18n="edu.title">Education</h2>
+      <article class="entry" aria-labelledby="education-degree">
+        <h3 id="education-degree" data-i18n="edu.degree">B.Sc. in IT Engineering</h3>
+        <p class="meta" data-i18n="edu.meta">Aleppo University, <time datetime="2020-09">Sep 2020</time> – <time datetime="2026-11">Nov 2026</time></p>
+      </article>
     </div>
   </section>
 
@@ -1032,17 +1330,43 @@
 <footer class="contact" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
     <h2 class="section-title" id="contact-title" data-i18n="contact.title">Get in touch</h2>
-    <p class="contact-note" data-i18n="contact.note">Email is the quickest way to reach me.</p>
-    <a class="contact-mail" dir="ltr" href="mailto:mahmoud.sharabati.dev@gmail.com">mahmoud.sharabati.dev@gmail.com</a>
-    <ul class="contact-links">
-      <li><a href="tel:+963985839618" dir="ltr">+963&nbsp;985&nbsp;839&nbsp;618</a></li>
-      <li><a href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-      <li><a href="https://gitlab.com/mahmoudsh792" target="_blank" rel="noopener noreferrer">GitLab</a></li>
-      <li><a href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer">Codeforces</a></li>
-    </ul>
+    <p class="section-lead contact-lead" data-i18n="contact.lead">Pick whichever way suits you. Every channel below reaches me directly.</p>
+    <div class="contact-split">
+      <ul class="channels">
+        <li><a class="channel" style="--c: var(--lilac)" href="mailto:mahmoud.sharabati.dev@gmail.com"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span><span data-i18n="contact.email">Email</span><span class="visually-hidden">: mahmoud.sharabati.dev@gmail.com</span></a></li>
+        <li><a class="channel" style="--c: var(--sun)" href="tel:+963985839618"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.5 4.2-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4.2 1.5v2.6a2.2 2.2 0 0 1-2.4 2.2A17.5 17.5 0 0 1 4.4 5.9 2.2 2.2 0 0 1 6.6 3.5Z"/></svg></span><span data-i18n="contact.phone">Phone</span><span class="visually-hidden">: +963&nbsp;985&nbsp;839&nbsp;618</span></a></li>
+        <li><a class="channel" style="--c: #25d366" href="https://wa.me/963985839618" target="_blank" rel="noopener noreferrer"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5 5.6 16A8.2 8.2 0 1 1 8.2 18.6Z"/><path d="M9.3 8.6c.3 2.6 2.4 4.8 5 5.2l1-1.2-1.6-.8-.7.7a4.3 4.3 0 0 1-2.4-2.4l.7-.7-.8-1.6Z"/></svg></span><span data-i18n="contact.whatsapp">WhatsApp</span><span class="visually-hidden">: +963&nbsp;985&nbsp;839&nbsp;618</span></a></li>
+        <li><a class="channel" style="--c: #3b8be0" href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16"/></svg></span><span data-i18n="contact.linkedin">LinkedIn</span><span class="visually-hidden">: Mahmoud Sharabati</span></a></li>
+        <li><a class="channel" style="--c: #fc6d26" href="https://gitlab.com/mahmoudsh792" target="_blank" rel="noopener noreferrer"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><span data-i18n="contact.gitlab">GitLab</span><span class="visually-hidden">: @mahmoudsh792</span></a></li>
+        <li><a class="channel" style="--c: #1f8acb" href="https://codeforces.com/profile/00Mahmoud00" target="_blank" rel="noopener noreferrer"><span class="channel-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="4" height="8" rx="1"/><rect x="10" y="6" width="4" height="13" rx="1"/><rect x="16" y="9" width="4" height="10" rx="1"/></svg></span><span data-i18n="contact.codeforces">Codeforces</span><span class="visually-hidden">: @00Mahmoud00</span></a></li>
+      </ul>
+      <form class="compose" novalidate data-subject="Hello from your portfolio" data-i18n-attr="data-subject=compose.subject">
+        <p class="compose-title" data-i18n="compose.title">Write me a message</p>
+        <label><span data-i18n="compose.name">Your name</span><input name="name" autocomplete="name"></label>
+        <label><span data-i18n="compose.message">Message</span><textarea name="message" rows="5"></textarea></label>
+        <p class="compose-hint" data-i18n="compose.hint">It opens in your own email or WhatsApp, ready to send.</p>
+        <div class="compose-actions">
+          <button class="btn btn-primary" type="submit" value="email" data-i18n="compose.email">Send by email</button>
+          <button class="btn" type="submit" value="whatsapp" data-i18n="compose.whatsapp">Send on WhatsApp</button>
+        </div>
+      </form>
+    </div>
+    <div class="contact-extras">
+      <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf">
+        <svg class="btn-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12"/></svg>
+        <span data-i18n="contact.cv">Download CV (PDF)</span>
+      </a>
+      <a class="btn" href="contact/Mahmoud_Sharabati.vcf" download="Mahmoud_Sharabati.vcf" type="text/vcard">
+        <svg class="btn-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="12" rx="2.5"/><circle cx="7.5" cy="9" r="1.8"/><path d="M4.8 13.2c.6-1.3 1.6-2 2.7-2s2.1.7 2.7 2M12 8.5h3M12 11.5h3"/></svg>
+        <span data-i18n="contact.vcf">Save contact card</span>
+      </a>
+      <p class="contact-time"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.5 2"/></svg>
+        <span data-i18n="contact.time">Local time in Aleppo</span> <time class="contact-clock" data-local-time>--:--</time> <span class="contact-tz">(UTC+3)</span></p>
+    </div>
     <div class="fineprint">
       <span data-i18n="footer.copy">© <span data-year>2026</span> Mahmoud Sharabati</span>
       <span data-i18n="aleppo">Aleppo, Syria</span>
+      <a class="to-top" href="#top" data-i18n="footer.top">Back to top ↑</a>
     </div>
   </div>
 </footer>
@@ -1143,6 +1467,125 @@
 
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
+  // Hero typing line: type a phrase, hold it, delete it, then the next. The phrases are read from
+  // data-phrases on every round, so the Arabic list takes over once the translations load.
+  // Reduced motion shows the first phrase still; screen readers get the full sentence instead.
+  (function () {
+    var line = document.querySelector('.hero-type'), out = line && line.querySelector('.type-text');
+    if (!out) return;
+    var seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter() : null;
+    function letters(text) { return seg ? Array.from(seg.segment(text), function (s) { return s.segment; }) : Array.from(text); }
+    function phrases() { return line.getAttribute('data-phrases').split('|'); }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.addEventListener('i18n:applied', function () { out.textContent = phrases()[0]; });
+      line.classList.add('is-holding');
+      return;
+    }
+    var index = 0, shown = 0, deleting = false, current = [];
+    function step() {
+      if (!deleting) {
+        if (shown === 0) current = letters(phrases()[index % phrases().length]);
+        out.textContent = current.slice(0, ++shown).join('');
+        if (shown < current.length) return setTimeout(step, 45 + Math.random() * 65);
+        deleting = true;
+        line.classList.add('is-holding');
+        return setTimeout(function () { line.classList.remove('is-holding'); step(); }, 1900);
+      }
+      out.textContent = current.slice(0, --shown).join('');
+      if (shown > 0) return setTimeout(step, 22);
+      deleting = false;
+      index++;
+      setTimeout(step, 380);
+    }
+    // the first phrase is already on the page; start by holding it, then delete and carry on
+    current = letters(out.textContent); shown = current.length; deleting = true;
+    document.addEventListener('i18n:applied', function () {
+      out.textContent = phrases()[0]; current = letters(out.textContent); shown = current.length;
+    });
+    line.classList.add('is-holding');
+    setTimeout(function () { line.classList.remove('is-holding'); step(); }, 2600);
+  })();
+
+  // The Matp diagram's flowing dots are SVG animations; hold them still for reduced motion.
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.sys-diagram').forEach(function (svg) { if (svg.pauseAnimations) svg.pauseAnimations(); });
+  }
+
+  // Contact: the composer opens the visitor's own email or WhatsApp with the message filled in (nothing is
+  // sent or stored by the site), and a clock shows the local time in Aleppo.
+  (function () {
+    var form = document.querySelector('.compose');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.elements.name.value.trim(), message = form.elements.message.value.trim();
+      if (!message) { form.elements.message.focus(); form.classList.add('is-empty'); return; }
+      form.classList.remove('is-empty');
+      var body = message + (name ? '\n\n— ' + name : '');
+      if (e.submitter && e.submitter.value === 'whatsapp') {
+        window.open('https://wa.me/963985839618?text=' + encodeURIComponent(body), '_blank', 'noopener');
+      } else {
+        location.href = 'mailto:mahmoud.sharabati.dev@gmail.com?subject=' + encodeURIComponent(form.getAttribute('data-subject') + (name ? ' — ' + name : ''))
+          + '&body=' + encodeURIComponent(body);
+      }
+    });
+    var clock = document.querySelector('[data-local-time]');
+    if (!clock || !window.Intl) return;
+    var format = new Intl.DateTimeFormat(document.documentElement.lang === 'ar' ? 'ar-SY-u-nu-latn' : 'en-GB',
+      { timeZone: 'Asia/Damascus', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+    (function tick() {
+      clock.textContent = format.format(new Date());
+      setTimeout(tick, 30000 - Date.now() % 30000);
+    })();
+  })();
+
+  // Experience and volunteering: spotlight the role in the middle of the screen, and fill the gold line with scroll.
+  (function () {
+    var lists = document.querySelectorAll('.timeline');
+    if (!lists.length || !window.IntersectionObserver) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-focus', e.isIntersecting); });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+    document.querySelectorAll('.timeline > .role').forEach(function (li) { io.observe(li); });
+    var raf = 0;
+    function update() {
+      raf = 0;
+      lists.forEach(function (list) {
+        var r = list.getBoundingClientRect();
+        list.style.setProperty('--p', Math.max(0, Math.min(1, (innerHeight * .5 - r.top) / r.height)).toFixed(4));
+      });
+    }
+    addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    update();
+  })();
+
+  // Hero: the stack tags orbit the portrait on two tilted rings; the far side shrinks and dims.
+  (function () {
+    var svg = document.querySelector('.halo svg');
+    if (!svg || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var orbits = [
+      { cx: 590, cy: 300, rx: 520, ry: 150, tilt: -10, speed: .16, n: 6 },
+      { cx: 590, cy: 470, rx: 500, ry: 135, tilt: 12, speed: -.12, n: 6 },
+    ];
+    var tags = orbits.map(function (o, i) {
+      return Array.from({ length: o.n }, function (_, j) { return svg.querySelector('[data-tag="' + i + '-' + j + '"]'); });
+    });
+    var visible = true, start = performance.now();
+    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; }).observe(svg);
+    (function frame(now) {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden) return;
+      var t = (now - start) / 1000;
+      orbits.forEach(function (o, i) {
+        var tilt = o.tilt * Math.PI / 180, ct = Math.cos(tilt), st = Math.sin(tilt);
+        tags[i].forEach(function (g, j) {
+          var a = j / o.n * Math.PI * 2 + t * o.speed + i, ex = Math.cos(a) * o.rx, ey = Math.sin(a) * o.ry, depth = (Math.sin(a) + 1) / 2;
+          g.setAttribute('transform', 'translate(' + (o.cx + ex * ct - ey * st).toFixed(1) + ' ' + (o.cy + ex * st + ey * ct).toFixed(1) + ') scale(' + (.78 + .22 * depth).toFixed(3) + ')');
+          g.setAttribute('opacity', (.5 + .5 * depth).toFixed(3));
+        });
+      });
+    })(start);
+  })();
+
   // Theme toggle: flip data-theme and remember the choice.
   (function () {
     var root = document.documentElement, button = document.querySelector('[data-theme-toggle]');
@@ -1192,6 +1635,145 @@
     var root = document.documentElement;
     if (!root.classList.contains('has-3d')) root.classList.add('no-3d');
   }, 3000);
+</script>
+
+<!-- Page background: faint columns of live server logs behind the page (chosen 2026-10-19). Scrolling adds
+     traffic, the mouse works as a reading light, and it follows the theme. Reduced motion gets one still frame. -->
+<script>
+  (function () {
+    var canvas = document.querySelector('.page-bg'), ctx = canvas && canvas.getContext('2d');
+    if (!ctx) return;
+    var root = document.documentElement, reduce = matchMedia('(prefers-reduced-motion: reduce)'), fine = matchMedia('(hover: hover) and (pointer: fine)');
+    var W = 0, H = 0, dpr = 1, cols = [], cw = 7.2, clock = 9 * 3600 + 41 * 60, raf = 0, last = 0, C;
+    var lineH = 19, font = '12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    var ease = function (k, dt) { return 1 - Math.exp(-k * dt); };
+    var smooth = function (e0, e1, x) { var t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
+    var rgba = function (c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; };
+    var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+    var num = function (lo, hi) { return lo + Math.floor(Math.random() * (hi - lo)); };
+    function palette() {
+      // on light paper the lines need deeper colours
+      C = root.dataset.theme === 'light'
+        ? { lilac: [86, 52, 214], sun: [212, 151, 44], text: [28, 19, 54], app: [139, 109, 255], ok: [31, 138, 76] }
+        : { lilac: [182, 163, 255], sun: [242, 198, 109], text: [238, 231, 216], app: [139, 109, 255], ok: [125, 223, 154] };
+      C.styles = { time: [C.lilac, .11], INF: [C.lilac, .22], WRN: [C.sun, .38], svc: [C.app, .24], txt: [C.text, .14], dim: [C.lilac, .11], ok: [C.ok, .3], key: [C.sun, .26] };
+    }
+    var services = ['Ads.Api', 'Orders.Worker', 'Identity', 'Gateway'];
+    var messages = [
+      function () { return [['GET ', 'txt'], ['/api/ads?city=' + pick(['aleppo', 'damascus', 'homs', 'latakia']) + '&page=' + num(1, 9), 'txt'], [' 200', 'ok'], [' ' + num(4, 40) + 'ms', 'dim']]; },
+      function () { return [['POST ', 'txt'], ['/api/orders', 'txt'], [' 201', 'ok'], [' ' + num(18, 60) + 'ms', 'dim']]; },
+      function () { return [['Executed DbCommand ', 'txt'], ['(' + num(1, 9) + 'ms) ', 'dim'], ['SELECT a."Id", a."Title" FROM "Ads" AS a WHERE a."CityId" = @p0', 'dim']]; },
+      function () { return [['Published ', 'txt'], ['OrderPlacedEvent', 'key'], [' { OrderId = ' + num(4000, 9000) + ' }', 'dim']]; },
+      function () { return [['Handled ', 'txt'], [pick(['PlaceOrderCommand', 'PublishAdCommand', 'RateSellerCommand']), 'key'], [' in ' + num(3, 30) + 'ms', 'dim']]; },
+      function () { return [['Cache hit ', 'txt'], ['ads:category:' + num(1, 24), 'dim']]; },
+      function () { return [['Health check ', 'txt'], ['/health', 'txt'], [' Healthy', 'ok'], [' uptime 99.9%', 'dim']]; },
+      function () { return [['User ', 'txt'], [String(num(1000, 9999)), 'dim'], [' signed in with a JWT', 'txt']]; },
+      function () { return [['Job ', 'txt'], ['SyncListings', 'key'], [' finished: ' + num(20, 300) + ' updated', 'txt']]; },
+    ];
+    function line(svc) {
+      clock += num(0, 2);
+      var t = [clock / 3600 | 0, (clock / 60 | 0) % 60, clock % 60].map(function (v) { return String(v).padStart(2, '0'); }).join(':');
+      var warn = Math.random() < .06;
+      var body = warn ? [['Retry ', 'txt'], [num(1, 3) + '/3', 'key'], [' for PaymentGateway', 'txt']] : pick(messages)();
+      var segs = [[t + ' ', 'time'], [warn ? 'WRN ' : 'INF ', warn ? 'WRN' : 'INF'], [svc.padEnd(14), 'svc']].concat(body);
+      return { segs: segs, len: segs.reduce(function (n, s) { return n + s[0].length; }, 0), typed: 0 };
+    }
+    function build() {
+      ctx.font = font;
+      cw = ctx.measureText('M').width;
+      var n = W > 1100 ? 3 : W > 700 ? 2 : 1, rows = Math.ceil(H / lineH) + 2;
+      cols = Array.from({ length: n }, function (_, i) {
+        var svc = services[i % services.length], lines = [];
+        for (var r = 0; r < rows; r++) { var l = line(svc); l.typed = l.len; lines.push(l); }
+        return { svc: svc, lines: lines, x: 24 + i * (W / n), w: W / n - 40, next: Math.random(), shift: 0 };
+      });
+    }
+
+    // shared inputs, smoothed: scroll speed ("energy") and the mouse as a reading light
+    var S = { scroll: scrollY, vel: 0, energy: 0, mx: 0, my: 0, px: 0, py: 0, on: 0, onTarget: 0 };
+    addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      S.mx = e.clientX; S.my = e.clientY;
+      if (!S.onTarget) { S.px = S.mx; S.py = S.my; }
+      S.onTarget = 1;
+    }, { passive: true });
+    root.addEventListener('pointerleave', function () { S.onTarget = 0; });
+    addEventListener('blur', function () { S.onTarget = 0; });
+
+    function draw(dt) {
+      var prev = S.scroll;
+      S.scroll += (scrollY - S.scroll) * ease(9, dt);
+      S.vel += ((dt ? (S.scroll - prev) / dt : 0) - S.vel) * ease(12, dt);
+      var e = Math.min(1, Math.abs(S.vel) / 1400);
+      S.energy += (e - S.energy) * ease(e > S.energy ? 10 : 2.5, dt);
+      S.on += (S.onTarget - S.on) * ease(S.onTarget ? 6 : 3, dt);
+      S.px += (S.mx - S.px) * ease(10, dt);
+      S.py += (S.my - S.py) * ease(10, dt);
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = font;
+      ctx.textBaseline = 'alphabetic';
+      ctx.direction = 'ltr'; // log lines are code: left to right even on the Arabic page
+      cols.forEach(function (col) {
+        col.next -= dt * (1 + S.energy * 7);
+        if (col.next < 0) {
+          col.next = .45 + Math.random() * 1.1;
+          col.lines.push(line(col.svc));
+          col.shift += lineH;
+          if (col.lines.length > Math.ceil(H / lineH) + 3) col.lines.shift();
+        }
+        col.shift *= 1 - ease(10, dt);
+        var newest = col.lines[col.lines.length - 1];
+        newest.typed = dt ? Math.min(newest.len, newest.typed + dt * 110 * (1 + S.energy * 3)) : newest.len;
+        ctx.save();
+        ctx.beginPath(); ctx.rect(col.x, 0, col.w, H); ctx.clip();
+        for (var i = col.lines.length - 1, y = H - 40 + col.shift; i >= 0 && y > -lineH; i--, y -= lineH) {
+          var l = col.lines[i], a = smooth(-20, H * .7, y);
+          if (S.on > .01 && S.px > col.x && S.px < col.x + col.w) a *= 1 + 2.4 * S.on * Math.max(0, 1 - Math.abs(y - S.py) / 140);
+          var x = col.x, left = l.typed;
+          for (var k = 0; k < l.segs.length && left > 0; k++) {
+            var text = l.segs[k][0], st = C.styles[l.segs[k][1]];
+            ctx.fillStyle = rgba(st[0], Math.min(.9, st[1] * a));
+            ctx.fillText(text.slice(0, Math.ceil(left)), x, y);
+            x += text.length * cw; left -= text.length;
+          }
+          if (i === col.lines.length - 1 && l.typed < l.len) {
+            ctx.fillStyle = rgba(C.lilac, .5 * a);
+            ctx.fillRect(col.x + l.typed * cw, y - 10, cw * .6, 12);
+          }
+        }
+        ctx.restore();
+      });
+    }
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      var dt = Math.min(.05, Math.max(0, (now - last) / 1000));
+      last = now;
+      draw(dt);
+    }
+    function start() {
+      cancelAnimationFrame(raf);
+      if (reduce.matches || document.hidden) return draw(0);
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+    function resize() {
+      // phones fire resize when the address bar shows or hides; keep the scene unless the size really changed
+      var w = canvas.clientWidth, h = canvas.clientHeight, d = Math.min(devicePixelRatio || 1, fine.matches ? 2 : 1.5);
+      if (w === W && h === H && d === dpr && canvas.width) return;
+      W = w; H = h; dpr = d;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+      if (reduce.matches) draw(0);
+    }
+    palette();
+    resize();
+    addEventListener('resize', function () { requestAnimationFrame(resize); }, { passive: true });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) cancelAnimationFrame(raf); else start(); });
+    document.addEventListener('themechange', function () { palette(); if (reduce.matches) draw(0); });
+    reduce.addEventListener('change', start);
+    start();
+  })();
 </script>
 
 <script type="module">
@@ -1444,21 +2026,5 @@
   }
 </script>
 
-<!-- Background and photo-backdrop options, for review only: they load just for ?lab links. Remove once chosen. -->
-<script>
-  if (/[?&](lab|bg|photo)\b/.test(location.search)) {
-    var labCss = document.createElement('link');
-    labCss.rel = 'stylesheet';
-    labCss.href = 'lab/backgrounds.css';
-    document.head.append(labCss);
-    // page backgrounds first: photo.js adds its row to their panel
-    ['lab/backgrounds.js', 'lab/photo.js'].forEach(function (src) {
-      var labJs = document.createElement('script');
-      labJs.src = src;
-      labJs.async = false;
-      document.body.append(labJs);
-    });
-  }
-</script>
 </body>
 </html>

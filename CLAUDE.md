@@ -6,14 +6,13 @@ The site is bilingual: English by default, and Arabic (right to left) at `?lang=
 
 - Live: https://mahmoudsharabati.me/Profile/
 - Repo: https://github.com/00mahmoud00/Profile (public). GitHub Pages builds from `master`.
-- Background options preview: https://mahmoudsharabati.me/Profile/?lab (see "Background lab" below)
 
 ## Working with the owner
 
 - **Deploying:** commit straight to `master` and push; don't use branches or PRs. Push only when he says "push" or "publish". Until then, show him the change at a local URL.
 - **After a push, confirm it's live.** Pages has taken 45–60 s to deploy. Poll the live page with a cache-buster (`curl -s "https://mahmoudsharabati.me/Profile/?nc=$RANDOM" | grep -q '<something new>'`) and tell him when it's up. `gh` is not authenticated on this machine, so you can't watch the Actions run.
 - **Feedback:** he often sends a screenshot of the live page with a one-line request. Fix what the screenshot shows and check it at several viewport sizes.
-- **Creative work:** he likes being offered several options he can try live. The ?lab switcher exists so he and his friends can compare backgrounds on the real page.
+- **Creative work:** he likes being offered several options he can try live on the real page, then picking one. The ?lab drawer did this for backgrounds, photo backdrops, logos, experience layouts and footers (see "Chosen design").
 - **Facts are his.** Don't "correct" his numbers or titles from other sources (see Rules).
 
 ## Rules
@@ -21,6 +20,19 @@ The site is bilingual: English by default, and Arabic (right to left) at `?lang=
 - **His Arabic name is محمود شراباتي** (ش ر ا ب ا ت ي, with an alef after the ر). It was first misspelled شرباتي everywhere and fixed on 2026-10-19, including the outlined name in `brand/lockup-bilingual-*.svg`, which was redrawn with HarfBuzz and Reem Kufi at weight 600 and size 50, right-aligned at x 784.8.
 - **Codeforces count:** use the number on codeforces.com/profile/00Mahmoud00 ("problems solved for all time": 548 on 2026-10-18). The page says "500+". Never recount from the public API: it undercounts, and once that put a wrong "450+" live.
 - **Experience job titles:** keep each employer's real title. He is "Senior" in the hero and meta, but the timeline entries say ".NET Developer" until he says otherwise.
+- **Content sources:** his CV PDF (`~/Downloads/Mahmoud_Sharabati_CV (1).pdf`, 3 pages) and LinkedIn screenshots, used on 2026-10-19. Where they disagree with what he said in conversation, his words win: Senior (not "Mid-Level" or "Fullstack"), HASH as the current job (not on LinkedIn), and Evolvo part-time then contract from May 2026.
+- **Settled conflicts** (his answers, 2026-10-19):
+  - Blue Bits ran **Nov 2020 – Nov 2022**, as the CV says. LinkedIn's Nov 2022 – Nov 2024 is wrong there.
+  - Bronz stays **"supervised development"**, as the site says, not the CV's "contributed to the back end".
+- **Store check, 2026-10-19:** all seven store links on the site are live.
+  - Google Play downloads: Wasiitak 10K+, Mr Course 5K+, Bronz 1K+, Fly Order 500+, Ads Net 100+. Jenacom and Bronz are also on the App Store.
+  - Wasiitak is also on the App Store (id6749491110, same bundle id `com.itlegend.wasiitk`), so its card links both stores.
+  - Matp, 30-S and QrGermany have no public store listing.
+  - Elkood's Play account (`developer?id=elKood`) lists more apps (Absher, Q2Auto, GetUp and others). **He hasn't said he worked on them, so don't add them.**
+- **Writing style (senior CV):**
+  - Lead with scope and outcome, then the how. Put the strongest evidence first: Matp, whose architecture he led.
+  - Drop generic filler bullets, and never invent metrics. Numbers on the site: 4+ years, 10K+ Wasiitak downloads, 99.9% uptime, 500+ Codeforces.
+  - The "9 products built" fact counts the 6 apps in Projects plus Matp, 30-S and QrGermany. Keep it in step if either list changes.
 - **HASH entry:** some details are my guesses that he hasn't confirmed: the title ".NET Developer", the location "Remote", and no employment type. The company is HASH Information Technology (hashsd.com, Sudan), Apr 2026 – present. Ask him before treating these as fact.
 - **Evolvo:** Nov 2025 – present. He was part-time until May 2026 and has been on contract since. He works on the back end of Wasiitak there.
 - **Elkood:** May 2022 – Apr 2024, full-time, .NET Backend Developer.
@@ -50,11 +62,12 @@ The site is bilingual: English by default, and Arabic (right to left) at `?lang=
   - `.wrap` is at most 1240px wide; the gutter is `clamp(20px, 5vw, 64px)`; section spacing is `--space`.
   - At 960px and below everything stacks into one column.
   - The page must work at phone width with no horizontal scroll.
-- **Logo** (`brand/`): a flat ambigram. Upright it's a wide monoline M (stroke 24, width 128). Turned 180° it reads as ش: the legs become its three teeth, and three gold Kufic diamonds under the M become its dots.
-  - On dark: M `#7b5cff`, diamonds `#f2c66d`.
-  - On light: M `#512bd4`, diamonds `#d4972c`.
-  - Shapes are filled polygons only. The topbar loads `brand/mark.svg` at 42px.
-  - He rejected an earlier 3D isometric cube because it was 3D; he wants flat and modern.
+- **Logo** (`brand/`, chosen 2026-10-19 from 15 options): **Hex**, an M inside a pointy-top hexagon (the .NET mark and the Clean Architecture layers), with one gold diamond under the V.
+  - Drawn on a 128 × 128 grid: hexagon R 56, stroke 8; the M is a polyline `40,86 40,44 64,70 88,44 88,86`, stroke 10, square caps, miter joins; the diamond is a 10 px square rotated 45° at (64, 101).
+  - Colours: on dark `#7b5cff` + `#f2c66d` (`mark.svg`); on light `#512bd4` + `#d4972c` (`mark-light.svg`); mono `#eee7d8` / `#120a26`.
+  - `favicon.svg` switches colours with the browser's theme; `favicon.ico` (16/32/48), `apple-touch-icon.png` and `png/avatar-800.png` sit on `#120a26`.
+  - The lockups place the hex at the old mark's height, with the words moved over by its extra width.
+  - It replaced the earlier M / ش ambigram (and, before that, a 3D cube he rejected for being 3D). He wants flat and modern.
 - **Motion:** respect `prefers-reduced-motion` everywhere. 3D views have static SVG fallbacks (`.fallback`, shown with `.no-3d` / `.is-static`).
 
 ## Themes (dark / light)
@@ -78,9 +91,7 @@ Added 2026-10-19 at his request.
 - **Skills 3D:** unfocused layers fade toward the current `--ink` (`readInk()`, re-read on `themechange`). The slab colours themselves work on both themes.
 - **The honeycomb gradient** ends in `#4b2cc6` in light (it is `#2c2152` in dark), set through CSS `stop-color`.
 - **On phones (≤ 430 px),** "Skills" (`.nav-wide`) is hidden to make room for the toggle. It's still reachable by scrolling. The bar was measured to fit at 360 and 390 px in both languages.
-- **The ?lab backgrounds and photo backdrops follow the theme:**
-  - `backgrounds.js` swaps its palette (`C.lilac`, `C.sun`, `C.text`, `C.ink`) on `themechange` and re-inits the current scene. Warp takes the page colour as the `uInk` uniform.
-  - In `photo.js`, text that sits on the page itself uses `style="fill: var(--stone)"`. Text on the backdrops' own dark cards keeps its fixed colours.
+- **The Logs background and the Orbit tags follow the theme:** the background swaps its palette on `themechange`; the orbit tags use `var(--ink-2)` and `var(--stone)`.
 - **`og-image.jpg`** should stay the dark hero: render it with `?theme=dark` added to the URL.
 
 ## Languages (English / Arabic)
@@ -90,7 +101,7 @@ Added 2026-10-19 at his request: "make it Arabic and English". He picked the who
 - **How it works:**
   1. The first `<script>` in `<head>` checks for `?lang=ar`. If it's there, it sets `<html lang="ar" dir="rtl">` and adds `.i18n-pending`, which keeps the body hidden.
   2. It then loads Noto Kufi Arabic from Google Fonts and `i18n/ar.js`.
-  3. `ar.js` swaps the text on `DOMContentLoaded` and un-hides the page. If it never runs, a 2.5 s timeout un-hides the page in English.
+  3. `ar.js` swaps the text as soon as `document.readyState` leaves `loading` (parse end), and un-hides the page. It deliberately does **not** wait for `DOMContentLoaded`, because that also waits for the deferred Three.js module from the CDN and showed English first on slow links. If it never runs, a 2.5 s timeout un-hides the page in English.
   - English visitors download none of this.
 - **Keys:** every translatable element has `data-i18n="key"` (its inner HTML is replaced) and/or `data-i18n-attr="attr=key;attr=key"` (for `aria-label` and `alt`). `i18n/ar.js` maps each key to Arabic HTML; a missing key simply stays English.
   - **When you add or change text, update both** the English in `index.html` and the Arabic in `i18n/ar.js` under the same key.
@@ -108,95 +119,91 @@ Added 2026-10-19 at his request: "make it Arabic and English". He picked the who
   - Arabic overrides live under `:root[lang="ar"]`: `--font` becomes Archivo with Noto Kufi Arabic for Arabic glyphs; line-height is 1.85; there is no negative letter-spacing, because it breaks joined letters.
   - Don't use plain `[lang="ar"]` for page-level rules: English elements such as `.hero-ar` carry `lang="ar"` too.
 - **3D leaders:** when `dir="rtl"`, the Skills module mirrors the stack's anchors and draws leaders to each title's right edge. Both directions were checked numerically.
-- **Switch:** `.lang-switch` is the last menu item. It reads عربي / English, and below 430 px it shortens to ع / EN; its `aria-label` keeps the full name. The classic script keeps other query parameters (such as `?lab`) when switching. The bar was measured to fit at 360, 390 and 440 px.
-- **The ?lab panel stays in English.** Portrait-centred lab backgrounds (Layers, ASCII) mirror in Arabic.
+- **Switch:** `.lang-switch` is the last menu item. It reads عربي / English, and below 430 px it shortens to ع / EN; its `aria-label` keeps the full name. The classic script keeps other query parameters when switching. The bar was measured to fit at 360, 390 and 440 px.
 
 ## Page structure (`index.html`, in order)
 
 1. **Head:** meta, Open Graph and Twitter tags, three JSON-LD blocks (Person, WebSite, ItemList of apps), fonts, and the import map for `three@0.170.0` from jsDelivr.
 2. **`.topbar`:** fixed, with the language switch (عربي / English) as the last menu item. It frosts (`.is-scrolled`) after the page scrolls 24px.
 3. **`.hero`:**
-   - Copy: Arabic name, name, "Senior .NET Core developer in Aleppo, Syria", intro, Email/LinkedIn buttons.
-   - Portrait: `mahmoud-cutout-*.webp` on a soft CSS glow (`.portrait-frame::before`).
-   - `.hero-visual` is vertically centred with the copy, using the same 132/96px block padding.
+   - Copy: Arabic name, name, "Senior .NET Core developer in Aleppo, Syria", intro, Download CV / Email / LinkedIn buttons.
+   - Portrait: `mahmoud-cutout-*.webp` on a soft CSS glow (`.portrait-frame::before`), with the **orbit** behind it (see "Chosen design").
+   - `.hero-visual` centres the portrait with block padding 40px / 188px, which lifts it so the head lines up with the Arabic name. This was re-tuned on 2026-10-19 after the typing line and the numbers row made the copy taller; check 1000×566, 1280×720 and 1440×900 after any hero change.
+   - **`.hero-type`:** a terminal-style line under the role (`› I build …▍`). It types each phrase, holds it about 1.9 s with a blinking gold caret, deletes it, then types the next.
+     - Phrases live in `data-phrases`, separated by `|`. Arabic gets its own list through `data-i18n-attr="data-phrases=type.phrases"`.
+     - The script re-reads the phrases every round, and on `i18n:applied` it swaps in the Arabic first phrase.
+     - Letters are split with `Intl.Segmenter`, so Arabic and emoji don't break mid-character.
+     - The animated part is `aria-hidden`; screen readers get the full sentence (`type.static`). Reduced motion shows the first phrase still.
+     - The line is `nowrap`; every phrase was measured to fit at 360 px in both languages. Keep new phrases about as short.
+   - **`.facts`:** a strip of four key numbers under the buttons: 4+ years, 9 products, 10K+ downloads, 500+ problems.
    - **No 3D in the hero:** the rings behind the portrait were removed on 2026-10-19 at his request.
 4. **`#projects`:** "Apps I've worked on".
    - `.showcase` cards are tinted by the app's colour in `--app`. Screenshots are dealt into a fan when the card scrolls into view and tilt under the pointer.
    - Wasiitak and Mr Course are full-width featured cards.
    - Apps: Wasiitak (Evolvo); Mr Course, Fly Order, Ads Net, Jenacom and Bronz (Elkood).
-5. **`#experience`:** an `ol.timeline` of `.role` items. `.is-current` gets the gold hexagon. Order: HASH, Evolvo, Elkood.
-6. **`#skills`:** "How I structure a .NET solution". A Three.js exploded stack of the layers (`startArchitecture()`): it flattens into a front view and explodes as you scroll. SVG leader lines join each layer to its `.layer[data-layer]` text, and hovering a layer focuses it.
-7. **`#codeforces`:** "500+ problems solved" plus a honeycomb of 500 cells drawn by an inline script. ICPC 2022 certificate: the `#certificate` `<dialog>` shows `certificate.webp`, and the link falls back to `Certificate.pdf`.
-8. **Education and volunteering** (no id).
-9. **`footer#contact`.**
+   - Cards with CV detail carry a `.chips` list of the features he built (Mr Course, Fly Order, Jenacom, Bronz).
+5. **`#systems`:** "Platforms I've built", short case studies of systems without an app-store listing.
+   - **Matp** is a featured card: Elkood, led the architecture, multi-tenant WMS + OMS. It has a flat SVG diagram of three isolated tenants around a shared core, plus merchants and drivers. Gold dots flow along the wires as SMIL `animateMotion`, started at negative `begin` times so none rests at the SVG origin, and paused with `pauseAnimations()` for reduced motion.
+   - **30-S** (freelance marketplace with reels), **QrGermany** (Elkood), and the **Clean Architecture template**, which is open source at gitlab.com/mahmoudsh792/template.
+   - Names and tech-stack lines are wrapped in `<bdi>`, so their punctuation stays put in Arabic.
+6. **`#experience`:** an `ol.timeline` of `.role` items. `.is-current` gets the gold hexagon. Order: HASH, Evolvo, Elkood. Each role has:
+   - a `dl.role-stats` of numbers: Evolvo 10K+ and 99.9%; Elkood 7 products, Matp and 5K+. HASH has none yet, because there are no confirmed numbers.
+   - bullets that lead with outcome and scope.
+   - a `.role-foot` with "Built here" links to the matching cards (`#app-*`, `#sys-*`) and the stack as chips.
+   - "7 products shipped" at Elkood counts Matp, Fly Order, Mr Course, Ads Net, Jenacom, QrGermany and Bronz.
+   - `section[id]` and `h3[id]` have `scroll-margin-top`, so in-page links land below the fixed top bar.
+   - **Scroll focus** (both timelines): an IntersectionObserver marks the role in the middle band of the screen `.is-focus`; the others dim and blur slightly, and a gold line (`.timeline::after`, height from `--p`) fills as you scroll.
+7. **`#volunteering`:** "Volunteering & leadership", built with the same `ol.timeline` / `.role` markup as Experience: Sanad (volunteer instructor, ASP.NET Core MVC course at Al-Shahba Private University, Mar – May 2025) and BlueBitsTeam (content digitizer, Nov 2020 – Nov 2022), with three bullets each from his CV. Every `.role` in both lists has `data-org` (HASH, Evolvo, Elkood, Sanad, BlueBits).
+8. **`#skills`:** "How I structure a .NET solution". A Three.js exploded stack of the layers (`startArchitecture()`): it flattens into a front view and explodes as you scroll. SVG leader lines join each layer to its `.layer[data-layer]` text, and hovering a layer focuses it.
+9. **`#codeforces`:** "500+ problems solved" plus a honeycomb of 500 cells drawn by an inline script. ICPC 2022 certificate: the `#certificate` `<dialog>` shows `certificate.webp`, and the link falls back to `Certificate.pdf`.
+10. **Education:** its own section now (it used to share a split with volunteering).
+11. **`footer#contact`:** "Get in touch". The **Composer** design (chosen 2026-10-19).
+    - **All channels are equal, and the visitor picks:** his explicit wish (2026-10-19). Never say one channel is "the quickest" or the preferred one.
+    - **`.contact-split`:** on the left, `ul.channels`, six equal rows (`a.channel` tinted by `--c`): Email, Phone, WhatsApp (`wa.me/963985839618`), LinkedIn, GitLab, Codeforces. Each link's text includes the value in a `.visually-hidden` span. On the right, `form.compose`: name + message, then **Send by email** (opens `mailto:` with the subject and body filled in) or **Send on WhatsApp** (opens `wa.me` with the text). Nothing is sent or stored by the site; an empty message is blocked. The subject comes from `data-subject`, translated as `compose.subject`.
+    - **Below:** Download CV (PDF), **Save contact card** (`contact/Mahmoud_Sharabati.vcf`, vCard 3.0, CRLF line endings), and the live local time in Aleppo (`Intl`, `Asia/Damascus`, UTC+3, 24-hour).
+    - **Fineprint:** ©, Aleppo, and Back to top.
 
 Scripts:
-- **Classic inline script:** honeycomb, certificate dialog, showcase dealing and tilt, topbar frost, and a 3-second timer that adds `.no-3d` if the module never ran.
+- **Classic inline script:** honeycomb, certificate dialog, showcase dealing and tilt, topbar frost, composer and clock, scroll focus, the hero orbit, theme toggle, language switch, typing line, and a 3-second timer that adds `.no-3d` if the module never ran.
+- **Background script:** the live server logs on `canvas.page-bg` (its own `<script>` before the module).
 - **Module:** Three.js, for the architecture section only.
-- **Last script:** the `?lab` loader.
 
-## Background lab (`lab/`, under review)
+## Chosen design (2026-10-19)
 
-A review-only panel with two rows: **Page** switches between 15 animated page backgrounds (`lab/backgrounds.js`), and **Photo** switches between 15 backdrops behind the portrait (`lab/photo.js`).
+He compared options live in a `?lab` drawer and picked one per row: `?bg=logs&photo=orbit&logo=hex&exp=focus&footer=composer`. They are now permanent and the drawer is gone. The `lab/` files stay in git history if he ever wants to compare again.
 
-- It loads only when the URL has `?lab` (or `?bg=`), via the small loader at the end of `index.html`. Normal visitors see the flat background.
-- `?bg=<key>` opens a specific option. Keys 1–9 and 0 pick the first ten options, and the panel can be hidden.
-- He and a friend are choosing one.
+- **Page background: Logs.** `canvas.page-bg` (fixed, behind everything, edges faded with a CSS mask) shows faint columns of structured server logs, one per service (`Ads.Api`, `Orders.Worker`, `Identity`, `Gateway`): requests, SQL, domain events, health checks.
+  - Lines type in and glide up. Scrolling adds traffic (`energy`), and the mouse works as a reading light.
+  - Engineering: devicePixelRatio is capped (2, or 1.5 on touch); fake resizes (address bar) are ignored; the loop pauses while the tab is hidden; reduced motion draws one still frame; the palette follows `themechange`.
+  - **The canvas is `dir="ltr"` and sets `ctx.direction = 'ltr'`:** on the Arabic page an inherited right-to-left direction made the lines overlap.
+- **Behind the photo: Orbit.** A static SVG in `.halo` (the cutout's own coordinates, `viewBox 0 0 1100 1316`) holds a violet glow, two tilted dashed rings and 12 skill tags.
+  - A small script turns the tags around the rings; the far side shrinks and dims. It pauses off screen and is still with reduced motion.
+  - Tags use `var(--ink-2)` / `var(--stone)`, so they suit both themes, and the SVG is `direction: ltr` so "C#" doesn't become "#C" in Arabic.
+- **Logo: Hex.** See "Design system".
+- **Experience and volunteering: Scroll focus.** See "Page structure".
+- **Footer: Composer.** See "Page structure".
 
-| # | key | Idea | Inspired by |
-|---|---|---|---|
-| 1 | layers | Hexagonal rings around a Domain core; gold requests travel in, lilac responses travel out. The cursor is a client. | fat7i.dev's canvas backdrop (concept, not code) |
-| 2 | blueprint | Honeycomb grid lit by a lamp that follows the cursor; gold signals pass from cell to cell like circuit traces | Vercel/Linear grids |
-| 3 | aurora | Soft colour fields under film grain; the colour follows the section (each app's `--app` on its card) | Stripe/Linear gradients |
-| 4 | aleppo | Eight-point star pattern (Hankin's method on an octagon-square tiling) with a sweep of warm light | Aleppo stone and woodwork |
-| 5 | contours | Topographic lines from 3D simplex noise; the cursor raises a hill | survey maps (DDD as mapping a domain) |
-| 6 | ripples | Dot field; mouse moves and clicks send out ripples | event-driven systems |
-| 7 | logs | Faint columns of structured server logs; scrolling adds traffic | production logs |
-| 8 | silk | Flow-field particles with fading trails; the cursor stirs a vortex (`persist: true`) | Tyler Hobbs' flow fields |
-| 9 | pulse | Ridge-plot metric lines with a gold heartbeat | Joy Division's *Unknown Pleasures* (Peter Saville) |
-| 10 | beams | Light running down pipeline columns; stages flash | CI/CD |
-| 11 | warp | WebGL domain-warped fbm on its own canvas (`gl: true`) | Inigo Quilez / Shadertoy |
-| 12 | contexts | Voronoi map of DDD bounded contexts; hovering founds "Your context" | Eric Evans' DDD |
-| 13 | ascii | Hexagonal ring rendered in characters with a depth buffer | Andy Sloane's donut.c |
-| 14 | words | Particles steer into a word per section (محمود, SHIPPED, .NET, DDD, 548, مرحبا) | Daniel Shiffman's steering behaviours |
-| 15 | growth | Gray-Scott reaction-diffusion, coral-like | Karl Sims |
+Other options he saw (all in git history under `lab/`, in case he wants another look):
+- Page backgrounds: layers, blueprint, aurora, aleppo, contours, ripples, silk, pulse, beams, warp, contexts, ascii, words, growth.
+- Photo backdrops: circle, hexagon, arch, star, name, ring, code, rays, blob, split, frame, sparkles, commits, spec.
+- Logos: tag, braces, .M, monoline, matrix, circuit, bauhaus, star, arch, ش tile, M | ش, diamond, fold, layers, and the old ambigram.
+- Experience layouts: cards, tabs, accordion, career bars, git log, center line, sticky, résumé, bento, chapters, terminal, card stack, metro, kanban.
+- Footers: marquee, terminal, business card with QR code, big list.
 
-How the lab code works:
-- Every option is an object `{ key, label, note, init, resize, draw(dt), persist?, gl? }`. Each draws on one fixed 2D canvas behind the page, except Warp, which uses a WebGL canvas.
-- All options share smoothed inputs in `S`: time, scroll position, scroll speed (`energy`), pointer, and whether the pointer is over the page.
-- Seeded randomness keeps layouts identical on every visit.
-- `resize()` does nothing when the size didn't really change, because phones fire `resize` when the address bar shows or hides.
-- The loop pauses while the tab is hidden. With reduced motion, each option draws one still frame.
+## ATS CV (`cv/`)
 
-**Photo backdrops** (`lab/photo.js`, the "Photo" row of the same panel, `?photo=<key>`):
-- On 2026-10-19 he said the portrait alone "is not good" and asked for something behind it, but **not the 3D structure**.
-- Each backdrop is one SVG in a `.halo` div prepended to `.portrait-frame`. It sits behind the cutout (`.portrait` has z-index 1) and above the CSS glow.
-- The SVG uses the cutout's own coordinates (`viewBox 0 0 1100 1316`). The head spans x 435–748 from y 12, and the shoulders widen to full width below y ≈ 420.
-- A shared loop calls each option's `frame(el, t)`. With reduced motion it gets `t = null` and draws a still frame.
-- Options (`?photo=` key):
-  - **none:** the portrait alone, as the live page is now.
-  - **circle:** violet disc with a gold rim and a slowly turning dotted ring.
-  - **hexagon:** flat hexagon badge with a gold dashed outline that marches round.
-  - **arch:** Aleppo pointed arch with a gold outline and a star lattice inside.
-  - **star:** slowly turning eight-point star.
-  - **name:** giant Kufic محمود with a gold offset outline.
-  - **ring:** rotating circular text, "SENIOR .NET DEVELOPER • CLEAN ARCHITECTURE • …".
-  - **orbit:** the real Skills tags orbiting on two tilted rings.
-  - **code:** an editor window behind him with a C# DDD aggregate typing out. It uses non-breaking spaces because SVG collapses ordinary ones.
-  - **rays:** a rotating sunburst.
-  - **blob:** a morphing gradient shape.
-  - **split:** after Adham Dannaway's designer | coder hero. One card split through the face: a C# endpoint on the left (back end) and a Blazor-style dashboard on the right (front end).
-  - **frame:** the offset photo frame common in developer portfolios (Brittany Chiang's is the best known). A violet panel with a gold outline offset behind it that slides in on hover; the hover rule is in `backgrounds.css`.
-  - **sparkles:** after Josh W. Comeau's animated sparkles. Four-point stars pop in, turn and fade around the head.
-  - **commits:** a GitHub contribution graph in violet, with gold for the busiest days; new commits flash.
-  - **spec:** a technical drawing on grid paper with numbered callouts drawn to him. Labels on the right must stay short to clear the head (x > 750).
-- Without a `photo` parameter, `?lab` opens on Circle.
+`cv/Mahmoud_Sharabati_CV.pdf` is the file behind the **Download CV** buttons: the primary hero button, plus a button in the contact footer. It is A4, 2 pages, English only (the Arabic label says so). Its source is `cv/Mahmoud_Sharabati_CV.html`.
 
-**When he picks one:**
-1. Move the chosen option (page background and/or photo backdrop) into `index.html` as a permanent part. For page backgrounds, keep the engineering above: DPR caps, the pause when hidden, reduced motion, the resize guard, and the CSS mask that fades the edges.
-2. Delete `lab/` and the `?lab` loader.
-3. Re-check text contrast over the background.
-4. If the hero changed, re-render `og-image.jpg`.
+- **ATS rules, keep them:**
+  - one column; real selectable text in Arial
+  - standard section names: Summary, Experience, Projects, Skills, Education, Awards & Competitive Programming, Volunteering
+  - no tables, images, icons, or text in page headers and footers
+  - dates as "Mon YYYY - Mon YYYY"; ligatures off so "fi" extracts as two letters
+- **Content:** it mirrors the site, which is the source of truth, so **when the site's experience or projects change, update the CV too**.
+- **Rebuild after editing the HTML:**
+  1. `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf="$PWD/cv/Mahmoud_Sharabati_CV.pdf" "file://$PWD/cv/Mahmoud_Sharabati_CV.html"`
+  2. With pypdf, set the PDF metadata: Title "Mahmoud Sharabati - Senior .NET Core Developer - CV", Author, Subject, and Keywords listing the stack.
+  3. Check that the text extracts in reading order (`PdfReader(...).pages[i].extract_text()`) and that it is still 2 pages.
 
 ## Derived assets (not reproducible from the repo alone)
 
@@ -205,7 +212,7 @@ How the lab code works:
   - Then the edge colours were cleaned up and small arm/torso gaps filled.
   - The source `20260907_135602.jpg` has EXIF orientation 8: bake the rotation in and strip EXIF.
 - **`og-image.jpg`** (1200×630). Re-render it after **any** hero or topbar change:
-  1. Serve a copy of `index.html` over HTTP next to the assets, with this injected in `<head>`: `<style>.nav, .hero-intro, .hero-actions, .skip-link { display: none !important; }</style>`.
+  1. Serve a copy of `index.html` over HTTP next to the assets, with this injected in `<head>`: `<style>.nav, .theme-toggle, .hero-type, .hero-intro, .hero-actions, .facts, .skip-link { display: none !important; }</style>`.
   2. Screenshot it, with `?theme=dark` on the URL: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=5000 --screenshot=og-2x.png <url>`
   3. Convert it: `sips -s format jpeg -s formatOptions 88 -z 630 1200 og-2x.png --out og-image.jpg`
 - **`certificate.webp`:** page 1 of `Certificate.pdf` rendered at 2× (PDFKit).
@@ -215,7 +222,7 @@ How the lab code works:
 
 ## Checking changes locally
 
-- **Serve:** `python3 -m http.server 8000 --bind 127.0.0.1` from the repo, then open http://127.0.0.1:8000/ (add `?lab` for the lab).
+- **Serve:** `python3 -m http.server 8000 --bind 127.0.0.1` from the repo, then open http://127.0.0.1:8000/.
 - **Screenshots:** headless Chrome as above. Check 1440×900, 1280×720, 1000×540 (close to his laptop window) and 1920×1080.
   - Below about 500px wide, headless screenshots crop strangely, so check phone layout in a real browser.
 - **Headless Chrome only paints about 2 animation frames,** so screenshots can't show motion. To check an animation:
@@ -223,7 +230,8 @@ How the lab code works:
   2. Fast-forward the loop in a loop of `tick(1/60); draw(1/60)`.
   3. Export the canvas with `toDataURL`, then read it back through `--dump-dom`.
 - **WebGL in headless Chrome:** works without flags. `--disable-gpu`, or forcing SwiftShader with `--use-gl=angle`, turns it off.
-- **Smoke test:** in the probe iframe, click every `.lab-bar [data-key]` button and collect `error` events.
+- **Smoke test:** load the page in a probe iframe and collect `error` events. Headless iframes barely render frames, so check scroll-driven behaviour (scroll focus) with screenshots of a copy that hides the other sections instead.
+- **Anchor URLs (`#contact`) don't scroll in headless screenshots;** hide the sections above instead.
 
 ## History
 
@@ -240,9 +248,20 @@ How the lab code works:
   - The whole site became bilingual: an Arabic version at `?lang=ar`, right to left, with a عربي / English switch.
   - His Arabic surname was corrected to شراباتي.
   - Added dark and light themes with a sun/moon toggle.
+  - The ?lab panel became a hideable drawer and gained a Logo row with 15 marks.
+  - Store links checked; Wasiitak's App Store link and the Mr Course and Bronz download counts added. Experience roles gained numbers, "Built here" links and stack chips.
+  - Added the hero typing line ("› I build …"), and Arabic now applies at parse end (no English flash).
+  - Added an ATS-friendly 2-page CV (`cv/`) and a Download CV button.
+  - Volunteering became its own "Volunteering & leadership" timeline section; ?lab gained an Exp. row with 10, then 15, layouts for it and Experience.
+  - ?lab gained a Footer row with 5 designs; the portrait was lifted to line up with the Arabic name again.
+  - The footer was rebuilt: six equal contact channels, copy buttons, a vCard, the local time in Aleppo, and Back to top.
+  - He picked his options: Logs background, Orbit behind the photo, Hex logo (all brand files rebuilt), Scroll focus for Experience, Composer footer. The drawer was removed.
+  - Content rewritten from his CV and LinkedIn in senior-CV style. Added the key-numbers strip, the Platforms section (Matp, 30-S, QrGermany, template), feature chips on the app cards, tighter Evolvo and Elkood bullets, and EF Core, SOLID and Git in Skills.
 
 ## Open items
 
-- Pick a page background and a photo backdrop from ?lab, then make them permanent and delete `lab/`.
+- Suggest he fix the Blue Bits dates on LinkedIn (Nov 2020 – Nov 2022).
+- Confirm that +963 985 839 618 is on WhatsApp; remove the WhatsApp card if not.
+- If he gives real numbers for HASH (systems, clients, users), add a `role-stats` row to that role.
 - Confirm the HASH title, location and employment type.
 - LinkedIn and others cache old link previews; refresh them with LinkedIn's Post Inspector after hero changes.

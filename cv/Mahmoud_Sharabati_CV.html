@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Mahmoud Sharabati - Senior .NET Core Developer - CV</title>
+<!--
+  Source of cv/Mahmoud_Sharabati_CV.pdf (the "Download CV" button). Edit this file, then re-print:
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
+    --print-to-pdf=cv/Mahmoud_Sharabati_CV.pdf cv/Mahmoud_Sharabati_CV.html
+  Kept ATS-friendly on purpose: one column, real text in a standard font, standard section names,
+  no tables, icons, images, or text in page headers and footers.
+-->
+<style>
+  @page { size: A4; margin: 13mm 15mm 12mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0; color: #1a1a1a; font: 10pt/1.38 Arial, Helvetica, sans-serif;
+    font-variant-ligatures: none; /* keeps "fi" and "fl" as separate letters for text extraction */
+  }
+  h1 { margin: 0; font-size: 21pt; line-height: 1.1; letter-spacing: .2pt; }
+  .title { margin: 3pt 0 5pt; font-size: 12pt; font-weight: bold; color: #3b23a8; }
+  .contact { margin: 0; font-size: 9.2pt; color: #333; }
+  h2 {
+    margin: 9pt 0 4pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #3b23a8;
+    font-size: 10.5pt; letter-spacing: .8pt; text-transform: uppercase; color: #3b23a8;
+  }
+  p { margin: 0; }
+  ul { margin: 2pt 0 0; padding-left: 13pt; }
+  li { margin: 0 0 2pt; }
+  .role { margin: 0 0 6pt; break-inside: avoid; }
+  .role-head { font-weight: bold; font-size: 10.3pt; }
+  .role-meta { font-style: italic; color: #444; font-size: 9.3pt; }
+  .project { margin: 0 0 4pt; break-inside: avoid; }
+  .project-head { font-weight: bold; }
+  .project-head span { font-weight: normal; color: #444; }
+  .skills p { margin: 0 0 2pt; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>Mahmoud Sharabati</h1>
+<p class="title">Senior .NET Core Developer</p>
+<p class="contact">Aleppo, Syria | +963 985 839 618 | mahmoud.sharabati.dev@gmail.com | linkedin.com/in/mahmoud-sharabati-0226b223a | mahmoudsharabati.me/Profile | gitlab.com/mahmoudsh792</p>
+
+<h2>Summary</h2>
+<p>Senior .NET Core developer with 4+ years turning complex business domains into maintainable back ends with C#, ASP.NET Core, Clean Architecture and Domain-Driven Design (DDD), and Blazor front ends. Led the architecture of a multi-tenant warehouse and order management platform (WMS + OMS); built order, delivery and e-commerce back ends, including one operating in Saudi Arabia; and shipped the APIs behind apps on Google Play and the App Store with up to 10K+ downloads. Experienced in production ownership (99.9% uptime), third-party integrations (Stripe, Google APIs, Telegram) and mentoring engineers.</p>
+
+<h2>Experience</h2>
+
+<div class="role">
+  <p class="role-head">.NET Developer, HASH Information Technology</p>
+  <p class="role-meta">Remote | Apr 2026 - Present</p>
+  <ul>
+    <li>Develop and maintain the management systems HASH builds for businesses and institutions, from new modules to production fixes.</li>
+    <li>Design relational database schemas that model each client's business processes, with a focus on data integrity and query performance as data grows.</li>
+    <li>Build ASP.NET Core APIs that carry business workflows and serve the systems' front ends, structured with Clean Architecture so the systems stay easy to extend.</li>
+    <li>Keep systems healthy in production: track down bugs, tune slow queries and endpoints, and adapt features as client needs change.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <p class="role-head">.NET Developer, Evolvo</p>
+  <p class="role-meta">Aleppo, Syria | Nov 2025 - Present | Part-time, contract since May 2026</p>
+  <ul>
+    <li>Enhance and scale the back end of Wasiitak, a buy-and-sell marketplace with 10K+ downloads on Google Play (also on the App Store), and run its DevOps and data.</li>
+    <li>Build real-time Blazor admin dashboards that keep business data actionable for clients.</li>
+    <li>Own production readiness: server health checks, root-cause analysis from production logs, and hotfixes that hold 99.9% uptime.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <p class="role-head">.NET Backend Developer, Elkood</p>
+  <p class="role-meta">Aleppo, Syria | May 2022 - Apr 2024 | Full-time</p>
+  <ul>
+    <li>Led the architecture of Matp, a multi-tenant warehouse and order management platform (WMS + OMS) with an isolated tenant per warehouse owner; guided the team's technical decisions and mentored its developers.</li>
+    <li>Shipped 7 products to production: built the back ends and APIs of Fly Order, Mr Course, Ads Net, Jenacom and QrGermany, and supervised development of Bronz.</li>
+    <li>Turned complex business flows into .NET 6+ back ends on Clean Architecture and DDD with PostgreSQL and Entity Framework Core, from order and delivery lifecycles to subscriptions and payments.</li>
+    <li>Integrated Stripe payments, Google APIs and Telegram bots so payments and notifications run without manual work.</li>
+    <li>Built shared internal libraries that removed repeated boilerplate across projects and accelerated delivery.</li>
+    <li>Refactored legacy code onto modern design patterns, reducing production bugs and shortening delivery.</li>
+    <li>Mentored engineering interns through code reviews and hands-on technical workshops.</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+
+<div class="project">
+  <p class="project-head">Matp - Multi-tenant Warehouse &amp; Order Management (WMS + OMS) <span>| Elkood | ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></p>
+  <ul><li>Architecture lead. Tenant isolation, inventory, locations and zones, online merchant integrations, order and driver tracking, per-tenant authentication and roles, billing and subscriptions, push and email notifications.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Fly Order - Food &amp; Grocery Delivery (Saudi Arabia) <span>| Elkood | ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></p>
+  <ul><li>Order management with real-time tracking, restaurant and store management, driver and delivery management, promo codes and discounts, admin dashboard APIs, push notifications.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Mr Course - Learning Management System <span>| Elkood | ASP.NET Core, C#</span></p>
+  <ul><li>Video courses unlocked with point-of-sale (POS) codes: code generation and redemption, video upload and storage APIs, role-based access; 5K+ downloads on Google Play.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Jenacom - Furniture Delivery Order Management <span>| Elkood | ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></p>
+  <ul><li>Order lifecycle and delivery scheduling across multiple time zones, real-time truck driver tracking, push notifications.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">30-S - Product Marketplace <span>| Freelance | ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></p>
+  <ul><li>Built the whole back end: dynamic product attributes, search and filtering, real-time chat, 30-second product reels on a discovery feed, push notifications.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">QrGermany - QR Code Platform &amp; Marketplace <span>| Elkood | ASP.NET Core, C#</span></p>
+  <ul><li>Customizable QR codes with dynamic attributes, a selling marketplace, scan analytics, roles and admin dashboard APIs.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Clean Architecture Template <span>| Open source | gitlab.com/mahmoudsh792/template</span></p>
+  <ul><li>.NET solution template with domain, application, infrastructure and UI layers separated on DDD principles.</li></ul>
+</div>
+
+<h2>Skills</h2>
+<div class="skills">
+  <p><b>Languages &amp; Frameworks:</b> C#, .NET Core / .NET 6+, ASP.NET Core, Blazor Server, Blazor WebAssembly, MudBlazor</p>
+  <p><b>Architecture:</b> Clean Architecture, Domain-Driven Design (DDD), SOLID, Design Patterns, OOP, Multi-tenant SaaS, RESTful APIs</p>
+  <p><b>Data:</b> PostgreSQL, Entity Framework Core, Relational Database Design</p>
+  <p><b>Integrations:</b> Stripe API, Google APIs, Telegram Bot API</p>
+  <p><b>DevOps &amp; Tools:</b> Linux, Nginx, Docker, Git, GitLab</p>
+  <p><b>Leadership:</b> Technical Leadership, Mentoring, Code Reviews, Debugging, Problem Solving</p>
+</div>
+
+<h2>Education</h2>
+<div class="role">
+  <p class="role-head">B.Sc. in IT Engineering, Aleppo University</p>
+  <p class="role-meta">Aleppo, Syria | Sep 2020 - Nov 2026 (Expected)</p>
+</div>
+
+<h2>Awards &amp; Competitive Programming</h2>
+<ul>
+  <li>11th place, 2022 ICPC Aleppo University Contest; the team qualified for the next round.</li>
+  <li>500+ problems solved on Codeforces (@00Mahmoud00): dynamic programming, graph theory, mathematics, data structures, greedy and implementation.</li>
+</ul>
+
+<h2>Volunteering</h2>
+<div class="role">
+  <p class="role-head">Volunteer Instructor, Sanad</p>
+  <p class="role-meta">Aleppo, Syria | Mar 2025 - May 2025</p>
+  <ul><li>Designed and taught a hands-on ASP.NET Core MVC course at Al-Shahba Private University: routing, controllers and actions, Razor views, model binding, and CRUD with Entity Framework Core.</li></ul>
+</div>
+<div class="role">
+  <p class="role-head">Content Digitizer Volunteer, BlueBitsTeam</p>
+  <p class="role-meta">Aleppo, Syria | Nov 2020 - Nov 2022</p>
+  <ul><li>Turned professors' handwritten and spoken lectures into structured, searchable digital materials (DOCX and PDF), with quality checks for technical accuracy.</li></ul>
+</div>
+
+</body>
+</html>

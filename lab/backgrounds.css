@@ -15,15 +15,26 @@
           mask-image: radial-gradient(ellipse 95% 85% at 60% 35%, #000 35%, transparent 100%);
 }
 
+/* the options drawer: a handle tab on top of a panel that slides down out of view */
 .lab {
-  position: fixed; z-index: 30; left: 50%; bottom: 16px; translate: -50% 0;
-  width: min(760px, calc(100% - 32px)); display: grid; gap: 10px; padding: 14px;
-  border: 1px solid var(--line); border-radius: 20px;
-  background: color-mix(in srgb, var(--ink-2) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  box-shadow: 0 24px 60px var(--shade); font-size: 14px; line-height: 1.5;
-  transition: translate .35s cubic-bezier(.2, .75, .25, 1);
+  position: fixed; z-index: 30; left: 50%; bottom: 0; translate: -50% 0;
+  width: min(780px, calc(100% - 24px)); display: grid; justify-items: center;
+  font-size: 14px; line-height: 1.5; transition: translate .4s cubic-bezier(.2, .75, .25, 1);
 }
-.lab.is-hidden { translate: -50% calc(100% - 50px); }
+.lab.is-closed { translate: -50% calc(100% - 44px); }
+.lab .lab-handle {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; margin-bottom: 8px; padding: 0 16px 0 12px;
+  color: var(--stone); background: color-mix(in srgb, var(--ink-2) 88%, transparent);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 10px 30px var(--shade);
+}
+.lab-handle svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(180deg); transition: transform .3s; }
+.lab.is-closed .lab-handle svg { transform: none; }
+.lab-body {
+  width: 100%; display: grid; gap: 10px; padding: 14px 14px 16px; border: 1px solid var(--line); border-bottom: 0; border-radius: 20px 20px 0 0;
+  background: color-mix(in srgb, var(--ink-2) 92%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: 0 -12px 50px var(--shade); max-height: min(62vh, 520px); overflow-y: auto; transition: opacity .3s;
+}
+.lab.is-closed .lab-body { opacity: 0; }
 .lab-note { color: var(--haze); padding: 0 4px; }
 .lab-note strong { color: var(--stone); font-weight: 650; }
 .lab-note em { font-style: normal; color: var(--lilac); }
@@ -37,9 +48,23 @@
 }
 .lab button:hover { color: var(--stone); border-color: var(--lilac); }
 .lab button[aria-pressed="true"] { background: var(--stone); border-color: var(--stone); color: var(--ink); }
-.lab .lab-hide { flex: none; }
 .lab-hint { color: var(--haze); opacity: .7; font-size: 12.5px; padding: 0 4px; }
-.lab.is-hidden .lab-note, .lab.is-hidden .lab-hint { visibility: hidden; }
+.lab-note:has(.lab-preview) { display: flex; align-items: center; gap: 14px; }
+
+/* logo options (lab/logos.js): drawn in the top bar's brand slot, and previewed large in the drawer */
+:root { --logo-main: #7b5cff; --logo-gold: #f2c66d; --logo-shade: #4b2cc6; --logo-cut: var(--ink); --logo-on: #fffdf8; }
+:root[data-theme="light"] { --logo-main: #512bd4; --logo-gold: #d4972c; --logo-shade: #8b6dff; }
+.lab-logo { display: none; }
+.lab-logo svg { width: 42px; height: 42px; transition: width .3s ease, height .3s ease; }
+.topbar.is-scrolled .lab-logo svg { width: 34px; height: 34px; }
+:root[data-logo]:not([data-logo="now"]) .brand img { display: none !important; }
+:root[data-logo]:not([data-logo="now"]) .lab-logo { display: block; }
+.lab-preview { flex: none; display: flex; gap: 8px; }
+.lab-tile { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 14px; border: 1px solid var(--line); }
+.lab-tile svg, .lab-tile img { width: 56px; height: 56px; }
+.lab-tile.is-dark { background: #120a26; --logo-main: #7b5cff; --logo-gold: #f2c66d; --logo-shade: #4b2cc6; --logo-cut: #120a26; }
+.lab-tile.is-light { background: #f6f2ea; --logo-main: #512bd4; --logo-gold: #d4972c; --logo-shade: #8b6dff; --logo-cut: #f6f2ea; }
+@media (max-width: 560px) { .lab-note:has(.lab-preview) { flex-direction: column; align-items: flex-start; } }
 
 /* photo backdrops (lab/photo.js): an SVG in the portrait's own coordinates, behind the cutout and above its glow */
 .halo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
