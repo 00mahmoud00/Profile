@@ -30,7 +30,8 @@ The site is bilingual: English by default, and Arabic (right to left) at `?lang=
   - Matp, 30-S and QrGermany have no public store listing.
   - Elkood's Play account (`developer?id=elKood`) lists more apps (Absher, Q2Auto, GetUp and others). **He hasn't said he worked on them, so don't add them.**
 - **Writing style (senior CV):**
-  - Lead with scope and outcome, then the how. Put the strongest evidence first: Matp, whose architecture he led.
+  - Lead with scope and outcome, then the how. Put the strongest evidence first: Matp, which he designed and built.
+  - **Never say he "led the architecture"** (of Matp or anything else), nor "guided the team's technical decisions": he asked for that wording to be removed on 2026-10-19. Say "designed and built"; mentoring the developers is fine.
   - Drop generic filler bullets, and never invent metrics. Numbers on the site: 4+ years, 10K+ Wasiitak downloads, 99.9% uptime, 500+ Codeforces.
   - The "9 products built" fact counts the 6 apps in Projects plus Matp, 30-S and QrGermany. Keep it in step if either list changes.
 - **HASH entry:** some details are my guesses that he hasn't confirmed: the title ".NET Developer", the location "Remote", and no employment type. The company is HASH Information Technology (hashsd.com, Sudan), Apr 2026 – present. Ask him before treating these as fact.
@@ -126,9 +127,10 @@ Added 2026-10-19 at his request: "make it Arabic and English". He picked the who
 1. **Head:** meta, Open Graph and Twitter tags, three JSON-LD blocks (Person, WebSite, ItemList of apps), fonts, and the import map for `three@0.170.0` from jsDelivr.
 2. **`.topbar`:** fixed, with the language switch (عربي / English) as the last menu item. It frosts (`.is-scrolled`) after the page scrolls 24px.
 3. **`.hero`:**
-   - Copy: Arabic name, name, "Senior .NET Core developer in Aleppo, Syria", intro, Download CV / Email / LinkedIn buttons.
+   - Copy: Arabic name, name, "Senior .NET Core developer in Aleppo, Syria", one-sentence intro, Download CV / Contact me buttons.
    - Portrait: `mahmoud-cutout-*.webp` on a soft CSS glow (`.portrait-frame::before`), with the **orbit** behind it (see "Chosen design").
-   - `.hero-visual` centres the portrait with block padding 40px / 188px, which lifts it so the head lines up with the Arabic name. This was re-tuned on 2026-10-19 after the typing line and the numbers row made the copy taller; check 1000×566, 1280×720 and 1440×900 after any hero change.
+   - `.hero-visual` centres the portrait with block padding 110px / 118px, so the head lines up with the Arabic name. Re-tune it whenever the copy changes height (it was 40/188 while the intro was a long paragraph); check 1000×566, 1280×720 and 1440×900.
+   - **Hero copy is deliberately short** (his choice, 2026-10-19): name, role line, typing line, one sentence, two buttons (Download CV + Contact me → `#contact`), the four numbers. Details belong in Experience and Platforms, not here.
    - **`.hero-type`:** a terminal-style line under the role (`› I build …▍`). It types each phrase, holds it about 1.9 s with a blinking gold caret, deletes it, then types the next.
      - Phrases live in `data-phrases`, separated by `|`. Arabic gets its own list through `data-i18n-attr="data-phrases=type.phrases"`.
      - The script re-reads the phrases every round, and on `i18n:applied` it swaps in the Arabic first phrase.
@@ -143,7 +145,7 @@ Added 2026-10-19 at his request: "make it Arabic and English". He picked the who
    - Apps: Wasiitak (Evolvo); Mr Course, Fly Order, Ads Net, Jenacom and Bronz (Elkood).
    - Cards with CV detail carry a `.chips` list of the features he built (Mr Course, Fly Order, Jenacom, Bronz).
 5. **`#systems`:** "Platforms I've built", short case studies of systems without an app-store listing.
-   - **Matp** is a featured card: Elkood, led the architecture, multi-tenant WMS + OMS. It has a flat SVG diagram of three isolated tenants around a shared core, plus merchants and drivers. Gold dots flow along the wires as SMIL `animateMotion`, started at negative `begin` times so none rests at the SVG origin, and paused with `pauseAnimations()` for reduced motion.
+   - **Matp** is a featured card: Elkood, designed and built, multi-tenant WMS + OMS. It has a flat SVG diagram of three isolated tenants around a shared core, plus merchants and drivers. Gold dots flow along the wires as SMIL `animateMotion`, started at negative `begin` times so none rests at the SVG origin, and paused with `pauseAnimations()` for reduced motion.
    - **30-S** (freelance marketplace with reels), **QrGermany** (Elkood), and the **Clean Architecture template**, which is open source at gitlab.com/mahmoudsh792/template.
    - Names and tech-stack lines are wrapped in `<bdi>`, so their punctuation stays put in Arabic.
 6. **`#experience`:** an `ol.timeline` of `.role` items. `.is-current` gets the gold hexagon. Order: HASH, Evolvo, Elkood. Each role has:
@@ -166,7 +168,7 @@ Added 2026-10-19 at his request: "make it Arabic and English". He picked the who
 Scripts:
 - **Classic inline script:** honeycomb, certificate dialog, showcase dealing and tilt, topbar frost, composer and clock, scroll focus, the hero orbit, theme toggle, language switch, typing line, and a 3-second timer that adds `.no-3d` if the module never ran.
 - **Background script:** the live server logs on `canvas.page-bg` (its own `<script>` before the module).
-- **Module:** Three.js, for the architecture section only.
+- **Module:** Three.js, for the architecture section only. It is **lazy**: the module itself is tiny and imports `three` and `RoomEnvironment` only when `.stack-stage` comes within one screen (IntersectionObserver, `rootMargin: 100%`), so the first paint never waits for the ~170 KB library. It sets `has-3d` straight away (so the 3-second timer doesn't add `no-3d`); a failed import marks `.stack-visual` as `is-static`, which shows the SVG fallback.
 
 ## Chosen design (2026-10-19)
 
@@ -192,14 +194,19 @@ Other options he saw (all in git history under `lab/`, in case he wants another 
 
 ## ATS CV (`cv/`)
 
-`cv/Mahmoud_Sharabati_CV.pdf` is the file behind the **Download CV** buttons: the primary hero button, plus a button in the contact footer. It is A4, 2 pages, English only (the Arabic label says so). Its source is `cv/Mahmoud_Sharabati_CV.html`.
+`cv/Mahmoud_Sharabati_CV.pdf` is the file behind the **Download CV** buttons: the primary hero button, plus a button in the contact footer. It is A4, 2 pages. Its source is `cv/Mahmoud_Sharabati_CV.html`.
+
+**Arabic CV:** `cv/Mahmoud_Sharabati_CV_AR.pdf` (source `cv/Mahmoud_Sharabati_CV_AR.html`, right to left, 2 pages), a translation of the English one. On the Arabic page both CV links switch to it through `data-i18n-attr="href=cv.href;download=cv.file"`.
+- Arabic is set in **Geeza Pro**: it extracts as plain Arabic letters, whereas Arial extracts as presentation forms that ATS search misses.
+- Latin runs (`.ltr`, `bdi`) are set in **Arial**, so emails and tool names extract without stray spaces.
+- All 11 test phrases extract after NFKC normalisation and whitespace collapsing. **Keep the two CVs in step.**
 
 - **ATS rules, keep them:**
   - one column; real selectable text in Arial
   - standard section names: Summary, Experience, Projects, Skills, Education, Awards & Competitive Programming, Volunteering
   - no tables, images, icons, or text in page headers and footers
   - dates as "Mon YYYY - Mon YYYY"; ligatures off so "fi" extracts as two letters
-- **Content:** it mirrors the site, which is the source of truth, so **when the site's experience or projects change, update the CV too**.
+- **Content:** it mirrors the site, which is the source of truth, so **when the site's experience or projects change, update both CVs too**.
 - **Rebuild after editing the HTML:**
   1. `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf="$PWD/cv/Mahmoud_Sharabati_CV.pdf" "file://$PWD/cv/Mahmoud_Sharabati_CV.html"`
   2. With pypdf, set the PDF metadata: Title "Mahmoud Sharabati - Senior .NET Core Developer - CV", Author, Subject, and Keywords listing the stack.
@@ -215,6 +222,10 @@ Other options he saw (all in git history under `lab/`, in case he wants another 
   1. Serve a copy of `index.html` over HTTP next to the assets, with this injected in `<head>`: `<style>.nav, .theme-toggle, .hero-type, .hero-intro, .hero-actions, .facts, .skip-link { display: none !important; }</style>`.
   2. Screenshot it, with `?theme=dark` on the URL: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=5000 --screenshot=og-2x.png <url>`
   3. Convert it: `sips -s format jpeg -s formatOptions 88 -z 630 1200 og-2x.png --out og-image.jpg`
+- **LinkedIn banners** (`linkedin-banner-1584x396.png`, `-3168x792.png`, rebuilt 2026-10-19):
+  - An HTML page rendered at 1584×396 with `--force-device-scale-factor=2`, downscaled with Lanczos for the 1584 version.
+  - Content: dark ink with violet glows and faint server-log text; "SENIOR .NET CORE DEVELOPER", the name ("Sharabati" in lilac), "Clean Architecture · Domain-Driven Design · Blazor", a facts line, seven stack chips, and the Hex mark with محمود شراباتي on the right.
+  - Text starts at x 420, which leaves the bottom-left clear for the LinkedIn profile photo.
 - **`certificate.webp`:** page 1 of `Certificate.pdf` rendered at 2× (PDFKit).
 - **`apps/<key>/icon.webp` and `1..4.webp`** (440px wide): taken from the public store listings.
   - Google Play: the `<img>` URLs with alt "Icon image" or "Screenshot image", plus a `=s512` or `=h1600` suffix.
@@ -256,6 +267,7 @@ Other options he saw (all in git history under `lab/`, in case he wants another 
   - ?lab gained a Footer row with 5 designs; the portrait was lifted to line up with the Arabic name again.
   - The footer was rebuilt: six equal contact channels, copy buttons, a vCard, the local time in Aleppo, and Back to top.
   - He picked his options: Logs background, Orbit behind the photo, Hex logo (all brand files rebuilt), Scroll focus for Experience, Composer footer. The drawer was removed.
+  - Three.js now lazy-loads near the Skills section; added an Arabic CV for the Arabic page; rebuilt the LinkedIn banners with Senior and the Hex logo.
   - Content rewritten from his CV and LinkedIn in senior-CV style. Added the key-numbers strip, the Platforms section (Matp, 30-S, QrGermany, template), feature chips on the app cards, tighter Evolvo and Elkood bullets, and EF Core, SOLID and Git in Skills.
 
 ## Open items

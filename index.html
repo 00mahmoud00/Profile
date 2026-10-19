@@ -417,7 +417,7 @@
   :root[data-theme="light"] .btn-primary:hover { background: var(--violet); border-color: var(--violet); color: #fff; }
 
   /* the portrait sits a little above the middle of the words, so the head lines up with the Arabic name */
-  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 40px 188px; }
+  .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding-block: 110px 118px; }
   .portrait-frame {
     position: relative;
     width: min(100%, calc(min(82svh, 900px) * .836));
@@ -846,14 +846,13 @@
           <span aria-hidden="true"><span class="type-prompt">›</span> <span data-i18n="type.prefix">I build</span> <span class="type-text">multi-tenant SaaS platforms</span><span class="type-caret"></span></span>
           <span class="visually-hidden" data-i18n="type.static">I build multi-tenant SaaS platforms, Clean Architecture back ends, real-time Blazor dashboards, APIs behind mobile apps, order and delivery systems, and management systems at HASH.</span>
         </p>
-        <p class="hero-intro" data-i18n="hero.intro">I turn complex business domains into .NET back ends that stay maintainable long after hand-off, built on Clean Architecture and Domain-Driven Design with Blazor on the front. In over four years I've led the architecture of a multi-tenant warehouse and order platform, built delivery systems including one operating in Saudi Arabia, and shipped the APIs behind apps on Google Play and the App Store. Today I build management systems at HASH Information Technology and scale Wasiitak, a marketplace with 10K+ downloads.</p>
+        <p class="hero-intro" data-i18n="hero.intro">Back ends that stay clean as the business grows, built with Clean Architecture, DDD and Blazor.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf">
+          <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf" data-i18n-attr="href=cv.href;download=cv.file">
             <svg class="btn-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12"/></svg>
             <span data-i18n="hero.cv">Download CV</span>
           </a>
-          <a class="btn" href="mailto:mahmoud.sharabati.dev@gmail.com" data-i18n="hero.email">Email me</a>
-          <a class="btn" href="https://linkedin.com/in/mahmoud-sharabati-0226b223a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn" href="#contact" data-i18n="hero.contact">Contact me</a>
         </div>
         <dl class="facts" aria-label="Highlights" data-i18n-attr="aria-label=facts.label">
           <div><dt data-i18n="facts.years">years shipping .NET to production</dt><dd>4+</dd></div>
@@ -1058,10 +1057,10 @@
       <div class="systems">
         <article class="system is-featured" aria-labelledby="sys-matp">
           <div class="system-copy">
-            <p class="system-tag is-lead" data-i18n="sys.matp.tag">Elkood · Led the architecture</p>
+            <p class="system-tag is-lead" data-i18n="sys.matp.tag">Elkood · Designed &amp; built</p>
             <h3 class="system-name" id="sys-matp">Matp</h3>
             <p class="system-sub" data-i18n="sys.matp.sub">Warehouse &amp; order management (WMS + OMS)</p>
-            <p class="system-what" data-i18n="sys.matp.what">A multi-tenant platform where every warehouse owner runs in an isolated tenant, connects to online merchants and follows each order from the shelf to the doorstep. I led its architecture and technical direction, and mentored the developers who built it with me.</p>
+            <p class="system-what" data-i18n="sys.matp.what">A multi-tenant platform where every warehouse owner runs in an isolated tenant, connects to online merchants and follows each order from the shelf to the doorstep. I designed and built its core, and mentored the developers who worked on it with me.</p>
             <ul class="chips" data-i18n="sys.matp.chips"><li>Multi-tenancy</li><li>Inventory, locations &amp; zones</li><li>Merchant integrations</li><li>Order &amp; driver tracking</li><li>Per-tenant auth &amp; roles</li><li>Billing &amp; subscriptions</li><li>Push &amp; email notifications</li></ul>
             <p class="system-stack"><bdi dir="ltr">ASP.NET Core · Clean Architecture · DDD · PostgreSQL</bdi></p>
           </div>
@@ -1176,9 +1175,9 @@
           <article aria-labelledby="role-elkood">
             <h3 class="role-title" id="role-elkood" data-i18n="exp.elkood.title">.NET Backend Developer <span class="role-org">at Elkood</span></h3>
             <p class="role-where" data-i18n="aleppo">Aleppo, Syria</p>
-            <dl class="role-stats"><div><dt data-i18n="exp.elkood.s1">products shipped to production</dt><dd>7</dd></div><div><dt data-i18n="exp.elkood.s2">multi-tenant platform whose architecture I led</dt><dd>Matp</dd></div><div><dt data-i18n="exp.elkood.s3">downloads on Mr Course</dt><dd>5K+</dd></div></dl>
+            <dl class="role-stats"><div><dt data-i18n="exp.elkood.s1">products shipped to production</dt><dd>7</dd></div><div><dt data-i18n="exp.elkood.s2">multi-tenant platform I designed and built</dt><dd>Matp</dd></div><div><dt data-i18n="exp.elkood.s3">downloads on Mr Course</dt><dd>5K+</dd></div></dl>
             <ul class="role-points">
-              <li data-i18n="exp.elkood.1"><strong>Led the architecture of Matp.</strong> Designed a multi-tenant warehouse and order platform (WMS + OMS) where each warehouse owner runs in an isolated tenant: inventory and zones, merchant integrations, order and driver tracking, per-tenant roles, billing and subscriptions. Guided the team's technical decisions and mentored its developers (see <a href="#systems">Platforms</a>).</li>
+              <li data-i18n="exp.elkood.1"><strong>Matp.</strong> Designed and built the core of a multi-tenant warehouse and order platform (WMS + OMS) where each warehouse owner runs in an isolated tenant: inventory and zones, merchant integrations, order and driver tracking, per-tenant roles, billing and subscriptions. Mentored the developers on the team (see <a href="#systems">Platforms</a>).</li>
               <li data-i18n="exp.elkood.2"><strong>Apps in production.</strong> Built the back ends and APIs behind Fly Order, Mr Course, Ads Net, Jenacom and QrGermany, and supervised development of Bronz (see <a href="#projects">Projects</a>).</li>
               <li data-i18n="exp.elkood.3"><strong>Domain-driven back ends.</strong> Turned complex business flows into .NET 6+ back ends on Clean Architecture and DDD, from order and delivery lifecycles to subscriptions and payments.</li>
               <li data-i18n="exp.elkood.4"><strong>Payments &amp; integrations.</strong> Integrated Stripe payments, Google APIs and Telegram bots so payments and notifications run without manual work.</li>
@@ -1352,7 +1351,7 @@
       </form>
     </div>
     <div class="contact-extras">
-      <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf">
+      <a class="btn btn-primary" href="cv/Mahmoud_Sharabati_CV.pdf" download="Mahmoud_Sharabati_CV.pdf" type="application/pdf" data-i18n-attr="href=cv.href;download=cv.file">
         <svg class="btn-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0-4-4m4 4 4-4M4 16h12"/></svg>
         <span data-i18n="contact.cv">Download CV (PDF)</span>
       </a>
@@ -1778,251 +1777,263 @@
 
 <script type="module">
   // 3D: Clean Architecture's layers as hexagonal slabs (pointy-top, like the .NET mark).
-  // If WebGL or the CDN is unavailable, the static SVG fallbacks stay in place.
-  import * as THREE from 'three';
-  import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const S3 = Math.sqrt(3) / 2;
-  // unfocused layers fade toward the page colour, which changes with the theme
-  const INK = new THREE.Color();
-  const readInk = () => INK.set(getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#120a26');
-  readInk();
-  const lerp = THREE.MathUtils.lerp;
-  const clamp01 = v => Math.min(Math.max(v, 0), 1);
-  const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
-  const easeInOut = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-  function hexPoints(r) {
-    return Array.from({ length: 6 }, (_, i) => {
-      const a = Math.PI / 2 + i * Math.PI / 3;
-      return new THREE.Vector2(Math.cos(a) * r, Math.sin(a) * r);
-    });
-  }
-
-  function ringShape(outer, inner) {
-    const shape = new THREE.Shape(hexPoints(outer));
-    shape.holes.push(new THREE.Path(hexPoints(inner).reverse()));
-    return shape;
-  }
-
-  // The outer ring is shared: presentation is the top half, infrastructure the bottom half.
-  function halfRingShape(outer, inner, gap, side) {
-    const pts = [
-      [S3 * outer, gap], [S3 * outer, outer / 2], [0, outer], [-S3 * outer, outer / 2], [-S3 * outer, gap],
-      [-S3 * inner, gap], [-S3 * inner, inner / 2], [0, inner], [S3 * inner, inner / 2], [S3 * inner, gap],
-    ];
-    return new THREE.Shape(pts.map(([x, y]) => new THREE.Vector2(x, y * side)));
-  }
-
-  function slab(shape, depth, color, material = {}) {
-    const geometry = new THREE.ExtrudeGeometry(shape, {
-      depth, curveSegments: 1, bevelEnabled: true, bevelThickness: .03, bevelSize: .026, bevelSegments: 3,
-    });
-    geometry.translate(0, 0, -depth / 2);
-    return new THREE.Mesh(geometry, new THREE.MeshPhysicalMaterial({
-      color, roughness: .32, metalness: .06, clearcoat: 1, clearcoatRoughness: .2, ...material,
-    }));
-  }
-
-  // level 0 is the outer boundary, 3 the domain core; anchor is where a label's leader line meets the layer.
-  const LAYERS = [
-    { key: 'hosting', level: 0, anchor: [S3 * 2.42, 0],
-      mesh: () => slab(ringShape(2.42, 2.3), .06, '#b6a3ff', { emissive: '#b6a3ff', emissiveIntensity: .3 }) },
-    { key: 'infrastructure', level: 1, anchor: [S3 * 2.02, -.6],
-      mesh: () => slab(halfRingShape(2.02, 1.56, .05, -1), .22, '#4b2cc6') },
-    { key: 'presentation', level: 1, anchor: [S3 * 2.02, .6],
-      mesh: () => slab(halfRingShape(2.02, 1.56, .05, 1), .22, '#6a46f0') },
-    { key: 'application', level: 2, anchor: [S3 * 1.3, 0],
-      mesh: () => slab(ringShape(1.3, .86), .26, '#8b6dff') },
-    { key: 'domain', level: 3, anchor: [S3 * .56, 0],
-      mesh: () => slab(new THREE.Shape(hexPoints(.56)), .34, '#f2c66d',
-        { emissive: '#f2c66d', emissiveIntensity: .55, roughness: .45, clearcoat: .3 }) },
-  ];
-
-  const rtl = document.documentElement.dir === 'rtl';
-
-  function buildStack() {
-    const root = new THREE.Group();
-    const spin = new THREE.Group();
-    root.add(spin);
-    const layers = LAYERS.map(def => {
-      const mesh = def.mesh();
-      const anchor = new THREE.Object3D();
-      anchor.position.set(rtl ? -def.anchor[0] : def.anchor[0], def.anchor[1], 0);
-      mesh.add(anchor);
-      spin.add(mesh);
-      return { key: def.key, level: def.level, mesh, anchor,
-               color: mesh.material.color.clone(), glow: mesh.material.emissiveIntensity };
-    });
-    const core = new THREE.PointLight('#f2c66d', 8, 6, 1.5);
-    spin.add(core);
-    return {
-      root, spin, layers, core,
-      // gap: distance between levels along the stack axis; time adds a slow float
-      spread(gap, time = 0) {
-        layers.forEach((layer, i) => {
-          layer.mesh.position.z = (layer.level - 1.5) * gap + (time ? Math.sin(time * .8 + i * 1.7) * .035 : 0);
-        });
-        core.position.z = 1.5 * gap;
-      },
-    };
-  }
-
-  function createView(canvas, fov, distance) {
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-    renderer.toneMapping = THREE.NeutralToneMapping;
-    const scene = new THREE.Scene();
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
-    scene.environmentIntensity = .55;
-    pmrem.dispose();
-    const key = new THREE.DirectionalLight('#fff3e2', 2.2);
-    key.position.set(-4, 6, 8);
-    const rim = new THREE.DirectionalLight('#8b6dff', 3);
-    rim.position.set(6, -4, -6);
-    scene.add(key, rim);
-    const camera = new THREE.PerspectiveCamera(fov, 1, .1, 100);
-    camera.position.set(0, 0, distance);
-    return { renderer, scene, camera, size: new THREE.Vector2() };
-  }
-
-  // Match the drawing buffer to the element's CSS box; false while it has no size.
-  function fit(view, el) {
-    const w = el.clientWidth, h = el.clientHeight;
-    if (!w || !h) return false;
-    view.renderer.getSize(view.size);
-    if (view.size.x !== w || view.size.y !== h) {
-      view.renderer.setSize(w, h, false);
-      view.camera.aspect = w / h;
-      view.camera.updateProjectionMatrix();
-    }
-    return true;
-  }
-
-  function startArchitecture() {
-    const stage = document.querySelector('.stack-stage');
-    const box = stage?.querySelector('.stack-visual');
-    const canvas = box?.querySelector('canvas');
-    if (!canvas) return;
-    const view = createView(canvas, 30, 12.5);
-    const stack = buildStack();
-    stack.core.intensity = 6;
-    view.scene.add(stack.root);
-
-    const NS = 'http://www.w3.org/2000/svg';
-    const svg = stage.querySelector('.stack-leaders');
-    const wide = matchMedia('(min-width: 961px)');
-    let focus = null;
-    const leaders = stack.layers.map(layer => {
-      const item = stage.querySelector(`[data-layer="${layer.key}"]`);
-      const g = document.createElementNS(NS, 'g');
-      const path = document.createElementNS(NS, 'path');
-      const dot = document.createElementNS(NS, 'circle');
-      dot.setAttribute('r', '3.5');
-      g.append(path, dot);
-      svg.append(g);
-      item?.addEventListener('pointerenter', () => setFocus(layer.key));
-      item?.addEventListener('pointerleave', () => setFocus(null));
-      return { layer, item, heading: item?.querySelector('h3'), g, path, dot };
-    });
-
-    function setFocus(key) {
-      focus = key;
-      stage.classList.toggle('has-focus', !!key);
-      leaders.forEach(l => l.item?.classList.toggle('is-focus', l.layer.key === key));
-      kick();
-    }
-
-    // progress: 0 = flat diagram seen from the front, 1 = exploded stack seen from above
-    let target = reduceMotion ? 1 : 0, progress = target, turn = 0, turnAim = 0, raf = 0;
-
-    function measure() {
-      if (reduceMotion) return;
-      const r = box.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const centred = (vh - r.height) / 2;
-      target = clamp01((vh - r.top) / Math.max(vh - centred, 1) * 1.15 - .15);
-    }
-
-    const v = new THREE.Vector3();
-    function draw() {
-      if (!fit(view, box)) return;
-      const t = easeInOut(progress);
-      stack.root.rotation.x = -1.02 * t;
-      stack.root.position.y = .5 * t;
-      stack.spin.rotation.z = -.38 * t + turn * .22;
-      stack.spread(lerp(.1, 1.05, smooth(.15, 1, t)));
-      for (const layer of stack.layers) {
-        const dim = focus && focus !== layer.key;
-        layer.mesh.material.color.copy(layer.color).lerp(INK, dim ? .7 : 0);
-        layer.mesh.material.emissiveIntensity = dim ? layer.glow * .3 : layer.glow + (focus === layer.key ? .2 : 0);
-      }
-      view.renderer.render(view.scene, view.camera);
-      if (!box.classList.contains('is-live')) box.classList.add('is-live');
-      placeLeaders(t);
-    }
-
-    function placeLeaders(t) {
-      const show = wide.matches;
-      svg.style.opacity = show ? smooth(.55, .95, t).toFixed(3) : '0';
-      if (!show) return;
-      const s = stage.getBoundingClientRect(), c = box.getBoundingClientRect();
-      for (const l of leaders) {
-        if (!l.heading) continue;
-        l.layer.anchor.getWorldPosition(v).project(view.camera);
-        const ax = c.left - s.left + (v.x + 1) / 2 * c.width;
-        const ay = c.top - s.top + (1 - v.y) / 2 * c.height;
-        const h = l.heading.getBoundingClientRect();
-        const ex = rtl ? h.right - s.left + 14 : h.left - s.left - 14, ey = h.top - s.top + h.height / 2;
-        const knee = rtl ? Math.min(ax - 12, ex + 36) : Math.max(ax + 12, ex - 36);
-        l.path.setAttribute('d', `M${ax.toFixed(1)} ${ay.toFixed(1)}L${knee.toFixed(1)} ${ey.toFixed(1)}H${ex.toFixed(1)}`);
-        l.dot.setAttribute('cx', ax.toFixed(1));
-        l.dot.setAttribute('cy', ay.toFixed(1));
-        l.g.classList.toggle('is-focus', focus === l.layer.key);
-        l.g.classList.toggle('is-dim', !!focus && focus !== l.layer.key);
-      }
-    }
-
-    function tick() {
-      raf = 0;
-      progress += (target - progress) * .12;
-      turn += (turnAim - turn) * .08;
-      if (Math.abs(target - progress) < .0005) progress = target;
-      if (Math.abs(turnAim - turn) < .0005) turn = turnAim;
-      draw();
-      if (progress !== target || turn !== turnAim) raf = requestAnimationFrame(tick);
-    }
-    function kick() { if (!raf) raf = requestAnimationFrame(tick); }
-    document.addEventListener('themechange', () => { readInk(); kick(); });
-
-    let near = false;
-    new IntersectionObserver(([entry]) => {
-      near = entry.isIntersecting;
-      if (near) { measure(); kick(); }
-    }, { rootMargin: '200px 0px' }).observe(stage);
-    addEventListener('scroll', () => { if (near) { measure(); kick(); } }, { passive: true });
-    new ResizeObserver(() => { measure(); kick(); }).observe(stage);
-
-    if (finePointer && !reduceMotion) {
-      box.addEventListener('pointermove', e => {
-        const r = box.getBoundingClientRect();
-        turnAim = ((e.clientX - r.left) / r.width) * 2 - 1;
-        kick();
-      });
-      box.addEventListener('pointerleave', () => { turnAim = 0; kick(); });
-    }
-  }
-
-  document.documentElement.classList.add('has-3d');
-  try {
-    startArchitecture();
-  } catch (error) {
+  // Three.js loads only when the architecture section comes within a screen of view, so the first paint
+  // never waits for it. If WebGL or the CDN is unavailable, the static SVG fallback is shown instead.
+  const fallBack = (error) => {
     document.querySelector('.stack-visual')?.classList.add('is-static');
     console.warn('3D view unavailable, showing the static diagram.', error);
+  };
+  document.documentElement.classList.add('has-3d');
+  const stage3d = document.querySelector('.stack-stage');
+  if (stage3d) new IntersectionObserver((entries, io) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    Promise.all([import('three'), import('three/addons/environments/RoomEnvironment.js')])
+      .then(([THREE, { RoomEnvironment }]) => run(THREE, RoomEnvironment))
+      .catch(fallBack);
+  }, { rootMargin: '100% 0px' }).observe(stage3d);
+
+  function run(THREE, RoomEnvironment) {
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const S3 = Math.sqrt(3) / 2;
+    // unfocused layers fade toward the page colour, which changes with the theme
+    const INK = new THREE.Color();
+    const readInk = () => INK.set(getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#120a26');
+    readInk();
+    const lerp = THREE.MathUtils.lerp;
+    const clamp01 = v => Math.min(Math.max(v, 0), 1);
+    const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+    const easeInOut = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    function hexPoints(r) {
+      return Array.from({ length: 6 }, (_, i) => {
+        const a = Math.PI / 2 + i * Math.PI / 3;
+        return new THREE.Vector2(Math.cos(a) * r, Math.sin(a) * r);
+      });
+    }
+
+    function ringShape(outer, inner) {
+      const shape = new THREE.Shape(hexPoints(outer));
+      shape.holes.push(new THREE.Path(hexPoints(inner).reverse()));
+      return shape;
+    }
+
+    // The outer ring is shared: presentation is the top half, infrastructure the bottom half.
+    function halfRingShape(outer, inner, gap, side) {
+      const pts = [
+        [S3 * outer, gap], [S3 * outer, outer / 2], [0, outer], [-S3 * outer, outer / 2], [-S3 * outer, gap],
+        [-S3 * inner, gap], [-S3 * inner, inner / 2], [0, inner], [S3 * inner, inner / 2], [S3 * inner, gap],
+      ];
+      return new THREE.Shape(pts.map(([x, y]) => new THREE.Vector2(x, y * side)));
+    }
+
+    function slab(shape, depth, color, material = {}) {
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth, curveSegments: 1, bevelEnabled: true, bevelThickness: .03, bevelSize: .026, bevelSegments: 3,
+      });
+      geometry.translate(0, 0, -depth / 2);
+      return new THREE.Mesh(geometry, new THREE.MeshPhysicalMaterial({
+        color, roughness: .32, metalness: .06, clearcoat: 1, clearcoatRoughness: .2, ...material,
+      }));
+    }
+
+    // level 0 is the outer boundary, 3 the domain core; anchor is where a label's leader line meets the layer.
+    const LAYERS = [
+      { key: 'hosting', level: 0, anchor: [S3 * 2.42, 0],
+        mesh: () => slab(ringShape(2.42, 2.3), .06, '#b6a3ff', { emissive: '#b6a3ff', emissiveIntensity: .3 }) },
+      { key: 'infrastructure', level: 1, anchor: [S3 * 2.02, -.6],
+        mesh: () => slab(halfRingShape(2.02, 1.56, .05, -1), .22, '#4b2cc6') },
+      { key: 'presentation', level: 1, anchor: [S3 * 2.02, .6],
+        mesh: () => slab(halfRingShape(2.02, 1.56, .05, 1), .22, '#6a46f0') },
+      { key: 'application', level: 2, anchor: [S3 * 1.3, 0],
+        mesh: () => slab(ringShape(1.3, .86), .26, '#8b6dff') },
+      { key: 'domain', level: 3, anchor: [S3 * .56, 0],
+        mesh: () => slab(new THREE.Shape(hexPoints(.56)), .34, '#f2c66d',
+          { emissive: '#f2c66d', emissiveIntensity: .55, roughness: .45, clearcoat: .3 }) },
+    ];
+
+    const rtl = document.documentElement.dir === 'rtl';
+
+    function buildStack() {
+      const root = new THREE.Group();
+      const spin = new THREE.Group();
+      root.add(spin);
+      const layers = LAYERS.map(def => {
+        const mesh = def.mesh();
+        const anchor = new THREE.Object3D();
+        anchor.position.set(rtl ? -def.anchor[0] : def.anchor[0], def.anchor[1], 0);
+        mesh.add(anchor);
+        spin.add(mesh);
+        return { key: def.key, level: def.level, mesh, anchor,
+                 color: mesh.material.color.clone(), glow: mesh.material.emissiveIntensity };
+      });
+      const core = new THREE.PointLight('#f2c66d', 8, 6, 1.5);
+      spin.add(core);
+      return {
+        root, spin, layers, core,
+        // gap: distance between levels along the stack axis; time adds a slow float
+        spread(gap, time = 0) {
+          layers.forEach((layer, i) => {
+            layer.mesh.position.z = (layer.level - 1.5) * gap + (time ? Math.sin(time * .8 + i * 1.7) * .035 : 0);
+          });
+          core.position.z = 1.5 * gap;
+        },
+      };
+    }
+
+    function createView(canvas, fov, distance) {
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.toneMapping = THREE.NeutralToneMapping;
+      const scene = new THREE.Scene();
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+      scene.environmentIntensity = .55;
+      pmrem.dispose();
+      const key = new THREE.DirectionalLight('#fff3e2', 2.2);
+      key.position.set(-4, 6, 8);
+      const rim = new THREE.DirectionalLight('#8b6dff', 3);
+      rim.position.set(6, -4, -6);
+      scene.add(key, rim);
+      const camera = new THREE.PerspectiveCamera(fov, 1, .1, 100);
+      camera.position.set(0, 0, distance);
+      return { renderer, scene, camera, size: new THREE.Vector2() };
+    }
+
+    // Match the drawing buffer to the element's CSS box; false while it has no size.
+    function fit(view, el) {
+      const w = el.clientWidth, h = el.clientHeight;
+      if (!w || !h) return false;
+      view.renderer.getSize(view.size);
+      if (view.size.x !== w || view.size.y !== h) {
+        view.renderer.setSize(w, h, false);
+        view.camera.aspect = w / h;
+        view.camera.updateProjectionMatrix();
+      }
+      return true;
+    }
+
+    function startArchitecture() {
+      const stage = document.querySelector('.stack-stage');
+      const box = stage?.querySelector('.stack-visual');
+      const canvas = box?.querySelector('canvas');
+      if (!canvas) return;
+      const view = createView(canvas, 30, 12.5);
+      const stack = buildStack();
+      stack.core.intensity = 6;
+      view.scene.add(stack.root);
+
+      const NS = 'http://www.w3.org/2000/svg';
+      const svg = stage.querySelector('.stack-leaders');
+      const wide = matchMedia('(min-width: 961px)');
+      let focus = null;
+      const leaders = stack.layers.map(layer => {
+        const item = stage.querySelector(`[data-layer="${layer.key}"]`);
+        const g = document.createElementNS(NS, 'g');
+        const path = document.createElementNS(NS, 'path');
+        const dot = document.createElementNS(NS, 'circle');
+        dot.setAttribute('r', '3.5');
+        g.append(path, dot);
+        svg.append(g);
+        item?.addEventListener('pointerenter', () => setFocus(layer.key));
+        item?.addEventListener('pointerleave', () => setFocus(null));
+        return { layer, item, heading: item?.querySelector('h3'), g, path, dot };
+      });
+
+      function setFocus(key) {
+        focus = key;
+        stage.classList.toggle('has-focus', !!key);
+        leaders.forEach(l => l.item?.classList.toggle('is-focus', l.layer.key === key));
+        kick();
+      }
+
+      // progress: 0 = flat diagram seen from the front, 1 = exploded stack seen from above
+      let target = reduceMotion ? 1 : 0, progress = target, turn = 0, turnAim = 0, raf = 0;
+
+      function measure() {
+        if (reduceMotion) return;
+        const r = box.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const centred = (vh - r.height) / 2;
+        target = clamp01((vh - r.top) / Math.max(vh - centred, 1) * 1.15 - .15);
+      }
+
+      const v = new THREE.Vector3();
+      function draw() {
+        if (!fit(view, box)) return;
+        const t = easeInOut(progress);
+        stack.root.rotation.x = -1.02 * t;
+        stack.root.position.y = .5 * t;
+        stack.spin.rotation.z = -.38 * t + turn * .22;
+        stack.spread(lerp(.1, 1.05, smooth(.15, 1, t)));
+        for (const layer of stack.layers) {
+          const dim = focus && focus !== layer.key;
+          layer.mesh.material.color.copy(layer.color).lerp(INK, dim ? .7 : 0);
+          layer.mesh.material.emissiveIntensity = dim ? layer.glow * .3 : layer.glow + (focus === layer.key ? .2 : 0);
+        }
+        view.renderer.render(view.scene, view.camera);
+        if (!box.classList.contains('is-live')) box.classList.add('is-live');
+        placeLeaders(t);
+      }
+
+      function placeLeaders(t) {
+        const show = wide.matches;
+        svg.style.opacity = show ? smooth(.55, .95, t).toFixed(3) : '0';
+        if (!show) return;
+        const s = stage.getBoundingClientRect(), c = box.getBoundingClientRect();
+        for (const l of leaders) {
+          if (!l.heading) continue;
+          l.layer.anchor.getWorldPosition(v).project(view.camera);
+          const ax = c.left - s.left + (v.x + 1) / 2 * c.width;
+          const ay = c.top - s.top + (1 - v.y) / 2 * c.height;
+          const h = l.heading.getBoundingClientRect();
+          const ex = rtl ? h.right - s.left + 14 : h.left - s.left - 14, ey = h.top - s.top + h.height / 2;
+          const knee = rtl ? Math.min(ax - 12, ex + 36) : Math.max(ax + 12, ex - 36);
+          l.path.setAttribute('d', `M${ax.toFixed(1)} ${ay.toFixed(1)}L${knee.toFixed(1)} ${ey.toFixed(1)}H${ex.toFixed(1)}`);
+          l.dot.setAttribute('cx', ax.toFixed(1));
+          l.dot.setAttribute('cy', ay.toFixed(1));
+          l.g.classList.toggle('is-focus', focus === l.layer.key);
+          l.g.classList.toggle('is-dim', !!focus && focus !== l.layer.key);
+        }
+      }
+
+      function tick() {
+        raf = 0;
+        progress += (target - progress) * .12;
+        turn += (turnAim - turn) * .08;
+        if (Math.abs(target - progress) < .0005) progress = target;
+        if (Math.abs(turnAim - turn) < .0005) turn = turnAim;
+        draw();
+        if (progress !== target || turn !== turnAim) raf = requestAnimationFrame(tick);
+      }
+      function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+      document.addEventListener('themechange', () => { readInk(); kick(); });
+
+      let near = false;
+      new IntersectionObserver(([entry]) => {
+        near = entry.isIntersecting;
+        if (near) { measure(); kick(); }
+      }, { rootMargin: '200px 0px' }).observe(stage);
+      addEventListener('scroll', () => { if (near) { measure(); kick(); } }, { passive: true });
+      new ResizeObserver(() => { measure(); kick(); }).observe(stage);
+
+      if (finePointer && !reduceMotion) {
+        box.addEventListener('pointermove', e => {
+          const r = box.getBoundingClientRect();
+          turnAim = ((e.clientX - r.left) / r.width) * 2 - 1;
+          kick();
+        });
+        box.addEventListener('pointerleave', () => { turnAim = 0; kick(); });
+      }
+    }
+
+    try {
+      startArchitecture();
+    } catch (error) {
+      fallBack(error);
+    }
   }
 </script>
 

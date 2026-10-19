@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>محمود شراباتي - مطوّر .NET Core أول - السيرة الذاتية</title>
+<!--
+  Source of cv/Mahmoud_Sharabati_CV_AR.pdf (the Arabic page's "Download CV" button), translated from
+  cv/Mahmoud_Sharabati_CV.html. Keep the two in step. Re-print with:
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
+    --print-to-pdf=cv/Mahmoud_Sharabati_CV_AR.pdf cv/Mahmoud_Sharabati_CV_AR.html
+  Same ATS rules as the English CV: one column, real text, standard section names, no tables or images.
+  Latin terms with punctuation (.NET, C#, 99.9%) sit in <bdi dir="ltr">, and lists of tools are one
+  left-to-right run, so their dots and commas stay in place.
+-->
+<style>
+  @page { size: A4; margin: 13mm 15mm 12mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Geeza Pro extracts Arabic as plain letters (Arial gives presentation forms); Latin runs use Arial so they extract cleanly */
+  body { margin: 0; color: #1a1a1a; font: 9.8pt/1.45 'Geeza Pro', Arial, sans-serif; }
+  h1 { margin: 0; font-size: 22pt; line-height: 1.2; }
+  .title { margin: 2pt 0 5pt; font-size: 12.5pt; font-weight: bold; color: #3b23a8; }
+  .contact { margin: 0; font-size: 9.2pt; color: #333; }
+  h2 { margin: 9pt 0 4pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #3b23a8; font-size: 11.5pt; color: #3b23a8; }
+  p { margin: 0; }
+  ul { margin: 2pt 0 0; padding-right: 14pt; padding-left: 0; }
+  li { margin: 0 0 2pt; }
+  .role { margin: 0 0 6pt; break-inside: avoid; }
+  .role-head { font-weight: bold; font-size: 10.6pt; }
+  .role-meta { color: #444; font-size: 9.4pt; }
+  .project { margin: 0 0 4pt; break-inside: avoid; }
+  .project-head { font-weight: bold; }
+  .project-head span { font-weight: normal; color: #444; }
+  .skills p { margin: 0 0 2pt; }
+  .ltr { direction: ltr; unicode-bidi: isolate; }
+  .ltr, bdi { font-family: Arial, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>محمود شراباتي</h1>
+<p class="title">مطوّر <bdi dir="ltr">.NET Core</bdi> أول</p>
+<p class="contact">حلب، سوريا | <span class="ltr">+963 985 839 618</span> | <span class="ltr">mahmoud.sharabati.dev@gmail.com</span> | <span class="ltr">linkedin.com/in/mahmoud-sharabati-0226b223a</span> | <span class="ltr">mahmoudsharabati.me/Profile</span> | <span class="ltr">gitlab.com/mahmoudsh792</span></p>
+
+<h2>الملخص</h2>
+<p>مطوّر <bdi dir="ltr">.NET Core</bdi> أول بخبرة تزيد على أربع سنوات في تحويل مجالات العمل المعقّدة إلى خوادم خلفية سهلة الصيانة باستخدام <bdi dir="ltr">C#</bdi> و <bdi dir="ltr">ASP.NET Core</bdi> ووفق Clean Architecture و Domain-Driven Design (DDD)، مع واجهات مبنية باستخدام Blazor. صمّم وبنى منصة متعددة المستأجرين لإدارة المستودعات والطلبات (WMS + OMS)، وبنى خوادم لأنظمة طلبات وتوصيل وتجارة إلكترونية منها نظام يعمل في السعودية، وطوّر الواجهات البرمجية لتطبيقات منشورة على Google Play و App Store تصل تنزيلاتها إلى أكثر من 10 آلاف. خبرة في تولّي بيئة الإنتاج (جاهزية <bdi dir="ltr">99.9%</bdi>)، والتكامل مع خدمات خارجية (Stripe و Google APIs و Telegram)، وإرشاد المهندسين.</p>
+
+<h2>الخبرة العملية</h2>
+
+<div class="role">
+  <p class="role-head">مطوّر <bdi dir="ltr">.NET</bdi>، HASH Information Technology</p>
+  <p class="role-meta">عن بُعد | نيسان 2026 - حتى الآن</p>
+  <ul>
+    <li>تطوير الأنظمة الإدارية التي تبنيها HASH للشركات والمؤسسات وصيانتها، من الوحدات الجديدة إلى الإصلاحات في بيئة الإنتاج.</li>
+    <li>تصميم مخططات قواعد بيانات علائقية تمثّل إجراءات عمل كل عميل، مع التركيز على سلامة البيانات وأداء الاستعلامات مع نموّها.</li>
+    <li>بناء واجهات برمجية باستخدام <bdi dir="ltr">ASP.NET Core</bdi> تحمل سير العمل وتخدم واجهات الأنظمة، منظّمة وفق Clean Architecture لتبقى سهلة التوسعة.</li>
+    <li>الحفاظ على سلامة الأنظمة في بيئة الإنتاج: تتبّع الأخطاء، وتحسين الاستعلامات ونقاط الوصول البطيئة، وتكييف الميزات مع تغيّر احتياجات العملاء.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <p class="role-head">مطوّر <bdi dir="ltr">.NET</bdi>، Evolvo</p>
+  <p class="role-meta">حلب، سوريا | تشرين الثاني 2025 - حتى الآن | دوام جزئي، ثم بعقد منذ أيار 2026</p>
+  <ul>
+    <li>تحسين الخادم الخلفي لتطبيق «وسيطك» وتوسيعه، وهو سوق للبيع والشراء تجاوزت تنزيلاته 10 آلاف على Google Play (ومتوفر على App Store)، وإدارة عمليات DevOps والبيانات فيه.</li>
+    <li>بناء لوحات تحكّم إدارية لحظية باستخدام Blazor تجعل بيانات العمل جاهزة للاستخدام لدى العملاء.</li>
+    <li>تولّي جاهزية بيئة الإنتاج: فحوص صحة الخوادم، وتحليل الأسباب الجذرية من سجلات الإنتاج، وإصلاحات عاجلة تحافظ على جاهزية بنسبة <bdi dir="ltr">99.9%</bdi>.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <p class="role-head">مطوّر خوادم <bdi dir="ltr">.NET</bdi>، Elkood</p>
+  <p class="role-meta">حلب، سوريا | أيار 2022 - نيسان 2024 | دوام كامل</p>
+  <ul>
+    <li>صمّم وبنى نواة Matp، منصة متعددة المستأجرين لإدارة المستودعات والطلبات (WMS + OMS) لكل صاحب مستودع فيها مستأجر معزول، وأرشد مطوّري الفريق.</li>
+    <li>أطلق 7 منتجات في بيئة الإنتاج: بنى الخوادم الخلفية والواجهات البرمجية لتطبيقات Fly Order و Mr Course و Ads Net و Jenacom و QrGermany، وأشرف على تطوير Bronz.</li>
+    <li>حوّل مسارات العمل المعقّدة إلى خوادم <bdi dir="ltr">.NET 6+</bdi> وفق Clean Architecture و DDD باستخدام PostgreSQL و Entity Framework Core، من دورة حياة الطلبات والتوصيل إلى الاشتراكات والمدفوعات.</li>
+    <li>دمج مدفوعات Stripe و Google APIs وبوتات Telegram لتعمل المدفوعات والإشعارات دون تدخّل يدوي.</li>
+    <li>بنى مكتبات داخلية مشتركة أزالت الشيفرة المكرّرة بين المشاريع وسرّعت التسليم.</li>
+    <li>أعاد هيكلة شيفرات قديمة بأنماط تصميم حديثة، فقلّت أخطاء الإنتاج وقصرت مدة التسليم.</li>
+    <li>أرشد متدرّبين في الهندسة عبر مراجعات الشيفرة وورش عمل تقنية تطبيقية.</li>
+  </ul>
+</div>
+
+<h2>المشاريع</h2>
+
+<div class="project">
+  <p class="project-head">Matp - منصة متعددة المستأجرين لإدارة المستودعات والطلبات (WMS + OMS) <span>| Elkood | <span class="ltr">ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></span></p>
+  <ul><li>صمّم النواة وبناها: عزل المستأجرين، والمخزون والمواقع والمناطق، والتكامل مع المتاجر الإلكترونية، وتتبّع الطلبات والسائقين، والمصادقة والأدوار لكل مستأجر، والفوترة والاشتراكات، والإشعارات الفورية والبريدية.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Fly Order - توصيل الطعام والبقالة (السعودية) <span>| Elkood | <span class="ltr">ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></span></p>
+  <ul><li>إدارة الطلبات مع تتبّع لحظي، وإدارة المطاعم والمتاجر، وإدارة السائقين والتوصيل، ورموز الخصم والعروض، وواجهات لوحة الإدارة، والإشعارات الفورية.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Mr Course - نظام إدارة تعلّم <span>| Elkood | <span class="ltr">ASP.NET Core, C#</span></span></p>
+  <ul><li>دورات فيديو تُفتح برموز تُشترى من نقاط البيع (POS): إنشاء الرموز واستردادها، وواجهات رفع الفيديو وتخزينه، وصلاحيات حسب الدور؛ أكثر من 5 آلاف تنزيل على Google Play.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">Jenacom - إدارة طلبات توصيل الأثاث <span>| Elkood | <span class="ltr">ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></span></p>
+  <ul><li>دورة حياة الطلب وجدولة التوصيل عبر مناطق زمنية متعددة، وتتبّع شاحنات التوصيل لحظيًا، والإشعارات الفورية.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">30-S - سوق منتجات <span>| عمل حر | <span class="ltr">ASP.NET Core, Clean Architecture, DDD, PostgreSQL</span></span></p>
+  <ul><li>بنى الخادم الخلفي كاملًا: خصائص منتجات ديناميكية، وبحث وتصفية، ومحادثة فورية، ومقاطع منتجات مدتها 30 ثانية في صفحة استكشاف، وإشعارات فورية.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">QrGermany - منصة وسوق لرموز QR <span>| Elkood | <span class="ltr">ASP.NET Core, C#</span></span></p>
+  <ul><li>رموز QR قابلة للتخصيص بخصائص ديناميكية، وسوق لبيعها، وتحليلات لعمليات المسح، وأدوار وواجهات لوحة الإدارة.</li></ul>
+</div>
+<div class="project">
+  <p class="project-head">قالب Clean Architecture <span>| مفتوح المصدر | <span class="ltr">gitlab.com/mahmoudsh792/template</span></span></p>
+  <ul><li>قالب حلّ <bdi dir="ltr">.NET</bdi> بطبقات النطاق والتطبيق والبنية التحتية والواجهة مفصولة وفق مبادئ DDD.</li></ul>
+</div>
+
+<h2>المهارات</h2>
+<div class="skills">
+  <p><b>اللغات وأطر العمل:</b> <span class="ltr">C#, .NET Core / .NET 6+, ASP.NET Core, Blazor Server, Blazor WebAssembly, MudBlazor</span></p>
+  <p><b>المعمارية:</b> <span class="ltr">Clean Architecture, Domain-Driven Design (DDD), SOLID, Design Patterns, OOP, Multi-tenant SaaS, RESTful APIs</span></p>
+  <p><b>البيانات:</b> <span class="ltr">PostgreSQL, Entity Framework Core</span>، تصميم قواعد البيانات العلائقية</p>
+  <p><b>التكاملات:</b> <span class="ltr">Stripe API, Google APIs, Telegram Bot API</span></p>
+  <p><b>DevOps والأدوات:</b> <span class="ltr">Linux, Nginx, Docker, Git, GitLab</span></p>
+  <p><b>القيادة:</b> القيادة التقنية، والإرشاد، ومراجعات الشيفرة، وتتبّع الأخطاء، وحلّ المشكلات</p>
+</div>
+
+<h2>التعليم</h2>
+<div class="role">
+  <p class="role-head">إجازة في الهندسة المعلوماتية، جامعة حلب</p>
+  <p class="role-meta">حلب، سوريا | أيلول 2020 - تشرين الثاني 2026 (متوقّع)</p>
+</div>
+
+<h2>الجوائز والبرمجة التنافسية</h2>
+<ul>
+  <li>المركز الحادي عشر في مسابقة ICPC لجامعة حلب 2022، وتأهّل الفريق إلى المرحلة التالية.</li>
+  <li>أكثر من 500 مسألة محلولة على Codeforces (<span class="ltr">@00Mahmoud00</span>): البرمجة الديناميكية، ونظرية البيان، والرياضيات، وبنى المعطيات، والخوارزميات الجشعة، والتنفيذ.</li>
+</ul>
+
+<h2>التطوّع</h2>
+<div class="role">
+  <p class="role-head">مدرّب متطوّع، سند</p>
+  <p class="role-meta">حلب، سوريا | آذار 2025 - أيار 2025</p>
+  <ul><li>صمّم ودرّس دورة عملية في <bdi dir="ltr">ASP.NET Core MVC</bdi> في جامعة الشهباء الخاصة: التوجيه، والمتحكّمات والإجراءات، وواجهات Razor، وربط النماذج، وعمليات CRUD باستخدام Entity Framework Core.</li></ul>
+</div>
+<div class="role">
+  <p class="role-head">محوّل محتوى رقمي متطوّع، BlueBitsTeam</p>
+  <p class="role-meta">حلب، سوريا | تشرين الثاني 2020 - تشرين الثاني 2022</p>
+  <ul><li>حوّل محاضرات الأساتذة المكتوبة بخط اليد والمسموعة إلى مواد رقمية منظّمة وقابلة للبحث (DOCX و PDF)، مع مراجعة الدقة التقنية.</li></ul>
+</div>
+
+</body>
+</html>
